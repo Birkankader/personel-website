@@ -1,0 +1,47 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B5A"/>
+      <stop offset="50%" stop-color="#FF3B30"/>
+      <stop offset="100%" stop-color="#E53E3E"/>
+    </linearGradient>
+    <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.05"/>
+    </linearGradient>
+    <radialGradient id="glowGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Background circle with gradient shadow -->
+  <circle cx="64" cy="64" r="50" fill="url(#shadowGradient)"/>
+  
+  <!-- Glow effect -->
+  <circle cx="64" cy="64" r="48" fill="url(#glowGradient)"/>
+  
+  <!-- Main prohibition circle with gradient -->
+  <circle cx="64" cy="64" r="42" fill="none" stroke="url(#redGradient)" stroke-width="12"/>
+  
+  <!-- Inner highlight ring -->
+  <circle cx="64" cy="64" r="42" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Diagonal slash with gradient -->
+  <line x1="42" y1="96" x2="86" y2="32" stroke="url(#redGradient)" stroke-width="12" stroke-linecap="round"/>
+  
+  <!-- Inner highlight on slash -->
+  <line x1="44" y1="94" x2="84" y2="34" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- UNWANTED text with enhanced styling -->
+  <text x="64" y="68" text-anchor="middle" font-size="18" font-family="Arial, sans-serif" 
+        fill="#FFFFFF" stroke="#000000" stroke-width="1" opacity="0.95" font-weight="800">
+    UNWANTED
+  </text>
+  
+  <!-- Text highlight -->
+  <text x="64" y="68" text-anchor="middle" font-size="18" font-family="Arial, sans-serif" 
+        fill="#FFFFFF" opacity="0.3" font-weight="800">
+    UNWANTED
+  </text>
+</svg>
