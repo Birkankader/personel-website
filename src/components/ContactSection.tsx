@@ -156,10 +156,6 @@ const ContactSection: React.FC = () => {
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{t('contact.availableFor')}</h3>
                 <div className="space-y-3">
                   <div className="flex items-center text-gray-700 dark:text-gray-300">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                    {t('contact.fullTime')}
-                  </div>
-                  <div className="flex items-center text-gray-700 dark:text-gray-300">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                     {t('contact.seniorRoles')}
                   </div>
