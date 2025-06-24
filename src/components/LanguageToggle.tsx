@@ -13,11 +13,11 @@ const LanguageToggle: React.FC = () => {
     <button
       onClick={toggleLanguage}
       className="flex items-center space-x-2 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 transform hover:scale-105"
-      aria-label={`Switch to ${language === 'en' ? 'Turkish' : 'English'}`}
+      aria-label={`Switch to ${language === 'en' ? 'English' : 'Turkish'}`}
     >
       <Languages size={18} />
       <span className="text-sm font-medium">
-        {language === 'en' ? 'TR' : 'EN'}
+        {language === 'en' ? 'EN' : 'TR'}
       </span>
     </button>
   );
