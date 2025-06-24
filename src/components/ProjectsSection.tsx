@@ -1,18 +1,21 @@
 import React from 'react';
 import { ExternalLink, Github, Chrome, Filter, Twitter } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ProjectsSection: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Featured Projects
+              {t('projects.title')}
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
             <p className="text-gray-600 dark:text-gray-400 mt-6 max-w-2xl mx-auto">
-              Here are some of my notable projects, including my latest Chrome extension and professional work.
+              {t('projects.subtitle')}
             </p>
           </div>
 
@@ -23,21 +26,48 @@ const ProjectsSection: React.FC = () => {
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                      <img 
-                        src="/images/logo.svg" 
-                        alt="Block The Unwanted Logo" 
-                        className="w-12 h-12"
-                      />
+                      <svg width="48" height="48" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#FF6B5A"/>
+                            <stop offset="50%" stopColor="#FF3B30"/>
+                            <stop offset="100%" stopColor="#E53E3E"/>
+                          </linearGradient>
+                          <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#000000" stopOpacity="0.2"/>
+                            <stop offset="100%" stopColor="#000000" stopOpacity="0.05"/>
+                          </linearGradient>
+                          <radialGradient id="glowGradient" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.3"/>
+                            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0"/>
+                          </radialGradient>
+                        </defs>
+                        
+                        <circle cx="64" cy="64" r="50" fill="url(#shadowGradient)"/>
+                        <circle cx="64" cy="64" r="48" fill="url(#glowGradient)"/>
+                        <circle cx="64" cy="64" r="42" fill="none" stroke="url(#redGradient)" strokeWidth="12"/>
+                        <circle cx="64" cy="64" r="42" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity="0.4"/>
+                        <line x1="42" y1="96" x2="86" y2="32" stroke="url(#redGradient)" strokeWidth="12" strokeLinecap="round"/>
+                        <line x1="44" y1="94" x2="84" y2="34" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" opacity="0.5"/>
+                        <text x="64" y="68" textAnchor="middle" fontSize="18" fontFamily="Arial, sans-serif" 
+                              fill="#FFFFFF" stroke="#000000" strokeWidth="1" opacity="0.95" fontWeight="800">
+                          UNWANTED
+                        </text>
+                        <text x="64" y="68" textAnchor="middle" fontSize="18" fontFamily="Arial, sans-serif" 
+                              fill="#FFFFFF" opacity="0.3" fontWeight="800">
+                          UNWANTED
+                        </text>
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Block The Unwanted</h3>
-                      <p className="text-red-600 dark:text-red-400 font-medium">Chrome Extension</p>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('projects.blockTheUnwanted')}</h3>
+                      <p className="text-red-600 dark:text-red-400 font-medium">{t('projects.chromeExtension')}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Chrome className="w-6 h-6 text-blue-600" />
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm font-medium">
-                      Published
+                    <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-sm font-medium">
+                      {t('projects.comingSoon')}
                     </span>
                   </div>
                 </div>
@@ -45,32 +75,30 @@ const ProjectsSection: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                      A powerful Chrome extension that filters Twitter content based on keywords. 
-                      Clean up your Twitter feed by blocking unwanted content automatically, 
-                      making your social media experience more focused and enjoyable.
+                      {t('projects.blockDescription')}
                     </p>
 
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Key Features:</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('projects.keyFeatures')}</h4>
                         <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                           <li className="flex items-center">
                             <Filter className="w-4 h-4 mr-2 text-red-500" />
-                            Keyword-based content filtering
+                            {t('projects.feature1')}
                           </li>
                           <li className="flex items-center">
                             <Twitter className="w-4 h-4 mr-2 text-blue-500" />
-                            Real-time Twitter feed cleaning
+                            {t('projects.feature2')}
                           </li>
                           <li className="flex items-center">
                             <Chrome className="w-4 h-4 mr-2 text-green-500" />
-                            Easy-to-use Chrome extension
+                            {t('projects.feature3')}
                           </li>
                         </ul>
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Technologies:</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">{t('projects.technologies')}</h4>
                         <div className="flex flex-wrap gap-2">
                           <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-sm">
                             JavaScript
@@ -90,24 +118,48 @@ const ProjectsSection: React.FC = () => {
                     <div className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-600">
                       <div className="text-center mb-4">
                         <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                          <img 
-                            src="/images/logo.svg" 
-                            alt="Block The Unwanted Logo" 
-                            className="w-16 h-16"
-                          />
+                          <svg width="64" height="64" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                              <linearGradient id="redGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#FF6B5A"/>
+                                <stop offset="50%" stopColor="#FF3B30"/>
+                                <stop offset="100%" stopColor="#E53E3E"/>
+                              </linearGradient>
+                              <linearGradient id="shadowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#000000" stopOpacity="0.2"/>
+                                <stop offset="100%" stopColor="#000000" stopOpacity="0.05"/>
+                              </linearGradient>
+                              <radialGradient id="glowGradient2" cx="50%" cy="30%" r="70%">
+                                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.3"/>
+                                <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0"/>
+                              </radialGradient>
+                            </defs>
+                            
+                            <circle cx="64" cy="64" r="50" fill="url(#shadowGradient2)"/>
+                            <circle cx="64" cy="64" r="48" fill="url(#glowGradient2)"/>
+                            <circle cx="64" cy="64" r="42" fill="none" stroke="url(#redGradient2)" strokeWidth="12"/>
+                            <circle cx="64" cy="64" r="42" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity="0.4"/>
+                            <line x1="42" y1="96" x2="86" y2="32" stroke="url(#redGradient2)" strokeWidth="12" strokeLinecap="round"/>
+                            <line x1="44" y1="94" x2="84" y2="34" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" opacity="0.5"/>
+                            <text x="64" y="68" textAnchor="middle" fontSize="18" fontFamily="Arial, sans-serif" 
+                                  fill="#FFFFFF" stroke="#000000" strokeWidth="1" opacity="0.95" fontWeight="800">
+                              UNWANTED
+                            </text>
+                            <text x="64" y="68" textAnchor="middle" fontSize="18" fontFamily="Arial, sans-serif" 
+                                  fill="#FFFFFF" opacity="0.3" fontWeight="800">
+                              UNWANTED
+                            </text>
+                          </svg>
                         </div>
-                        <h5 className="font-bold text-gray-900 dark:text-white">Available Now</h5>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">Chrome Web Store</p>
+                        <h5 className="font-bold text-gray-900 dark:text-white">{t('projects.availableSoon')}</h5>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('projects.underReview')}</p>
                       </div>
                       
                       <div className="space-y-3">
-                        <a 
-                          href="#" 
-                          className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 transition-all duration-300 font-medium"
-                        >
+                        <div className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-lg font-medium cursor-not-allowed opacity-75">
                           <Chrome className="w-5 h-5 mr-2" />
-                          Install Extension
-                        </a>
+                          {t('projects.pendingReview')}
+                        </div>
                         <a 
                           href="https://github.com/birkankader" 
                           target="_blank" 
@@ -115,7 +167,7 @@ const ProjectsSection: React.FC = () => {
                           className="w-full flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 font-medium"
                         >
                           <Github className="w-5 h-5 mr-2" />
-                          View Source
+                          {t('projects.viewSource')}
                         </a>
                       </div>
                     </div>
@@ -132,14 +184,13 @@ const ProjectsSection: React.FC = () => {
                     <span className="text-white font-bold text-lg">GIS</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Geospatial Mapping Platform</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('projects.geospatialPlatform')}</h3>
                     <p className="text-blue-600 dark:text-blue-400">HAVELSAN</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  High-performance desktop mapping application with advanced pathfinding algorithms 
-                  and real-time tactical graphics rendering.
+                  {t('projects.geospatialDescription')}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -149,9 +200,9 @@ const ProjectsSection: React.FC = () => {
                 </div>
                 
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  <p>• 50% performance improvement in rendering</p>
-                  <p>• A* pathfinding implementation</p>
-                  <p>• Java 8→11 migration leadership</p>
+                  <p>• {t('projects.improvement1')}</p>
+                  <p>• {t('projects.improvement2')}</p>
+                  <p>• {t('projects.improvement3')}</p>
                 </div>
               </div>
             </div>
@@ -163,14 +214,13 @@ const ProjectsSection: React.FC = () => {
                     <span className="text-white font-bold text-lg">WEB</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Web Mapping Interface</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('projects.webMapping')}</h3>
                     <p className="text-purple-600 dark:text-purple-400">HAVELSAN</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Modern web-based mapping solution built with React and CesiumJS for 
-                  interactive 3D geospatial visualization and analysis.
+                  {t('projects.webMappingDescription')}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -180,9 +230,9 @@ const ProjectsSection: React.FC = () => {
                 </div>
                 
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  <p>• 20% reduction in analysis load time</p>
-                  <p>• Interactive 3D mapping components</p>
-                  <p>• Real-time data visualization</p>
+                  <p>• {t('projects.improvement4')}</p>
+                  <p>• {t('projects.improvement5')}</p>
+                  <p>• {t('projects.improvement6')}</p>
                 </div>
               </div>
             </div>

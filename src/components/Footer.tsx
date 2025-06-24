@@ -1,7 +1,9 @@
 import React from 'react';
 import { Heart, Code2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Footer: React.FC = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
   
   return (
@@ -19,10 +21,10 @@ const Footer: React.FC = () => {
           
           <div className="text-center mb-6">
             <p className="text-gray-400 mb-2">
-              © {currentYear} Sifa Birkan KADER. All rights reserved.
+              © {currentYear} Sifa Birkan KADER. {t('footer.allRightsReserved')}
             </p>
             <p className="text-gray-500 text-sm flex items-center justify-center">
-              Made with <Heart size={14} className="mx-1 text-red-500" /> using React & Tailwind CSS
+              {t('footer.madeWith')} <Heart size={14} className="mx-1 text-red-500" /> {t('footer.using')}
             </p>
           </div>
           

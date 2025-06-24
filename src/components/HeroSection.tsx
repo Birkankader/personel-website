@@ -1,7 +1,10 @@
 import React from 'react';
 import { ArrowDown, Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HeroSection: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/20">
       {/* Background Pattern */}
@@ -27,17 +30,17 @@ const HeroSection: React.FC = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent leading-tight">
-            Sifa Birkan KADER
+            {t('hero.title')}
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Software Engineer specializing in <span className="text-blue-600 dark:text-blue-400 font-semibold">Geospatial Visualization</span> and <span className="text-purple-600 dark:text-purple-400 font-semibold">Java Development</span>
+            {t('hero.subtitle')}
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-12 text-gray-600 dark:text-gray-400">
             <div className="flex items-center space-x-2">
               <MapPin size={18} className="text-blue-500" />
-              <span>Ankara, Turkey</span>
+              <span>{t('hero.location')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail size={18} className="text-purple-500" />
@@ -71,13 +74,13 @@ const HeroSection: React.FC = () => {
               href="#contact" 
               className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-medium"
             >
-              Get In Touch
+              {t('hero.getInTouch')}
             </a>
             <a 
               href="#projects" 
               className="px-8 py-4 border-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 rounded-full hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all duration-300 font-medium"
             >
-              View My Work
+              {t('hero.viewWork')}
             </a>
           </div>
         </div>

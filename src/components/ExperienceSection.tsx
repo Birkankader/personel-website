@@ -1,5 +1,6 @@
 import React from 'react';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Experience {
   title: string;
@@ -10,56 +11,58 @@ interface Experience {
   current?: boolean;
 }
 
-const experiences: Experience[] = [
-  {
-    title: 'Software Engineer',
-    company: 'HAVELSAN',
-    location: 'Ankara, Turkey',
-    period: 'Dec 2020 – Present',
-    current: true,
-    descriptions: [
-      'Develop high-performance desktop applications using pure Java and OpenGL for geospatial visualization',
-      'Led successful migration from Java 8 to Java 11, ensuring compatibility and performance optimization',
-      'Integrated JavaFX components into legacy Swing UI, enabling modern interface capabilities',
-      'Implemented advanced navigation and route-planning with A* algorithms and elevation-based slope analysis',
-      'Achieved 50% performance improvement in tactical-graphic rendering through optimization techniques',
-      'Enhanced elevation-based analytical modules for faster computation and better user experience',
-    ],
-  },
-  {
-    title: 'Candidate Engineer',
-    company: 'HAVELSAN',
-    location: 'Ankara, Turkey',
-    period: 'Dec 2019 – Dec 2020',
-    descriptions: [
-      'Developed new map components using React JS with CesiumJS for 3D geospatial visualization',
-      'Improved map-analysis capabilities and updated related reporting interfaces',
-      'Optimized performance resulting in 20% reduction in map-analysis load time',
-      'Collaborated with senior engineers on complex geospatial algorithms and data processing',
-    ],
-  },
-  {
-    title: 'Software Engineering Intern',
-    company: 'HAVELSAN',
-    location: 'Ankara, Turkey',
-    period: 'June 2019 – Sep 2019',
-    descriptions: [
-      'Created NATO symbology graphics in SVG format and resolved rendering issues in Java pipeline',
-      'Enhanced in-house Java SVG parser by adding support for complex "path" elements',
-      'Contributed to tactical graphic description language development (classified project)',
-      'Gained hands-on experience with military-grade software development standards',
-    ],
-  },
-];
-
 const ExperienceSection: React.FC = () => {
+  const { t } = useLanguage();
+
+  const experiences: Experience[] = [
+    {
+      title: t('experience.softwareEngineer'),
+      company: 'HAVELSAN',
+      location: 'Ankara, Turkey',
+      period: 'Dec 2020 – Present',
+      current: true,
+      descriptions: [
+        t('experience.desc1'),
+        t('experience.desc2'),
+        t('experience.desc3'),
+        t('experience.desc4'),
+        t('experience.desc5'),
+        t('experience.desc6'),
+      ],
+    },
+    {
+      title: t('experience.candidateEngineer'),
+      company: 'HAVELSAN',
+      location: 'Ankara, Turkey',
+      period: 'Dec 2019 – Dec 2020',
+      descriptions: [
+        t('experience.desc7'),
+        t('experience.desc8'),
+        t('experience.desc9'),
+        t('experience.desc10'),
+      ],
+    },
+    {
+      title: t('experience.intern'),
+      company: 'HAVELSAN',
+      location: 'Ankara, Turkey',
+      period: 'June 2019 – Sep 2019',
+      descriptions: [
+        t('experience.desc11'),
+        t('experience.desc12'),
+        t('experience.desc13'),
+        t('experience.desc14'),
+      ],
+    },
+  ];
+
   return (
     <section id="experience" className="py-20 bg-white dark:bg-gray-800">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Professional Experience
+              {t('experience.title')}
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
           </div>
@@ -103,7 +106,7 @@ const ExperienceSection: React.FC = () => {
                             </span>
                             {exp.current && (
                               <span className="ml-2 px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-medium">
-                                Current
+                                {t('experience.current')}
                               </span>
                             )}
                           </div>
