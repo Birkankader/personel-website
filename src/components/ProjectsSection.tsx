@@ -161,7 +161,7 @@ const ProjectsSection: React.FC = () => {
                           {t('projects.pendingReview')}
                         </div>
                         <a 
-                          href="https://github.com/birkankader" 
+                          href="https://blocktheunwanted.birkankader.dev/" 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 font-medium"
