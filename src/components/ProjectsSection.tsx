@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Github, Chrome, Filter, Twitter } from 'lucide-react';
+import { ExternalLink, Github, Chrome, Filter, Twitter, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const ProjectsSection: React.FC = () => {
@@ -66,8 +66,8 @@ const ProjectsSection: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Chrome className="w-6 h-6 text-blue-600" />
-                    <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-sm font-medium">
-                      {t('projects.comingSoon')}
+                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm font-medium">
+                      {t('projects.published')}
                     </span>
                   </div>
                 </div>
@@ -151,23 +151,28 @@ const ProjectsSection: React.FC = () => {
                             </text>
                           </svg>
                         </div>
-                        <h5 className="font-bold text-gray-900 dark:text-white">{t('projects.availableSoon')}</h5>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('projects.underReview')}</p>
+                        <h5 className="font-bold text-gray-900 dark:text-white">{t('projects.availableNow')}</h5>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('projects.chromeWebStore')}</p>
                       </div>
                       
                       <div className="space-y-3">
-                        <div className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-lg font-medium cursor-not-allowed opacity-75">
-                          <Chrome className="w-5 h-5 mr-2" />
-                          {t('projects.pendingReview')}
-                        </div>
                         <a 
-                          href="https://blocktheunwanted.birkankader.dev/" 
+                          href="https://chromewebstore.google.com/detail/block-the-unwanted/pchajhojhlhfaealmbncjjkabmemaefb"
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                        >
+                          <Chrome className="w-5 h-5 mr-2" />
+                          {t('projects.installExtension')}
+                        </a>
+                        <a 
+                          href="https://chromewebstore.google.com/detail/block-the-unwanted/pchajhojhlhfaealmbncjjkabmemaefb/reviews"
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="w-full flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 font-medium"
                         >
-                          <Github className="w-5 h-5 mr-2" />
-                          {t('projects.viewSource')}
+                          <Star className="w-5 h-5 mr-2" />
+                          {t('projects.rateReview')}
                         </a>
                       </div>
                     </div>
