@@ -6,7 +6,7 @@ const LanguageToggle: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'en' : 'tr');
+    setLanguage(language === 'en' ? 'tr' : 'en');
   };
 
   return (
