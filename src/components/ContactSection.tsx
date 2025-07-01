@@ -6,6 +6,16 @@ import emailjs from '@emailjs/browser';
 const ContactSection: React.FC = () => {
   const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
+  
+  // EmailJS konfigürasyonunu kontrol et
+  const emailjsConfig = {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+  };
+  
+  // Konfigürasyonun eksik olup olmadığını kontrol et
+  const isConfigMissing = !emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,12 +38,23 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Konfigürasyon eksikse hata mesajı göster
+    if (isConfigMissing) {
+      setSubmitStatus({
+        success: false,
+        message: 'EmailJS konfigürasyonu eksik. Lütfen environment variables\'ları kontrol edin.',
+      });
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
+      return;
+    }
+    
     try {
       const result = await emailjs.sendForm(
-        'service_rvvtd2v',
-        'template_wo2ohc9',
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
         formRef.current!,
-        '8mKkSTCFk57ZOgGUc'
+        emailjsConfig.publicKey
       );
 
       setSubmitStatus({
