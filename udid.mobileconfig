@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadType</key>
+      <string>Profile Service</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>PayloadIdentifier</key>
+      <string>com.example.udid</string>
+      <key>PayloadUUID</key>
+      <string>11111111-2222-3333-4444-555555555555</string>
+      <key>PayloadDisplayName</key>
+      <string>UDID Registration</string>
+      <key>PayloadDescription</key>
+      <string>This profile will send your device UDID to the server.</string>
+      <key>PayloadOrganization</key>
+      <string>MyCompany</string>
+      <key>PayloadContent</key>
+      <dict>
+        <key>URL</key>
+        <string>https://birkankader.com/netlify/functions/uuid_function</string>
+        <key>DeviceAttributes</key>
+        <array>
+          <string>UDID</string>
+          <string>IMEI</string>
+          <string>ICCID</string>
+          <string>VERSION</string>
+          <string>PRODUCT</string>
+        </array>
+      </dict>
+    </dict>
+  </array>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+  <key>PayloadIdentifier</key>
+  <string>com.example.profile</string>
+  <key>PayloadUUID</key>
+  <string>aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee</string>
+  <key>PayloadDisplayName</key>
+  <string>UDID Profile</string>
+</dict>
+</plist>
