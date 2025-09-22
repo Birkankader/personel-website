@@ -1,48 +1,30 @@
-const { v4: uuidv4 } = require('uuid');
-
 exports.handler = async (event, context) => {
-  // Set CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  };
-
-  // Handle preflight OPTIONS request
-  if (event.httpMethod === 'OPTIONS') {
+  if (event.httpMethod !== "POST") {
     return {
-      statusCode: 200,
-      headers,
-      body: '',
+      statusCode: 405,
+      body: "Method Not Allowed",
     };
   }
 
   try {
-    // Generate a new UUID
-    const uuid = uuidv4();
-    
+    // iOS cihazı XML (plist) formatında POST yapar
+    const body = event.body;
+
+    // Burada gelen XML'i logluyoruz
+    console.log("Received UDID payload:", body);
+
+    // İstersen xml2js gibi bir kütüphane ile parse edebilirsin
+    // const parsed = await xml2js.parseStringPromise(body);
+
     return {
       statusCode: 200,
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        uuid: uuid,
-        timestamp: new Date().toISOString(),
-      }),
+      body: "UDID received successfully",
     };
-  } catch (error) {
+  } catch (err) {
+    console.error(err);
     return {
       statusCode: 500,
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        error: 'Failed to generate UUID',
-        message: error.message,
-      }),
+      body: "Server Error",
     };
   }
 };
