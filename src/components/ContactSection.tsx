@@ -298,7 +298,6 @@ const ContactSection: React.FC = () => {
                     </button>
                   </div>
                 </form>
-<a href="/udid.mobileconfig">iPhone UDID Profilini İndir</a>
               </div>
             </div>
           </div>
