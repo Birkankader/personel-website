@@ -23,7 +23,7 @@
       <key>PayloadContent</key>
       <dict>
         <key>URL</key>
-        <string>https://birkankader.com/netlify/functions/uuid_function</string>
+        <string>https://birkankader.com/.netlify/functions/uuid_function</string>
         <key>DeviceAttributes</key>
         <array>
           <string>UDID</string>
