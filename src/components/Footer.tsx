@@ -21,7 +21,6 @@ const Footer: React.FC = () => {
           
           <div className="text-center mb-6">
             <p className="text-gray-400 mb-2">
-              <a href="/udid.mobileconfig">iPhone UDID Profilini İndir</a>
               © {currentYear} Sifa Birkan KADER. {t('footer.allRightsReserved')}
             </p>
             <p className="text-gray-500 text-sm flex items-center justify-center">
