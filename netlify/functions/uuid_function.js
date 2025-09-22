@@ -1,3 +1,5 @@
+const xml2js = require("xml2js");
+
 exports.handler = async (event, context) => {
   if (event.httpMethod !== "POST") {
     return {
@@ -7,24 +9,40 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // iOS cihazı XML (plist) formatında POST yapar
-    const body = event.body;
+    const xml = event.body || "";
+    console.log("Raw XML:", xml);
 
-    // Burada gelen XML'i logluyoruz
-    console.log("Received UDID payload:", body);
+    // XML'i JSON'a çevir
+    const parsed = await xml2js.parseStringPromise(xml);
 
-    // İstersen xml2js gibi bir kütüphane ile parse edebilirsin
-    // const parsed = await xml2js.parseStringPromise(body);
+    // UDID'yi bulmaya çalış
+    // Apple'ın gönderdiği plist yapısında UDID genelde dict içindeki string alanlarından biridir
+    let udid = null;
+    if (parsed && parsed.plist && parsed.plist.dict) {
+      const dict = parsed.plist.dict[0];
+      const keys = dict.key;
+      const values = dict.string;
+
+      if (keys && values) {
+        keys.forEach((k, i) => {
+          if (k === "UDID") {
+            udid = values[i];
+          }
+        });
+      }
+    }
+
+    console.log("Extracted UDID:", udid);
 
     return {
       statusCode: 200,
-      body: "UDID received successfully",
+      body: JSON.stringify({ success: true, udid }),
     };
   } catch (err) {
-    console.error(err);
+    console.error("Error parsing UDID:", err);
     return {
       statusCode: 500,
-      body: "Server Error",
+      body: "Error parsing UDID",
     };
   }
 };
