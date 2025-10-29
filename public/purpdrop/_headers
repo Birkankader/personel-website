@@ -1,0 +1,7 @@
+/purpdrop/manifest.plist
+  Content-Type: text/xml; charset=utf-8
+  Cache-Control: no-cache
+
+/purpdrop/Purpdrop.ipa
+  Content-Type: application/octet-stream
+  Cache-Control: no-cache
