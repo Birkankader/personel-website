@@ -267,8 +267,7 @@ const SkillsSection: React.FC = () => {
                 <div className="p-4 bg-gradient-to-r from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 rounded-lg border border-green-200 dark:border-green-800/30 hover:shadow-md transition-all duration-200">
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <a href="itms-services://?action=download-manifest&url=https://birkankader.dev/purpdrop/manifest.plist">
-                    <span className="font-medium text-gray-900 dark:text-white">{t('skills.algorithmDevelopment')}</span></a>
+                    <span className="font-medium text-gray-900 dark:text-white">{t('skills.algorithmDevelopment')}</span>
                   </div>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-lg border border-orange-200 dark:border-orange-800/30 hover:shadow-md transition-all duration-200">
