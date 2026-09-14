@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugins>
+  <plugin id="com.birkankader.claude-code-for-kasif" version="0.3" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.3-6d8bd9c5754f.zip">
+    <idea-version since-build="242" />
+    <name>Claude Code for Kasif</name>
+    <description>&lt;p&gt;Claude Code for Kasif is a JetBrains plugin by Birkan Kader that brings Claude Code conversations, project tools and local task controls into the IDE.&lt;/p&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Chat tabs with an always-visible new-tab button and a Turkish interface.&lt;/li&gt;
+&lt;li&gt;Low resource mode for hidden panels and long conversations.&lt;/li&gt;
+&lt;li&gt;Local process metrics, task queues and project-specific concurrency limits.&lt;/li&gt;
+&lt;li&gt;Conversation search, bookmarks and decision notes.&lt;/li&gt;
+&lt;li&gt;Project task templates and context preview.&lt;/li&gt;
+&lt;li&gt;Scheduled messages and automatic resume.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Version 0.2. Publisher: Birkan Kader. Claude provider authentication and usage charges apply. Install updates from a Kaşif ZIP using the IDE's Install Plugin from Disk action.&lt;/p&gt;
+&lt;h2&gt;License&lt;/h2&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.3-source-50ad9dfcb1e8.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.3 - Claude Code for Kasif (2026-09-14)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Plugin updates are available through the custom repository at https://birkankader.com/plugins/kasif/updatePlugins.xml.&lt;/li&gt;
+    &lt;li&gt;Add the repository once in IDE plugin settings to receive future updates without manually installing ZIP files.&lt;/li&gt;
+    &lt;li&gt;Each release includes a matching source archive and SHA-256 checksums.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.2 - Claude Code for Kasif (2026-09-11)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Automatic recovery from API errors and model-aware context budgets with compact and continue.&lt;/li&gt;
+    &lt;li&gt;New messages preserve the active task; only the latest pending message is sent after it finishes.&lt;/li&gt;
+    &lt;li&gt;Session settings use a JSON file to preserve valid settings through Windows CLI launchers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.1 - Claude Code for Kasif (2026-09-09)&lt;/h3&gt;
+&lt;p&gt;Developer and publisher: Birkan Kader.&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;Chat tabs with a permanent new-tab button and Turkish interface.&lt;/li&gt;
+    &lt;li&gt;Low resource mode, task controls and local resource metrics.&lt;/li&gt;
+    &lt;li&gt;Conversation search, bookmarks, decision notes and task templates.&lt;/li&gt;
+    &lt;li&gt;Context preview, scheduled messages and automatic resume.&lt;/li&gt;
+    &lt;li&gt;Model-specific reasoning effort, applied reliably on the next message.&lt;/li&gt;
+    &lt;li&gt;Correct context usage percentages and draft estimates that distinguish file references from later file reads.&lt;/li&gt;
+    &lt;li&gt;Rapid prompts share one new conversation; failed sends preserve editor context on retry and report CLI write failures.&lt;/li&gt;
+    &lt;li&gt;Closed tabs retain process ownership until exit; Windows cleanup uses at most two asynchronous commands.&lt;/li&gt;
+    &lt;li&gt;IDE exit requests backend cleanup over RPC; disposed processes and WebView connections cannot restart.&lt;/li&gt;
+    &lt;li&gt;Helper CLI commands participate in shutdown; cancelled MCP probes retain their slots until bounded process cleanup finishes.&lt;/li&gt;
+    &lt;li&gt;Session switching and reconnects restore history; disconnected sends show errors without simulated responses.&lt;/li&gt;
+    &lt;li&gt;Project-owned selection delivery and background retry avoid duplicate work and blocking cleanup on the UI thread.&lt;/li&gt;
+    &lt;li&gt;Incremental CLI output decoding preserves split UTF-8 characters and avoids repeatedly scanning long incomplete lines.&lt;/li&gt;
+    &lt;li&gt;Chat titles refresh tab presentation without VFS rename events, preserving Java inspection settings.&lt;/li&gt;
+    &lt;li&gt;Moved tabs transfer native callbacks to their current panel; closed panels discard queued notifications on the UI thread.&lt;/li&gt;
+    &lt;li&gt;MCP discovery runs only when its panel opens, with two concurrent detail probes at most.&lt;/li&gt;
+    &lt;li&gt;Bounded IntelliJ repaint scheduling and stream diagnostics; duplicate session starts and Bash hook recursion guarded.&lt;/li&gt;
+    &lt;li&gt;Fewer duplicate CLI initialization processes, non-blocking Windows metadata cleanup and startup timings.&lt;/li&gt;
+    &lt;li&gt;Auto-resume toggle works before the first message; pending resumes survive failed sends and reconnects.&lt;/li&gt;
+&lt;/ul&gt;</change-notes>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+  </plugin>
+</plugins>

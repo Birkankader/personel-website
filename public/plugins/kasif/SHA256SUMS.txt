@@ -1,0 +1,2 @@
+6d8bd9c5754f3ae9f8ecea0ab4c0bc09163a3e8c22867edb31c02783bfd76af7  claude-code-for-kasif-0.3-6d8bd9c5754f.zip
+50ad9dfcb1e84ebe26700ac81cf5bf0ba193af0ab9fcaf0d6012b103f0f862bc  claude-code-for-kasif-0.3-source-50ad9dfcb1e8.zip
