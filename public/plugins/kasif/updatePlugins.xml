@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.claude-code-for-kasif" version="0.3" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.3-6d8bd9c5754f.zip">
+  <plugin id="com.birkankader.claude-code-for-kasif" version="0.31" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.31-1127193e60fb.zip">
     <idea-version since-build="242" />
     <name>Claude Code for Kasif</name>
     <description>&lt;p&gt;Claude Code for Kasif is a JetBrains plugin by Birkan Kader that brings Claude Code conversations, project tools and local task controls into the IDE.&lt;/p&gt;
@@ -15,8 +15,14 @@
 &lt;/ul&gt;
 &lt;p&gt;Version 0.2. Publisher: Birkan Kader. Claude provider authentication and usage charges apply. Install updates from a Kaşif ZIP using the IDE's Install Plugin from Disk action.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.3-source-50ad9dfcb1e8.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.3 - Claude Code for Kasif (2026-09-14)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.31-source-a0add477f829.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.31 - Claude Code for Kasif (2026-09-15)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Auto-resume on usage limit is enabled by default for new or unset preferences.&lt;/li&gt;
+    &lt;li&gt;Saved global, project and session choices remain unchanged, including explicit opt-outs.&lt;/li&gt;
+    &lt;li&gt;Automatic resume waits for the initial settings load before acting on its default.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.3 - Claude Code for Kasif (2026-09-14)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Plugin updates are available through the custom repository at https://birkankader.com/plugins/kasif/updatePlugins.xml.&lt;/li&gt;
     &lt;li&gt;Add the repository once in IDE plugin settings to receive future updates without manually installing ZIP files.&lt;/li&gt;
