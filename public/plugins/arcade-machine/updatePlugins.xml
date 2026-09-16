@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.3.0" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.0-487ed9bc2190.zip">
+  <plugin id="dev.arcademachine" version="0.3.1" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.1-d6d4c3121b57.zip">
     <idea-version since-build="243" />
     <name>Arcade Machine</name>
     <description>Three office games in your IDE: Turkish Wordle, Higher / Lower and live drawing rooms. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
-    <change-notes>&lt;p&gt;Five daily Wordle words, expanded comparisons, live drawing rooms with invitations, visible personal ranks, daily and all-time Arcade leaderboards. Requires Arcade server 0.3.0.&lt;/p&gt;</change-notes>
+    <change-notes>&lt;p&gt;Drawing invitations now join the invited room directly and open it after confirmation. Closed-room errors stay in the invitation. Screen transitions isolate game content and defer hidden canvas rendering; returning to a room restores its latest drawing. Compatible with Arcade server 0.3.0.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>
