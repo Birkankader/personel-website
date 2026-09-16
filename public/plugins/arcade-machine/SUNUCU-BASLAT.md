@@ -1,4 +1,4 @@
-# Arcade Machine 0.3.2 — hızlı başlangıç
+# Arcade Machine 0.3.3 — hızlı başlangıç
 
 ## Sunucu
 
@@ -13,7 +13,7 @@ LAN IP adresini kullanır; `localhost` kullanmaz. Tek sunucu çalıştırın.
 
 **Güncelleme:** Eski sunucuyu durdurun, veritabanını yedekleyin ve JAR'ı değiştirin.
 Aynı klasörden ve aynı `ARCADE_DB` yolu ile başlatın. Oyuncular ve geçmiş sonuçlar
-korunur. “Yeniden oyna” için eklenti ve sunucu 0.3.2 gerekir. Açık çizim odaları sunucu yeniden
+korunur. Harf ipucu için eklenti ve sunucu 0.3.3 gerekir. Açık çizim odaları sunucu yeniden
 başlatıldığında kapanır; tamamlanmış oyun puanları kalır.
 
 ## Ayarlar
@@ -30,7 +30,8 @@ otomatik oluşur. Değiştirdikten sonra sunucuyu yeniden başlatın.
     "rounds": 2,
     "turnSeconds": 80,
     "chooseSeconds": 15,
-    "revealSeconds": 6
+    "revealSeconds": 6,
+    "hintsPerTurn": 2
   }
 }
 ```
@@ -40,6 +41,7 @@ otomatik oluşur. Değiştirdikten sonra sunucuyu yeniden başlatın.
 - `repeatLookbackDays`: tekrar seçilmemesi tercih edilen geçmiş gün sayısı (0–365).
 - `maxPlayers`: oda kapasitesi (2–12).
 - `rounds`: herkesin kaç kez çizeceği (1–5).
+- `hintsPerTurn`: tur başına açılabilecek harf sayısı (0–5); 0 ipucunu kapatır.
 - Diğer üç değer saniyedir: çizim (20–180), kelime seçimi (5–60), sonuç (2–20).
 
 Başlamış bir günün kelime/soru sayısı değişmez; yeni sayı sonraki oluşturulan güne
@@ -75,8 +77,12 @@ sunucu adresini girin. Adınızı aynı ekranda değiştirebilirsiniz.
 Wordle ve karşılaştırma İstanbul saatiyle 00.00'da yenilenir. Sıralamalar oyun
 başlığının altında açık gelir; kendi sıranız listenin üstünde ayrıca gösterilir.
 
-Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.2 raporu](docs/VALIDATION-0.3.2.md).
+Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.3 raporu](docs/VALIDATION-0.3.3.md).
 
 Çiz & Bil tamamlandığında oda sahibi **Yeniden oyna** düğmesiyle aynı odadaki
 en az iki oyuncuyla yeni oyuna geçer. Oda puanları ve tuval sıfırlanır; biten her
 oyunun puanları genel sıralamada korunur ve yalnızca bir kez eklenir.
+
+Çizen oyuncu **Harf aç** ile odadaki herkese rastgele bir harf konumu gösterebilir.
+Varsayılan sınır tur başına ikidir; kelimede en az bir harf daima gizli kalır.
+Eski config dosyasında `hintsPerTurn` yoksa iki olarak uygulanır.

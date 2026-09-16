@@ -11,6 +11,7 @@
     "rounds": 2,
     "turnSeconds": 80,
     "chooseSeconds": 15,
-    "revealSeconds": 6
+    "revealSeconds": 6,
+    "hintsPerTurn": 2
   }
 }

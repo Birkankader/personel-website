@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.3.2" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.2-55a75c0ce07e.zip">
+  <plugin id="dev.arcademachine" version="0.3.3" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.3-1f76061b7008.zip">
     <idea-version since-build="243" />
     <name>Arcade Machine</name>
     <description>Three office games in your IDE: Turkish Wordle, Higher / Lower and live drawing rooms. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
-    <change-notes>&lt;p&gt;Çiz &amp;amp; Bil now shows Play Again after a match. The room host can start another game with the same players; canvas and room scores reset while each completed match contributes once to the leaderboards. Play Again requires Arcade server 0.3.2; existing games still work with server 0.3.0.&lt;/p&gt;</change-notes>
+    <change-notes>&lt;p&gt;Buttons have clearer surfaces, edges and interaction feedback while keeping the simple layout. Drawing players can reveal a random letter to everyone in their room with Harf aç. The server controls the per-turn limit (default 2) and keeps at least one letter hidden. Letter hints require server 0.3.3; earlier servers still run existing games.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>
