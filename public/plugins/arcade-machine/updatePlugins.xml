@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.3.3" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.3-1f76061b7008.zip">
+  <plugin id="dev.arcademachine" version="0.3.4" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.4-424e49bf87af.zip">
     <idea-version since-build="243" />
     <name>Arcade Machine</name>
     <description>Three office games in your IDE: Turkish Wordle, Higher / Lower and live drawing rooms. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
-    <change-notes>&lt;p&gt;Buttons have clearer surfaces, edges and interaction feedback while keeping the simple layout. Drawing players can reveal a random letter to everyone in their room with Harf aç. The server controls the per-turn limit (default 2) and keeps at least one letter hidden. Letter hints require server 0.3.3; earlier servers still run existing games.&lt;/p&gt;</change-notes>
+    <change-notes>&lt;p&gt;Create drawing rooms with your own round count and per-player drawing duration. The larger canvas takes priority, with readable room scores and daily rankings. New Eraser and Undo buttons let you correct complete drawing gestures for everyone. The server offers 835 Turkish prompts with persistent rotation across rooms and restarts. Room settings and Undo require server 0.3.4. Letter hints and Play Again remain available.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>

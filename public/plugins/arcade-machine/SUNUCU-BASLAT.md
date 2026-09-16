@@ -1,4 +1,4 @@
-# Arcade Machine 0.3.3 — hızlı başlangıç
+# Arcade Machine 0.3.4 — hızlı başlangıç
 
 ## Sunucu
 
@@ -13,7 +13,7 @@ LAN IP adresini kullanır; `localhost` kullanmaz. Tek sunucu çalıştırın.
 
 **Güncelleme:** Eski sunucuyu durdurun, veritabanını yedekleyin ve JAR'ı değiştirin.
 Aynı klasörden ve aynı `ARCADE_DB` yolu ile başlatın. Oyuncular ve geçmiş sonuçlar
-korunur. Harf ipucu için eklenti ve sunucu 0.3.3 gerekir. Açık çizim odaları sunucu yeniden
+korunur. Oda ayarları ve geri alma için eklenti ve sunucu 0.3.4 gerekir. Açık çizim odaları sunucu yeniden
 başlatıldığında kapanır; tamamlanmış oyun puanları kalır.
 
 ## Ayarlar
@@ -77,7 +77,7 @@ sunucu adresini girin. Adınızı aynı ekranda değiştirebilirsiniz.
 Wordle ve karşılaştırma İstanbul saatiyle 00.00'da yenilenir. Sıralamalar oyun
 başlığının altında açık gelir; kendi sıranız listenin üstünde ayrıca gösterilir.
 
-Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.3 raporu](docs/VALIDATION-0.3.3.md).
+Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.4 raporu](docs/VALIDATION-0.3.4.md).
 
 Çiz & Bil tamamlandığında oda sahibi **Yeniden oyna** düğmesiyle aynı odadaki
 en az iki oyuncuyla yeni oyuna geçer. Oda puanları ve tuval sıfırlanır; biten her
@@ -86,3 +86,13 @@ oyunun puanları genel sıralamada korunur ve yalnızca bir kez eklenir.
 Çizen oyuncu **Harf aç** ile odadaki herkese rastgele bir harf konumu gösterebilir.
 Varsayılan sınır tur başına ikidir; kelimede en az bir harf daima gizli kalır.
 Eski config dosyasında `hintsPerTurn` yoksa iki olarak uygulanır.
+
+Oda kurarken **tur sayısını (1–5)** ve **her oyuncunun çizim süresini (30 sn–3 dk)**
+seçebilirsiniz. Bir turda herkes bir kez çizer. Config içindeki `rounds` ve
+`turnSeconds` başlangıç değerleridir; yeniden oynarken odanın seçimi korunur.
+
+**Silgi** çizimin bir bölümünü siler. **Geri al**, son kalem veya silgi hareketinin
+tamamını herkeste geri alır; tuval odaktayken Ctrl+Z de kullanılabilir.
+**Temizle** tuvalin tamamını ve geri alma geçmişini sıfırlar.
+Kelime havuzu 835 seçenek içerir; yakın zamanda sunulan seçenekler veritabanında
+hatırlanır ve yeni odalarda veya sunucu yeniden başladığında listenin sonuna alınır.

@@ -1,7 +1,7 @@
 {
-  "version": "0.3.3",
-  "serverFile": "arcade-machine-server-0.3.3-dcb79dda8ff2.zip",
-  "serverSha256": "dcb79dda8ff2d9f64dad0f05f1caf0142781bf6624b1ad0c73b67b95cbb4d53e",
+  "version": "0.3.4",
+  "serverFile": "arcade-machine-server-0.3.4-542b0f319f7f.zip",
+  "serverSha256": "542b0f319f7fc2724fd68f8e9a897440c4b93156e4afee1d7079684493840541",
   "configFile": "arcade-config.example.json",
   "requiresJava": 21
 }
