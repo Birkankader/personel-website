@@ -1,0 +1,16 @@
+{
+  "wordle": {
+    "dailyWords": 5
+  },
+  "higherLower": {
+    "dailyQuestions": 10,
+    "repeatLookbackDays": 14
+  },
+  "drawing": {
+    "maxPlayers": 8,
+    "rounds": 2,
+    "turnSeconds": 80,
+    "chooseSeconds": 15,
+    "revealSeconds": 6
+  }
+}

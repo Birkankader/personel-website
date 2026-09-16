@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.2.0" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.2.0-7d758d59fe84.zip">
+  <plugin id="dev.arcademachine" version="0.3.0" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.3.0-487ed9bc2190.zip">
     <idea-version since-build="243" />
     <name>Arcade Machine</name>
-    <description>Two daily office games in your IDE: Turkish Office Wordle and Higher / Lower. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
-    <change-notes>&lt;p&gt;Modern offline JCEF interface for both games, Turkish keyboard, explicit guess validation, inline errors and live light/dark themes.&lt;/p&gt;</change-notes>
+    <description>Three office games in your IDE: Turkish Wordle, Higher / Lower and live drawing rooms. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
+    <change-notes>&lt;p&gt;Five daily Wordle words, expanded comparisons, live drawing rooms with invitations, visible personal ranks, daily and all-time Arcade leaderboards. Requires Arcade server 0.3.0.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>
