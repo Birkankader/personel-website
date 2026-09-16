@@ -1,8 +1,8 @@
 {
   "pluginId": "dev.arcademachine",
-  "version": "0.3.1",
-  "pluginFile": "arcade-machine-0.3.1-d6d4c3121b57.zip",
-  "pluginSha256": "d6d4c3121b578dac661f136e5f37c93c24d60e4ca9a033449e4d30a2e69d67e4",
+  "version": "0.3.2",
+  "pluginFile": "arcade-machine-0.3.2-55a75c0ce07e.zip",
+  "pluginSha256": "55a75c0ce07e6d1e50229f4bca4656db4e72c09f22a2bd3fdb641216d7ba9f92",
   "repositoryUrl": "https://birkankader.com/plugins/updatePlugins.xml",
   "ideaVersion": {
     "since-build": "243"

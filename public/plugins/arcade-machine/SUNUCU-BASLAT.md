@@ -1,4 +1,4 @@
-# Arcade Machine 0.3.0 — hızlı başlangıç
+# Arcade Machine 0.3.2 — hızlı başlangıç
 
 ## Sunucu
 
@@ -13,7 +13,7 @@ LAN IP adresini kullanır; `localhost` kullanmaz. Tek sunucu çalıştırın.
 
 **Güncelleme:** Eski sunucuyu durdurun, veritabanını yedekleyin ve JAR'ı değiştirin.
 Aynı klasörden ve aynı `ARCADE_DB` yolu ile başlatın. Oyuncular ve geçmiş sonuçlar
-korunur. Yeni eklenti için sunucu 0.3.0 gerekir. Açık çizim odaları sunucu yeniden
+korunur. “Yeniden oyna” için eklenti ve sunucu 0.3.2 gerekir. Açık çizim odaları sunucu yeniden
 başlatıldığında kapanır; tamamlanmış oyun puanları kalır.
 
 ## Ayarlar
@@ -75,4 +75,8 @@ sunucu adresini girin. Adınızı aynı ekranda değiştirebilirsiniz.
 Wordle ve karşılaştırma İstanbul saatiyle 00.00'da yenilenir. Sıralamalar oyun
 başlığının altında açık gelir; kendi sıranız listenin üstünde ayrıca gösterilir.
 
-Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.0 raporu](docs/VALIDATION-0.3.0.md).
+Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.2 raporu](docs/VALIDATION-0.3.2.md).
+
+Çiz & Bil tamamlandığında oda sahibi **Yeniden oyna** düğmesiyle aynı odadaki
+en az iki oyuncuyla yeni oyuna geçer. Oda puanları ve tuval sıfırlanır; biten her
+oyunun puanları genel sıralamada korunur ve yalnızca bir kez eklenir.
