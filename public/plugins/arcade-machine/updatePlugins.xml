@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugins>
+  <plugin id="dev.arcademachine" version="0.1.0" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.1.0-5a47781041d5.zip">
+    <idea-version since-build="243" />
+    <name>Arcade Machine</name>
+    <description>Two daily office games in your IDE: Turkish Office Wordle and Higher / Lower. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
+    <depends>com.intellij.modules.platform</depends>
+  </plugin>
+</plugins>

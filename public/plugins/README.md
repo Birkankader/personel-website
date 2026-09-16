@@ -1,0 +1,22 @@
+# JetBrains plugin repository
+
+Add https://birkankader.com/plugins/updatePlugins.xml in the IDE's
+Settings → Plugins → gear → Manage Plugin Repositories.
+
+Each plugin release owns `public/plugins/<slug>/updatePlugins.xml`, its ZIPs,
+and release metadata. `npm run build` runs Vite and then merges these feeds into
+`dist/plugins/updatePlugins.xml`. Each legacy per-plugin XML URL serves the same
+merged list, including `/plugins/kasif/updatePlugins.xml`.
+
+Do not edit the generated dist files or replace the site deployment with a
+plugin-only upload. Push reviewed release files to main to use the existing
+Netlify build, Functions, redirects, and environment.
+
+Kaşif's existing release-site command continues to work without changes.
+Arcade Machine's source repository provides `scripts/prepare-plugin-release.py`.
+Keep versioned ZIPs immutable. The builder rejects duplicate IDs, incomplete
+metadata, and missing ZIPs. Run `node --test scripts/build-plugin-repository.test.mjs`
+and `npm run build` before publishing.
+
+Arcade Machine requires a separate LAN game server. Hosting the plugin does not
+host that server.
