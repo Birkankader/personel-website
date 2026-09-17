@@ -18,17 +18,19 @@ async function fixture(t) {
   }
   return { source, output, feed };
 }
-test('merges both plugins, preserves aliases, picks up later single-plugin releases', async t => {
+test('merges three plugins, preserves aliases, picks up later single-plugin releases', async t => {
   const { source, output, feed } = await fixture(t);
   await feed('kasif', 'kasif');
   await feed('arcade-machine', 'arcade');
+  await feed('haftanin-seyirligi', 'dev.teamwatch.weekly', '0.2.1');
   await buildRepository(source, output);
   const xml = await readFile(path.join(output, 'updatePlugins.xml'), 'utf8');
   assert.equal(await readFile(path.join(output, 'kasif/updatePlugins.xml'), 'utf8'), xml);
   assert.equal(await readFile(path.join(output, 'arcade-machine/updatePlugins.xml'), 'utf8'), xml);
+  assert.equal(await readFile(path.join(output, 'haftanin-seyirligi/updatePlugins.xml'), 'utf8'), xml);
   assert.equal((await xml2js.parseStringPromise(xml)).plugins.plugin[0].name[0], 'Oyun & Kaşif');
   await feed('kasif', 'kasif', '2.0');
-  assert.deepEqual(await buildRepository(source, output), ['arcade@1.0', 'kasif@2.0']);
+  assert.deepEqual(await buildRepository(source, output), ['arcade@1.0', 'dev.teamwatch.weekly@0.2.1', 'kasif@2.0']);
 });
 test('rejects duplicate IDs before publishing', async t => {
   const { source, output, feed } = await fixture(t);

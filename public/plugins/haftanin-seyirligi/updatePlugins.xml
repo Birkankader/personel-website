@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugins>
+  <plugin id="dev.teamwatch.weekly" version="0.2.1" url="https://birkankader.com/plugins/haftanin-seyirligi/haftanin-seyirligi-0.2.1-cfc0b15612fb.zip">
+    <idea-version since-build="243" />
+    <name>Haftanin Seyirligi</name>
+    <description>Weekly movie and TEDx voting board for teams, powered by the shared Arcade Machine server.
+      &lt;p&gt;
+      Ekibin haftalık film ve TEDx panosu. Öner, oy ver, haftanın seçimini izle.
+      Ortak ekip sunucusu ile öneriler, oylar ve izleme durumu senkronize edilir.
+      &lt;/p&gt;</description>
+    <depends>com.intellij.modules.platform</depends>
+  </plugin>
+</plugins>

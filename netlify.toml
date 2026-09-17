@@ -10,9 +10,21 @@
   status = 200
   force = true
 
+# Directory addresses used in JetBrains repository settings also serve XML.
+[[redirects]]
+  from = "/plugins"
+  to = "/plugins/updatePlugins.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/plugins/"
+  to = "/plugins/updatePlugins.xml"
+  status = 200
+  force = true
+
 # SPA yönlendirmesi
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-

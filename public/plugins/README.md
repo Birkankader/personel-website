@@ -2,6 +2,7 @@
 
 Add https://birkankader.com/plugins/updatePlugins.xml in the IDE's
 Settings → Plugins → gear → Manage Plugin Repositories.
+The directory URLs `/plugins` and `/plugins/` also serve the same XML feed.
 
 Each plugin release owns `public/plugins/<slug>/updatePlugins.xml`, its ZIPs,
 and release metadata. `npm run build` runs Vite and then merges these feeds into
@@ -20,3 +21,9 @@ and `npm run build` before publishing.
 
 Arcade Machine requires a separate LAN game server. Hosting the plugin does not
 host that server.
+
+Haftanin Seyirligi (`dev.teamwatch.weekly`) requires IntelliJ Platform 2024.3+
+and the shared Arcade Machine server 0.4.0+. It offers weekly film/TEDx
+suggestions, voting, a weekly winner and watched status. Its source project's
+`scripts/prepare-plugin-release.py` prepares immutable ZIP/XML/checksum metadata.
+Publishing the plugin here does not run or upgrade the team's LAN server.
