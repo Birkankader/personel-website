@@ -1,10 +1,12 @@
 {
-  "version": "0.4.0",
-  "serverFile": "arcade-machine-server-0.4.0-windows-x64-87c2d7f82deb.zip",
-  "serverSha256": "87c2d7f82deb28f285925e567e7af780f5b8ea03b8a3349699b7afa9f5ffd100",
+  "version": "0.4.2",
+  "serverFile": "arcade-machine-server-0.4.2-windows-x64-da61f375d1b8.zip",
+  "serverSha256": "da61f375d1b893e9c9901b5f0ec50dad187306faee72c939906a90bf54e1cf7d",
   "configFile": "arcade-config.example.json",
   "requiresJava": 21,
   "bundledJava": true,
   "platform": "windows-x64",
-  "guideFile": "SUNUCU-BASLAT.md"
+  "guideFile": "SUNUCU-BASLAT.md",
+  "portableFile": "arcade-machine-server-0.4.2-4ab8e759c51b.zip",
+  "portableSha256": "4ab8e759c51baec033fbdbe696268689d4059600bb4b7ca8c4f6ffe334367ae0"
 }

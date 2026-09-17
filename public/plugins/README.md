@@ -30,8 +30,10 @@ Publishing the plugin here does not run or upgrade the team's LAN server.
 
 ## Shared server download
 
-[Arcade Machine + Haftanin Seyirligi server 0.4.0 for Windows x64](arcade-machine/arcade-machine-server-0.4.0-windows-x64-87c2d7f82deb.zip) includes Java 21 and the desktop management window.
+[Arcade Machine + Haftanin Seyirligi server 0.4.2 for Windows x64](arcade-machine/arcade-machine-server-0.4.2-windows-x64-da61f375d1b8.zip) includes Java 21 and the desktop management window.
 Extract the whole archive and open `Baslat.bat`, then click Start.
 See [server instructions](arcade-machine/SUNUCU-BASLAT.md).
 `arcade-machine/server-release.json` identifies the current server download and SHA-256.
 Windows execution has not been validated on a Windows machine.
+
+Arcade Machine 0.4.2 adds daily Sudoku and the compact four-game menu. Update the shared server and the modern or 2019 plugin. The server download keeps the same watch board, manager and existing database.

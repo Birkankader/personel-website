@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.4.1" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.1-00c3c0548959.zip">
+  <plugin id="dev.arcademachine" version="0.4.2" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.2-1215ed720ff8.zip">
     <idea-version since-build="243" />
     <name>Arcade Machine</name>
-    <description>Three office games in your IDE: Turkish Wordle, Higher / Lower and live drawing rooms. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
-    <change-notes>&lt;p&gt;Drawing rooms now have a compact canvas-first layout with icon-only controls. Pick colors from one popup with RGB sliders, numeric values and sixteen presets. New line, rectangle and ellipse tools preview locally, synchronize on release and support whole-gesture undo. Repeated room, score and instruction text is hidden during play; exhausted hint controls disappear. Existing room settings, scores and server 0.3.4 compatibility are preserved.&lt;/p&gt;</change-notes>
+    <description>Four office games in your IDE: Turkish Wordle, live drawing rooms, daily Sudoku and Higher / Lower. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
+    <change-notes>&lt;p&gt;Added daily Sudoku with saved progress on the unified server, compact game buttons in the order Wordle, Drawing, Sudoku, Higher / Lower, and fewer repeated information messages.&lt;/p&gt;&lt;p&gt;Drawing rooms now have a compact canvas-first layout with icon-only controls. Pick colors from one popup with RGB sliders, numeric values and sixteen presets. New line, rectangle and ellipse tools preview locally, synchronize on release and support whole-gesture undo. Repeated room, score and instruction text is hidden during play; exhausted hint controls disappear. Existing room settings, scores and server 0.3.4 compatibility are preserved.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>
