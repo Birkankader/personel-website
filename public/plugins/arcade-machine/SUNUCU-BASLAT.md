@@ -1,98 +1,59 @@
-# Arcade Machine 0.3.4 — hızlı başlangıç
+# Ortak sunucu ve Windows yönetim penceresi
 
-## Sunucu
+Arcade Machine **0.4.0** oyun API’lerini ve Haftanın Seyirliği API’sini **tek JVM, tek port, tek SQLite veritabanında** sunar. Film panosu için Node.js gerekmez. Mevcut Arcade eklentilerinin oyun protokolü korunur; iki eklentiye de aynı `http://SUNUCU_IP:8787` adresini yazın. İki eklentinin üyelikleri ayrı tutulur ve yönetim listesinde uygulama adıyla ayırt edilir.
 
-Java 21 veya üstü olan ofis bilgisayarında `scripts/run-server.bat` (Windows)
-veya `sh scripts/run-server.sh` (macOS/Linux) çalıştırın. Başlatıcı kurulu
-JetBrains Java runtime'ını da kullanabilir. Hazır JAR:
-`server/build/libs/arcade-machine-server.jar`. Çalışırken internet gerekmez.
+## Windows’ta başlatma
 
-Sunucu adresi: `http://SUNUCU_IP:8787`. Kendi bilgisayarınızda
-`http://localhost:8787/health` ile kontrol edin. Diğer bilgisayarlar sunucunun
-LAN IP adresini kullanır; `localhost` kullanmaz. Tek sunucu çalıştırın.
+1. [Windows x64 paketini](arcade-machine-server-0.4.0-windows-x64-87c2d7f82deb.zip) tamamıyla bir klasöre çıkarın.
+2. **Baslat.bat** veya **Yonetim.bat** dosyasına çift tıklayın. Paket kendi Java 21 çalışma ortamını içerir; Java veya Node kurulumu gerekmez.
+3. Pencerede **Başlat** düğmesine basın. Durum **Çalışıyor** olunca sunucu hazırdır.
+4. **Sunucu** sekmesinde gösterilen ağ adresini ekiple paylaşın. Windows güvenlik duvarında seçilen porta yalnızca ekip ağından erişim verin.
+5. Pencereyi küçültebilirsiniz. Pencereyi kapatmak sunucuyu durdurur; kapanış onayı gösterilir.
 
-**Güncelleme:** Eski sunucuyu durdurun, veritabanını yedekleyin ve JAR'ı değiştirin.
-Aynı klasörden ve aynı `ARCADE_DB` yolu ile başlatın. Oyuncular ve geçmiş sonuçlar
-korunur. Oda ayarları ve geri alma için eklenti ve sunucu 0.3.4 gerekir. Açık çizim odaları sunucu yeniden
-başlatıldığında kapanır; tamamlanmış oyun puanları kalır.
+Konsol penceresi istemiyorsanız `Baslat-Arayuz.vbs` kullanılabilir. Kurum Windows Script Host’u kapattıysa `Baslat.bat` yolunu kullanın. Hatalar her iki yöntemde de `logs/arcade-server.log` dosyasına yazılır. **Konsol.bat** arayüz olmadan sunucuyu başlatır. Windows x64 paketi ARM/Linux/macOS Java runtime’ı içermez.
 
-## Ayarlar
+Küçük, runtimesız paket Java 21+ gerektirir. Başlatıcı önce paket içindeki `runtime/` klasörünü, sonra `JAVA_HOME`, PATH ve yaygın JetBrains kurulumlarını kontrol eder. Geliştirme ortamında `sh scripts/run-manager.sh` veya `java -jar server/build/libs/arcade-machine-server.jar --gui` kullanılabilir.
 
-`arcade-config.json` dosyasını metin düzenleyiciyle açın. İlk çalıştırmada yoksa
-otomatik oluşur. Değiştirdikten sonra sunucuyu yeniden başlatın.
+## Yönetim işlemleri
 
-```json
-{
-  "wordle": { "dailyWords": 5 },
-  "higherLower": { "dailyQuestions": 10, "repeatLookbackDays": 14 },
-  "drawing": {
-    "maxPlayers": 8,
-    "rounds": 2,
-    "turnSeconds": 80,
-    "chooseSeconds": 15,
-    "revealSeconds": 6,
-    "hintsPerTurn": 2
-  }
-}
-```
+| Ekran | İşlemler |
+|---|---|
+| Sunucu | Başlat, durdur, yeniden başlat, çalışma süresi, gerçek LAN adresleri, üye/oda sayıları, canlı veritabanı yedeği |
+| Oyuncular ve üyeler | İsim/ekip arama, aktifleri filtreleme, uygulama ve ekip bilgisi, bağlantı/son erişim, moderasyon nedeni |
+| Moderasyon | **5 dakika at**, kalıcı **Engelle**, **Engeli kaldır**, film ekibi sahipliğini başka üyeye aktar |
+| Odalar | Çizim odalarını görüntüle/kapat, film ekiplerinin öneri/oy sayılarını gör, haftanın seçimini yönetici olarak belirle |
+| Canlı loglar | INFO/WARN/ERROR kayıtları, hata filtresi, otomatik kaydırma, görünen logu dosyaya aktarma |
+| Ayarlar | Dinleme adresi, port, dosya yolları, günlük Wordle/soru sayısı, çizim odası kapasitesi/tur/süre/ipucu ayarları |
 
-- `dailyWords`: günlük kelime sayısı (1–20).
-- `dailyQuestions`: günlük karşılaştırma sayısı (1–50).
-- `repeatLookbackDays`: tekrar seçilmemesi tercih edilen geçmiş gün sayısı (0–365).
-- `maxPlayers`: oda kapasitesi (2–12).
-- `rounds`: herkesin kaç kez çizeceği (1–5).
-- `hintsPerTurn`: tur başına açılabilecek harf sayısı (0–5); 0 ipucunu kapatır.
-- Diğer üç değer saniyedir: çizim (20–180), kelime seçimi (5–60), sonuç (2–20).
+**Atma davranışı:** Arcade WebSocket bağlantısı kapanır ve oyuncu çizim odasından çıkarılır. Aynı üyelik beş dakika boyunca HTTP istekleriyle veya yeniden oturum açarak dönemez. Film panosu üyeliğinde de aynı süre boyunca okuma/yazma engellenir; eklenti bunu bir sonraki isteğinde görür. **Engelle** kaydı yeniden başlatmada korunur ve siz kaldırana kadar sürer. Puanlar, öneriler ve geçmiş oylar silinmez.
 
-Başlamış bir günün kelime/soru sayısı değişmez; yeni sayı sonraki oluşturulan güne
-uygulanır. 0.3.0'a ilk geçişte bugünkü eski Wordle, ilk kelime olarak korunur ve
-kalan kelimeler eklenir. Başka bir ayar dosyası için `ARCADE_CONFIG` kullanılabilir.
+Arcade’de “Bağlı” açık WebSocket anlamına gelir. “Son 45 sn aktif” son yetkili HTTP isteğine dayanır; çevrimiçi kişi tespiti değildir. Film eklentisi görünürken 10 saniyede bir sorguladığından kapalı/gizli panel kısa süre sonra çevrimdışı görünür. Son erişim bilgisi sunucu yeniden başlayınca sıfırlanır; engeller kalıcıdır.
 
-## Eklenti
+Üyelikler SSO ile doğrulanmış gerçek kişiler değildir. Yeni IDE kimliği/yeni üyelik oluşturan biri farklı hesapla katılabilir; bu araç güvenilen küçük ekip içindir. Yönetici işlemleri **HTTP üzerinden sunulmaz**; yalnızca sunucu bilgisayarındaki yerel pencere bunları çağırır.
 
-JetBrains IDE'de **Settings → Plugins → dişli → Manage Plugin Repositories**:
+## Kayıt ve yedek
 
-`https://birkankader.com/plugins/updatePlugins.xml`
+- Veriler: `data/arcade-machine.db` (Arcade + film panosu + engeller).
+- **Yedek al**, çalışan SQLite veritabanının tutarlı anlık kopyasını üretir; WAL’deki tamamlanmış işlemler dahildir. Açık çizim odalarının geçici tuvali yedeğe girmez.
+- Geri yüklemek için sunucuyu durdurun, mevcut veritabanını ve varsa `-wal`/`-shm` dosyalarını ayrı bir klasöre yedekleyin; geri yüklenecek `.db` dosyasını **temiz bir klasöre** koyup Ayarlar’dan o dosyayı seçin. Eski WAL dosyalarının üstüne `.db` kopyalamayın.
+- Oyun ayarları `arcade-config.json`, pencerenin adres/yol tercihleri `server-manager.properties` içinde saklanır. Bunları ayrıca yedekleyin.
+- Loglar `logs/` içinde 10 MB parçalarla döner; 14 gün ve toplam 200 MB sınırı vardır. Ekran son 1500 kaydı tutar. `ARCADE_LOG_DIR` farklı log klasörü seçer.
+- Başlatıcı aynı veritabanına ikinci ortak sunucu açılmasını dosya kilidiyle engeller. SQLite veri dosyasını ağ paylaşımı yerine sunucu diski üzerinde tutun.
 
-Bu ortak adres Arcade Machine ve Kaşif'i içerir. Arcade Machine'i yükleyin veya
-güncelleyin. **View → Tool Windows → Arcade Machine** penceresinde ayarlardan
-sunucu adresini girin. Adınızı aynı ekranda değiştirebilirsiniz.
+## Mevcut kurulumdan geçiş
 
-## Oyunlar ve sıralama
+**Arcade:** Eski sunucuyu kapatın. Mevcut `.db` dosyasını güvenli biçimde yedekleyin. Yeni sunucuda aynı veritabanı yolunu kullanın; yeni tablolar otomatik eklenir, mevcut oyuncular ve puanlar korunur. Eski `arcade-config.json` ayarlarını koruyun. Eski açık çizim odaları yeniden başlatmada kapanır.
 
-- **Wordle:** Her gün beş kelime; her birinde altı tahmin. Sözlük kontrolü açık.
-  Numaralı düğmelerle kelimeler arasında geçilir. Bulunan kelime sayısı, eşitlikte
-  bulunan kelimelerde harcanan toplam tahmin sayısı sıralamayı belirler.
-- **Az mı Çok mu:** 220 veri / 6 kategori. Günlük on karşılaştırma; doğru yanıta
-  bir puan. Aynı gün ve yakın geçmişte tekrarlar mümkün olduğunca azaltılır.
-- **Çiz & Bil:** Oda kurulduğunda diğer bağlı oyunculara davet gider. İsteyen
-  katılır, oda sahibi başlatır. Herkes sırayla üç kelimeden birini seçip çizer.
-  Doğru tahmine hızına göre 50–100, çizene 25 puan verilir. Oda bitince toplam
-  puanlar genel tabloya eklenir. Kopan bağlantı için 60 saniye beklenir.
-- **Arcade sıralaması:** Ana sayfadan günlük ve tüm zamanlar tablolarına ulaşılır.
-  Her oyundaki sıranın katkısı `1000 / sıra` (aşağı yuvarlanır), üç oyunda eşit
-  ağırlıklıdır. Ham puanı sıfır olan oyun katkı yapmaz. Eşit sonuçlar aynı sıradadır.
-  Tüm zamanlarda önce her oyunun birikmiş sonuç sırası hesaplanır.
+**Film panosu:** Eski Node sunucusunu kapatın. Yönetim penceresinde sunucuyu başlatıp **Odalar → Eski film panosunu aktar** ile eski `server/data/board.json` dosyasını seçin. Ekipler, geçmiş haftalar, oylar ve token özetleri aktarılır. Aynı ekip kodu zaten varsa işlem tamamen geri alınır; mevcut oda değiştirilmez. Eski dosya silinmez.
 
-Wordle ve karşılaştırma İstanbul saatiyle 00.00'da yenilenir. Sıralamalar oyun
-başlığının altında açık gelir; kendi sıranız listenin üstünde ayrıca gösterilir.
+Film eklentisi aynı sunucu adresini kullanmaya devam ediyorsa kayıtlı oturum geçerli kalır. Adres değişirse PasswordSafe kaydı başka anahtarda kalır; bu MVP’de otomatik adres/kimlik taşıma yoktur. Mümkünse eski adreste yeni ortak sunucuyu çalıştırın.
 
-Ayrıntılar: [README](README.md). Güncel doğrulama: [0.3.4 raporu](docs/VALIDATION-0.3.4.md).
+## Ayarların etkisi
 
-Çiz & Bil tamamlandığında oda sahibi **Yeniden oyna** düğmesiyle aynı odadaki
-en az iki oyuncuyla yeni oyuna geçer. Oda puanları ve tuval sıfırlanır; biten her
-oyunun puanları genel sıralamada korunur ve yalnızca bir kez eklenir.
+**Ayarları kaydet** dosyayı günceller. Aktif sunucuya uygulanması için **Yeniden başlat** gerekir. Başlamış günlük oyunların mevcut kelime/soru sayıları korunur; yeni sayılar sonraki oluşturulan güne uygulanır. Yeniden başlatma açık çizim odalarını kapatır; bitmiş puanlar ile film panosu kalır.
 
-Çizen oyuncu **Harf aç** ile odadaki herkese rastgele bir harf konumu gösterebilir.
-Varsayılan sınır tur başına ikidir; kelimede en az bir harf daima gizli kalır.
-Eski config dosyasında `hintsPerTurn` yoksa iki olarak uygulanır.
+Ortam değişkenleri: `ARCADE_HOST`, `ARCADE_PORT`, `ARCADE_DB`, `ARCADE_CONFIG`, `ARCADE_LOG_DIR`. Pencere açılırken ortam değişkenleri kaydedilmiş pencere tercihlerinden önceliklidir. Konsol modu yalnızca ortam değişkenlerini ve oyun ayar dosyasını kullanır.
 
-Oda kurarken **tur sayısını (1–5)** ve **her oyuncunun çizim süresini (30 sn–3 dk)**
-seçebilirsiniz. Bir turda herkes bir kez çizer. Config içindeki `rounds` ve
-`turnSeconds` başlangıç değerleridir; yeniden oynarken odanın seçimi korunur.
+## Doğrulama sınırı
 
-**Silgi** çizimin bir bölümünü siler. **Geri al**, son kalem veya silgi hareketinin
-tamamını herkeste geri alır; tuval odaktayken Ctrl+Z de kullanılabilir.
-**Temizle** tuvalin tamamını ve geri alma geçmişini sıfırlar.
-Kelime havuzu 835 seçenek içerir; yakın zamanda sunulan seçenekler veritabanında
-hatırlanır ve yeni odalarda veya sunucu yeniden başladığında listenin sonuna alınır.
+Windows paketi Windows x64 Java 21 ve platformdan bağımsız JAR içerir; Windows üzerinde çalıştırma bu macOS geliştirme oturumunda doğrulanmadı. GUI akışı macOS’ta gerçek Swing penceresinde, HTTP ve WebSocket akışları otomatik testlerle kontrol edilir. Son koşu: [0.4.0 doğrulama kaydı](VALIDATION-0.4.0.md).

@@ -27,3 +27,11 @@ and the shared Arcade Machine server 0.4.0+. It offers weekly film/TEDx
 suggestions, voting, a weekly winner and watched status. Its source project's
 `scripts/prepare-plugin-release.py` prepares immutable ZIP/XML/checksum metadata.
 Publishing the plugin here does not run or upgrade the team's LAN server.
+
+## Shared server download
+
+[Arcade Machine + Haftanin Seyirligi server 0.4.0 for Windows x64](arcade-machine/arcade-machine-server-0.4.0-windows-x64-87c2d7f82deb.zip) includes Java 21 and the desktop management window.
+Extract the whole archive and open `Baslat.bat`, then click Start.
+See [server instructions](arcade-machine/SUNUCU-BASLAT.md).
+`arcade-machine/server-release.json` identifies the current server download and SHA-256.
+Windows execution has not been validated on a Windows machine.
