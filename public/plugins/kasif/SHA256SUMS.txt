@@ -1,2 +1,2 @@
-1127193e60fb0daa82c9f9297ffbb0308254536319a703a5b6d168e2c263f764  claude-code-for-kasif-0.31-1127193e60fb.zip
-a0add477f82958750de98ebf7af3bb3561b2ddf2236f8462fb5e53d544ccb01c  claude-code-for-kasif-0.31-source-a0add477f829.zip
+cb523f396e00f95c80244de261706b64f9b68bd86e27cc94c3e2df03dae0e70d  claude-code-for-kasif-0.33-cb523f396e00.zip
+4523ea43c38f2401bf3a2124bbe23bb317ad1e84e5acb72b0fc97289792f6080  claude-code-for-kasif-0.33-source-4523ea43c38f.zip
