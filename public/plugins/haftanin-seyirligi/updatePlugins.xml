@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.teamwatch.weekly" version="0.2.1" url="https://birkankader.com/plugins/haftanin-seyirligi/haftanin-seyirligi-0.2.1-cfc0b15612fb.zip">
+  <plugin id="dev.teamwatch.weekly" version="0.3.1" url="https://birkankader.com/plugins/haftanin-seyirligi/haftanin-seyirligi-0.3.1-fd0c444dcd3a.zip">
     <idea-version since-build="243" />
     <name>Haftanin Seyirligi</name>
     <description>Weekly movie and TEDx voting board for teams, powered by the shared Arcade Machine server.
