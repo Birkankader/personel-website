@@ -1,10 +1,10 @@
 # Ortak sunucu ve Windows yönetim penceresi
 
-Arcade Machine **0.4.2** oyun API’lerini ve Haftanın Seyirliği API’sini **tek JVM, tek port, tek SQLite veritabanında** sunar. Film panosu için Node.js gerekmez. Mevcut Arcade eklentilerinin oyun protokolü korunur; iki eklentiye de aynı `http://SUNUCU_IP:8787` adresini yazın. İki eklentinin üyelikleri ayrı tutulur ve yönetim listesinde uygulama adıyla ayırt edilir.
+Arcade Machine **0.4.3** oyun API’lerini ve Haftanın Seyirliği API’sini **tek JVM, tek port, tek SQLite veritabanında** sunar. Film panosu için Node.js gerekmez. Az mı Çok mu kaldırıldığı için Arcade eklentisini sunucuyla birlikte güncelleyin; iki eklentiye de aynı `http://SUNUCU_IP:8787` adresini yazın. İki eklentinin üyelikleri ayrı tutulur ve yönetim listesinde uygulama adıyla ayırt edilir.
 
 ## Windows’ta başlatma
 
-1. [arcade-machine-server-0.4.2-windows-x64-da61f375d1b8.zip](arcade-machine-server-0.4.2-windows-x64-da61f375d1b8.zip) paketini tamamıyla bir klasöre çıkarın.
+1. [arcade-machine-server-0.4.3-windows-x64-83249a303472.zip](arcade-machine-server-0.4.3-windows-x64-83249a303472.zip) paketini tamamıyla bir klasöre çıkarın.
 2. **Baslat.bat** veya **Yonetim.bat** dosyasına çift tıklayın. Paket kendi Java 21 çalışma ortamını içerir; Java veya Node kurulumu gerekmez.
 3. Pencerede **Başlat** düğmesine basın. Durum **Çalışıyor** olunca sunucu hazırdır.
 4. **Sunucu** sekmesinde gösterilen ağ adresini ekiple paylaşın. Windows güvenlik duvarında seçilen porta yalnızca ekip ağından erişim verin.
@@ -56,8 +56,12 @@ Ortam değişkenleri: `ARCADE_HOST`, `ARCADE_PORT`, `ARCADE_DB`, `ARCADE_CONFIG`
 
 ## Doğrulama sınırı
 
-Windows paketi Windows x64 Java 21 ve platformdan bağımsız JAR içerir; Windows üzerinde çalıştırma bu macOS geliştirme oturumunda doğrulanmadı. GUI akışı macOS’ta gerçek Swing penceresinde, HTTP ve WebSocket akışları otomatik testlerle kontrol edilir. Son koşu: [0.4.2 doğrulama kaydı](VALIDATION-0.4.2.md).
+Windows paketi Windows x64 Java 21 ve platformdan bağımsız JAR içerir; Windows üzerinde çalıştırma bu macOS geliştirme oturumunda doğrulanmadı. GUI akışı macOS’ta gerçek Swing penceresinde, HTTP ve WebSocket akışları otomatik testlerle kontrol edilir. Son koşu: [0.4.3 doğrulama kaydı](VALIDATION-0.4.3.md).
 
 ## 0.4.2 Sudoku güncellemesi
 
 0.4.0 ortak sunucusu aynı veritabanı ve yapılandırma yollarıyla güncellenir. Sudoku günlük bulmacası ve oyuncu ilerlemesi için tablolar otomatik eklenir. Diğer oyunlar, film panosu ve yönetim arayüzü aynı sunucuda kalır.
+
+## 0.4.3 renkli arayüz ve üç oyun
+
+Az mı Çok mu uçları ve sıralama katkısı kaldırıldı. Sunucu ve Arcade eklentilerini birlikte güncelleyin. Mevcut veritabanı ve ayar yollarını koruyun; diğer oyunlar ve film panosu aynı sunucuda kalır. Eski yapılandırmadaki kaldırılan oyun bölümü yok sayılır.

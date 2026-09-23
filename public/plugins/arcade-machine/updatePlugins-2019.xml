@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.4.2-legacy" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.2-legacy-ab4e456f7886.zip">
+  <plugin id="dev.arcademachine" version="0.4.3-legacy" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.3-legacy-a7f622694eec.zip">
     <idea-version since-build="191" until-build="193.*" />
     <name>Arcade Machine</name>
-    <description>Office Wordle, live drawing rooms, daily Sudoku and Higher / Lower inside your IDE. Native Swing compatibility edition for JetBrains IDEs 2019.1–2019.3, with Java 8 support. Requires the office Arcade Machine server.</description>
-    <change-notes>&lt;p&gt;Added daily Sudoku with saved progress on the unified server, compact game buttons in the order Wordle, Drawing, Sudoku, Higher / Lower, and fewer repeated information messages.&lt;/p&gt;&lt;p&gt;Compact native drawing interface for IDEs 2019.1-2019.3. Icon-only pen, eraser, line, rectangle and ellipse tools; one color button opens RGB sliders and sixteen presets. Shape previews synchronize on release and support whole-gesture undo. Drawing rooms hide redundant text and exhausted hint controls during play.&lt;/p&gt;</change-notes>
+    <description>Office Wordle, live drawing rooms, daily Sudoku inside your IDE. Native Swing compatibility edition for JetBrains IDEs 2019.1–2019.3, with Java 8 support. Requires the office Arcade Machine server.</description>
+    <change-notes>&lt;p&gt;A colorful new three-game menu: mint Wordle, coral Drawing and blue Sudoku. Refreshed game surfaces, clear controls and readable light/dark themes.&lt;/p&gt;&lt;p&gt;Higher / Lower has been removed from the client, server and rankings. Update the server and plugins together. Existing player data and progress in the remaining games are preserved.&lt;/p&gt;</change-notes>
     <depends>com.intellij.modules.platform</depends>
   </plugin>
 </plugins>
