@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="dev.arcademachine" version="0.4.3" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.3-b3c2863faec1.zip">
-    <idea-version since-build="243" />
+  <plugin id="dev.arcademachine" version="0.4.4" url="https://birkankader.com/plugins/arcade-machine/arcade-machine-0.4.4-e76aae89c7ba.zip">
+    <idea-version since-build="231" />
     <name>Arcade Machine</name>
     <description>Three office games in your IDE: Turkish Wordle, live drawing rooms, daily Sudoku. Connect to your office's Arcade Machine LAN server for shared daily challenges and live leaderboards.</description>
     <change-notes>&lt;p&gt;A colorful new three-game menu: mint Wordle, coral Drawing and blue Sudoku. Refreshed game surfaces, clear controls and readable light/dark themes.&lt;/p&gt;&lt;p&gt;Higher / Lower has been removed from the client, server and rankings. Update the server and plugins together. Existing player data and progress in the remaining games are preserved.&lt;/p&gt;</change-notes>
