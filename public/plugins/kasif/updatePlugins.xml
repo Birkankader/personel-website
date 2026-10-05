@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.claude-code-for-kasif" version="0.35" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.35-066293b2dfa6.zip">
+  <plugin id="com.birkankader.claude-code-for-kasif" version="0.36" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.36-c5f0e36aec0a.zip">
     <idea-version since-build="231" />
-    <name>Claude Code Workspace</name>
+    <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
 &lt;h2&gt;Features&lt;/h2&gt;
 &lt;ul&gt;
@@ -21,8 +21,13 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.35-source-1b70fddb40a2.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.35 - Claude Code Workspace (2026-10-05)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.36-source-8e4a6dc2f493.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.36 - AI Bridge (2026-10-05)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;The plugin is now called AI Bridge and has a new logo. Its ID, settings and conversations are unchanged, so it updates in place.&lt;/li&gt;
+    &lt;li&gt;Windows: new chats start faster because the process guard is compiled once and reused instead of being rebuilt for every chat.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.35 - Claude Code Workspace (2026-10-05)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;The plugin is now called Claude Code Workspace. Its ID, settings and conversations are unchanged, so it updates in place.&lt;/li&gt;
     &lt;li&gt;Dropped connections ("The socket connection was closed unexpectedly", reset or stalled streams) and temporary server errors are retried automatically with growing delays, and the reply continues where it stopped.&lt;/li&gt;
