@@ -1,22 +1,39 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.claude-code-for-kasif" version="0.34" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.34-49a3e3d88cee.zip">
+  <plugin id="com.birkankader.claude-code-for-kasif" version="0.35" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.35-066293b2dfa6.zip">
     <idea-version since-build="231" />
-    <name>Claude Code for Kasif</name>
-    <description>&lt;p&gt;Claude Code for Kasif is a JetBrains plugin by Birkan Kader that brings Claude Code conversations, project tools and local task controls into the IDE.&lt;/p&gt;
+    <name>Claude Code Workspace</name>
+    <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
 &lt;h2&gt;Features&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;Chat tabs with an always-visible new-tab button and a Turkish interface.&lt;/li&gt;
-&lt;li&gt;Low resource mode for hidden panels and long conversations.&lt;/li&gt;
-&lt;li&gt;Local process metrics, task queues and project-specific concurrency limits.&lt;/li&gt;
-&lt;li&gt;Conversation search, bookmarks and decision notes.&lt;/li&gt;
-&lt;li&gt;Project task templates and context preview.&lt;/li&gt;
-&lt;li&gt;Scheduled messages and automatic resume.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Work with project context.&lt;/strong&gt; Send selected code or the current file to a conversation with &lt;code&gt;Alt+K&lt;/code&gt;, and preview the context before submitting a message.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Review changes in the IDE.&lt;/strong&gt; Inspect proposed edits in the native diff viewer and open related files and terminals directly.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Organize your work.&lt;/strong&gt; Use separate chat tabs, task templates and project queues. Reorder pending messages or combine them while the current task continues.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Keep useful conversations.&lt;/strong&gt; Search past messages, save bookmarks and record decision notes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Recover from dropped connections.&lt;/strong&gt; Temporary network and server errors are retried automatically, and the reply continues where it stopped.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Control long-running tasks.&lt;/strong&gt; Set project concurrency limits, monitor local CPU and memory usage, and reduce background rendering with low resource mode.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Choose how Claude works.&lt;/strong&gt; Select the model and reasoning effort, schedule messages and configure automatic continuation after usage limits.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use your preferred language.&lt;/strong&gt; The interface includes English and Turkish.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Version 0.2. Publisher: Birkan Kader. Claude provider authentication and usage charges apply. Install updates from a Kaşif ZIP using the IDE's Install Plugin from Disk action.&lt;/p&gt;
+&lt;h2&gt;Requirements and setup&lt;/h2&gt;
+&lt;p&gt;Use a JetBrains IDE based on IntelliJ Platform 2023.1 or newer with a JCEF-enabled runtime, Node.js and an installed, configured Claude Code CLI. Open the plugin from the &lt;strong&gt;Tools&lt;/strong&gt; menu or press &lt;code&gt;Ctrl+Shift+C&lt;/code&gt; to start a conversation.&lt;/p&gt;
+&lt;p&gt;Use your existing Claude Code authentication or provider configuration. Messages, code context and tool requests are processed through the provider and services you configure; their usage terms and charges apply.&lt;/p&gt;
+&lt;h2&gt;About&lt;/h2&gt;
+&lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.34-source-e9bcb016f5eb.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.34 - Claude Code for Kasif (2026-09-24)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.35-source-1b70fddb40a2.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.35 - Claude Code Workspace (2026-10-05)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;The plugin is now called Claude Code Workspace. Its ID, settings and conversations are unchanged, so it updates in place.&lt;/li&gt;
+    &lt;li&gt;Dropped connections ("The socket connection was closed unexpectedly", reset or stalled streams) and temporary server errors are retried automatically with growing delays, and the reply continues where it stopped.&lt;/li&gt;
+    &lt;li&gt;A retry shows as one compact line with a countdown instead of an error message; the provider's full text is one click away.&lt;/li&gt;
+    &lt;li&gt;When retries run out, a small banner confirms the conversation is kept and continues it on request.&lt;/li&gt;
+    &lt;li&gt;A blinking "Thinking" indicator with the elapsed time replaces the random status words.&lt;/li&gt;
+    &lt;li&gt;Claude starts in the background while you type, so the first message of a chat no longer waits for the CLI to launch.&lt;/li&gt;
+    &lt;li&gt;The message box stays usable after errors; error banners have clear titles and can be dismissed.&lt;/li&gt;
+    &lt;li&gt;Code review fixes: Escape closes menus without stopping the task, a rejected message keeps its text and attachments, permission and plan questions stay with their chat until answered, older chats open directly, delete and rename use the right project, failed settings saves are reported, the Stop button stays visible while typing and the mode menu fits narrow panels.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.34 - Claude Code for Kasif (2026-09-24)&lt;/h3&gt;
 &lt;ul&gt;&lt;li&gt;Support IntelliJ IDEA 2023.1 and newer with Java 17 compatible plugin classes.&lt;/li&gt;&lt;/ul&gt;
 &lt;h3&gt;0.33 - Claude Code for Kasif (2026-09-17)&lt;/h3&gt;
 &lt;ul&gt;
