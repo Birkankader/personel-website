@@ -1,10 +1,10 @@
 {
   "pluginId": "com.birkankader.claude-code-for-kasif",
-  "version": "0.36",
-  "pluginFile": "claude-code-for-kasif-0.36-c5f0e36aec0a.zip",
-  "pluginSha256": "c5f0e36aec0a25d9c77e9291d4d953d67da172e5918fa5d50502003865f1e721",
-  "sourceFile": "claude-code-for-kasif-0.36-source-8e4a6dc2f493.zip",
-  "sourceSha256": "8e4a6dc2f4930c8c568ad8e2673ec4368b77326ecf3000fc794aea51ef4e0686",
+  "version": "0.37",
+  "pluginFile": "claude-code-for-kasif-0.37-a53c537b8db9.zip",
+  "pluginSha256": "a53c537b8db9e07a7093e91b8cf7e80e7914a7b777da6997fee2e63ab80cf644",
+  "sourceFile": "claude-code-for-kasif-0.37-source-c20e6eecc775.zip",
+  "sourceSha256": "c20e6eecc7755ba25103f8455891800ead043f1bd7a1c6bcbd52be9aa2c6e18e",
   "repositoryUrl": "https://birkankader.com/plugins/kasif/updatePlugins.xml",
   "ideaVersion": {
     "since-build": "231"
