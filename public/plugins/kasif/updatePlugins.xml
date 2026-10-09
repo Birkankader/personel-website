@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.claude-code-for-kasif" version="0.38" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.38-0e512c85a354.zip">
+  <plugin id="com.birkankader.claude-code-for-kasif" version="0.39" url="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.39-5fdd43038a49.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,15 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.38-source-a2bdd037f5a6.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.38 - AI Bridge (2026-10-08)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/kasif/claude-code-for-kasif-0.39-source-af0d6e676aee.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.39 - AI Bridge (2026-10-09)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Text in past messages can be selected again: a press in the conversation no longer moves focus to the message box, and right-clicking or copying a selection no longer makes the view jump.&lt;/li&gt;
+    &lt;li&gt;Right-click opens the plugin's own menu instead of the browser's (Back, Reload, View Source): copy or quote a selection into your reply, copy a code block or a whole message, and cut, copy, paste or select all in the message box. Shift+right-click still opens the browser menu.&lt;/li&gt;
+    &lt;li&gt;Simpler message box toolbar: one Commands button opens commands and settings (typing / still works) and keeps your draft; the quick requests moved into it; the mode button shows it opens a list; minimize sits on the box's edge; context usage is always shown and no longer compacts on click (use /compact).&lt;/li&gt;
+    &lt;li&gt;The command panel follows the UI language.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.38 - AI Bridge (2026-10-08)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Auto-resume on limit is on again for installs that started on version 0.3 or earlier, where the old default had stored it as off. If you turn it off afterwards, it stays off.&lt;/li&gt;
 &lt;/ul&gt;
