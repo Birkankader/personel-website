@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.4" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.4-e200ad19d3d1.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.5" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.5-a1b0cb11ff04.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,13 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.4-source-bff6d5578c21.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.4 (2026-10-16)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.5-source-370cb7508a89.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.5 (2026-10-16)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Send now on a queued message no longer waits for a long thinking block. While the model is thinking or writing, its reply is interrupted and your message runs at once. A running tool finishes first, and the message goes in as it returns.&lt;/li&gt;
+    &lt;li&gt;DeepSeek Harness and OpenCode: Send now during a tool call delivers the message when that tool returns, instead of after the whole answer.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.4 (2026-10-16)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;DeepSeek Harness uses the model providers you set up in dsh (a custom model API with its own URL and models, a DeepSeek endpoint, the default model). dsh saves them in the profile you ran, such as web, and AI Bridge runs the acp profile, so chats used to start on deepseek-official and failed with "no API key for provider route deepseek-official". AI Bridge now passes those settings to dsh with --patch and starts chats on your default model. Your dsh files are not changed.&lt;/li&gt;
 &lt;/ul&gt;
