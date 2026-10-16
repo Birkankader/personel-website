@@ -1,0 +1,12 @@
+{
+  "pluginId": "com.birkankader.ai-bridge",
+  "version": "0.1",
+  "pluginFile": "ai-bridge-0.1-ad6827cd6208.zip",
+  "pluginSha256": "ad6827cd62080dc617759bf5ffca94dea963ab0b2bdf6eb95f7b761310297e02",
+  "sourceFile": "ai-bridge-0.1-source-b251b491ed13.zip",
+  "sourceSha256": "b251b491ed137b827f6b042a937ad6873f52e8d098e93bc17a4e2f1f14fffbba",
+  "repositoryUrl": "https://birkankader.com/plugins/ai-bridge/updatePlugins.xml",
+  "ideaVersion": {
+    "since-build": "231"
+  }
+}
