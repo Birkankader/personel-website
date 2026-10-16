@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.1" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.1-ad6827cd6208.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.2" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.2-9cdec4079c61.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,16 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.1-source-b251b491ed13.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.1 - AI Bridge (2026-10-16)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.2-source-789e9a665fd5.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.2 (2026-10-16)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Commits the agent makes no longer get a Co-Authored-By trailer. If your own Claude settings set attribution or includeCoAuthoredBy, that choice still applies.&lt;/li&gt;
+    &lt;li&gt;Settings, Connection lists every agent harness (Claude Code, OpenCode, DeepSeek Harness) with its status, version and location. A missing harness installs with one click, and each one takes a Location: an executable, an npm install folder or a deepseek-harness source checkout.&lt;/li&gt;
+    &lt;li&gt;A harness that is not on PATH is still found: AI Bridge checks its Location, then its own install, then PATH.&lt;/li&gt;
+    &lt;li&gt;When a harness cannot start, the chat says why (command not found, or the exit code and error output) instead of "The agent closed its output".&lt;/li&gt;
+    &lt;li&gt;The chat header, message author and input placeholder show the harness the chat runs on instead of always "Claude".&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.1 - AI Bridge (2026-10-16)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;AI Bridge is now its own plugin (ID com.birkankader.ai-bridge) and its versions start again at 0.1. Builds up to 0.39 used a different ID and do not update to it: install AI Bridge from https://birkankader.com/plugins/ai-bridge/updatePlugins.xml, then uninstall the previous build so the two do not run side by side.&lt;/li&gt;
     &lt;li&gt;On first start, settings, saved accounts, harness conversations, project settings and custom chat titles are copied from the previous build. Its own files are left untouched.&lt;/li&gt;
