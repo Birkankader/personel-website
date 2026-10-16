@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.2" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.2-9cdec4079c61.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.3" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.3-d58435c8ce20.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,13 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.2-source-789e9a665fd5.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.2 (2026-10-16)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.3-source-c1dd39d80dd0.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.3 (2026-10-16)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;DeepSeek Harness from a source checkout (Location set to the deepseek-harness folder) now starts in your project the same way pnpm dsh does in the checkout, without building it first. Before, it stopped with exit code 1 because its packages were looked up as built files.&lt;/li&gt;
+    &lt;li&gt;When a harness stops, the chat shows the error it printed instead of only the last lines of its stack trace.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.2 (2026-10-16)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Commits the agent makes no longer get a Co-Authored-By trailer. If your own Claude settings set attribution or includeCoAuthoredBy, that choice still applies.&lt;/li&gt;
     &lt;li&gt;Settings, Connection lists every agent harness (Claude Code, OpenCode, DeepSeek Harness) with its status, version and location. A missing harness installs with one click, and each one takes a Location: an executable, an npm install folder or a deepseek-harness source checkout.&lt;/li&gt;
