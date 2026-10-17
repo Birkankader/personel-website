@@ -1,2 +1,0 @@
-5fdd43038a499fa6b511c6aefed798b37bff634c4fd1f779cac1732dadea0095  claude-code-for-kasif-0.39-5fdd43038a49.zip
-af0d6e676aee06a2fb7305097611fe27e82d6fabac8ebf25e92a3664e0f8a6aa  claude-code-for-kasif-0.39-source-af0d6e676aee.zip
