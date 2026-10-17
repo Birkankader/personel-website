@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.5" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.5-a1b0cb11ff04.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.7" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.7-63ddc8026927.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,23 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.5-source-370cb7508a89.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.5 (2026-10-16)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.7-source-69b1fc9e96f6.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.7 (2026-10-17)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;New setting: Web page and shader tools (Settings → General, experimental, off by default). The agent can open a web page, a local file or your dev server in the Chrome or Edge already on your computer, headless, and gets its layout as text: the elements with their positions and styles, neighbours that are almost but not quite aligned with the styles that differ, text that is cut off, boxes that stick out of their parent, and the console's errors and warnings. It can also click, type, run a script on the page and take screenshots.&lt;/li&gt;
+    &lt;li&gt;A shader tool draws a GLSL fragment shader (a Shadertoy mainImage, GLSL ES 3.00 or 1.00) on the CPU, so no GPU is needed, and reports compile errors with their lines, the output's value ranges, NaN and values outside 0–1, and the colors at chosen points. A shader that never finishes is stopped after 20 seconds.&lt;/li&gt;
+    &lt;li&gt;For models that can't see images, screenshots and shader output come as the same text description as attached images.&lt;/li&gt;
+    &lt;li&gt;Nothing is downloaded: the browser runs with a throwaway profile, which is removed afterwards.&lt;/li&gt;
+    &lt;li&gt;Computer use on Windows: a window layout tool reads a desktop app's window as text, without a screenshot: each control with its type, name, state and position, neighbours that are almost but not quite aligned, controls that are cut off by their container, and controls that overlap. It reads WPF, WinForms, Win32 and other apps through UI Automation, and Swing apps through the Java Access Bridge (if it is off, run jabswitch -enable once). macOS and Linux are not supported yet.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.6 (2026-10-17)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;New setting: Models that can't see images (Settings → General). For a model listed there, such as glm-* or *, an attached image goes as a text description instead: the text on it, the layout of its shapes with their positions, shapes that are almost but not quite aligned, and its colors. A model without image support used to fail on the image, and every message after it failed too because the image stayed in the conversation.&lt;/li&gt;
+    &lt;li&gt;The text is read with the OCR built into the operating system (Windows OCR, Vision on macOS, tesseract on Linux). Nothing is sent anywhere and no GPU is needed. On Windows, install the OCR language pack of your language for its letters to be read right.&lt;/li&gt;
+    &lt;li&gt;The chat shows each description under the message, so you can see what the model got.&lt;/li&gt;
+    &lt;li&gt;Computer use: for these models the screenshot tool answers with the same description of the screen, read from the screen's full resolution.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.5 (2026-10-16)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Send now on a queued message no longer waits for a long thinking block. While the model is thinking or writing, its reply is interrupted and your message runs at once. A running tool finishes first, and the message goes in as it returns.&lt;/li&gt;
     &lt;li&gt;DeepSeek Harness and OpenCode: Send now during a tool call delivers the message when that tool returns, instead of after the whole answer.&lt;/li&gt;
