@@ -44,6 +44,16 @@ nothing on their own (an initial commit, a merge, a version number, one word) ar
 - `src/data/restricted.ts`: private repositories, described without code (the count comes from
   the GitHub snapshot)
 - `src/data/plugins.ts`: plugin repository rows
+- `src/data/mdviewer.ts`: the Markdown viewer's copy and its example document
+
+## MD Viewer
+
+`/md-viewer/` (and `/tr/md-viewer/`) is the browser version of the MD Viewer desktop app: drop or
+open a Markdown file or folder and it is drawn in the page, redrawn on save. Files never leave the
+browser. The page script is in `src/mdviewer/` (marked with GFM, footnotes and alerts, cleaned by
+DOMPurify); Chrome and Edge read through the File System Access API, so a file follows saves and a
+folder's relative links and images resolve. Other browsers open a snapshot. The built page carries
+a Content Security Policy that allows no script but its own.
 
 No em or en dashes in visible copy.
 

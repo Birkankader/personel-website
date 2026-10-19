@@ -245,6 +245,15 @@ labels keep their size, and the field log draws its own phone profile so the hat
 undistorted. Standard names (APP-6, MIL-STD-2525, SHA-256) carry word joiners so they never
 break at a hyphen.
 
+The MD Viewer (`/md-viewer/`, `/tr/md-viewer/`) is a tool, not a page about the work, so it leaves
+the map, the loader and the flood transition out and keeps the sheet's type, colours, buttons and
+status bar. Its drop zone is drawn as a zone (a dashed boundary with its name set on the line);
+dragging a file over the page floods it with ink like a page transition, under the route-blue
+waterline; a folder's open file carries the nav's point. A document reads in Archivo with code in
+JetBrains Mono, rules and radius 0 as everywhere. It follows the system's light or dark setting,
+dark being the sheet printed in negative (`data-tone="dark"`), because people read documents in
+it for long stretches.
+
 Focus that moves the page (Tab, or a field scrolled into view) stops clear of the fixed header and
 the status bar (`scroll-padding`), so a focused control never sits under either. The header steps
 aside once the page has moved a fifth of a screen down and comes back on the way up, so display

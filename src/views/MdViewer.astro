@@ -1,0 +1,162 @@
+---
+// The Markdown viewer: a tool page, so it leaves the map, the loader and the flood to the rest of
+// the site and keeps the sheet's type, colours and buttons. The system's dark setting prints it in
+// negative, as the site prints its restricted area. Files are read and drawn in the browser.
+import { createHash } from 'node:crypto';
+import { site, ui, localize, otherLangPath, type Lang } from '../data/site';
+import { mdViewer } from '../data/mdviewer';
+import { MARKDOWN_EXTENSIONS } from '../mdviewer/sources';
+import '../styles/tokens.css';
+import '../styles/engine.css';
+import '../styles/mdviewer.css';
+import archivoCore from '../assets/fonts/archivo-core.woff2?url';
+import monoCore from '../assets/fonts/jetbrains-mono-core.woff2?url';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = mdViewer[lang];
+const u = ui[lang];
+const other: Lang = lang === 'en' ? 'tr' : 'en';
+const path = localize(lang, '/md-viewer/');
+const canonical = new URL(path, Astro.site).href;
+const alternate = new URL(otherLangPath(path), Astro.site).href;
+const enHref = lang === 'en' ? canonical : alternate;
+const trHref = lang === 'tr' ? canonical : alternate;
+const fullTitle = `${t.metaTitle} | ${site.name}`;
+
+// Before first paint: the system's light or dark setting picks the sheet or its negative, and
+// first-time Turkish visitors go to /tr/, by the same rule as Base.astro.
+const boot = `(function(){var d=document.documentElement,m=matchMedia('(prefers-color-scheme: dark)');function tone(){if(m.matches)d.setAttribute('data-tone','dark');else d.removeAttribute('data-tone');}tone();m.addEventListener('change',tone);try{var p=location.pathname,s=localStorage.getItem('lang'),tr=p==='/tr'||p.indexOf('/tr/')===0;if(!s){var wantsTr=/^tr\\b/i.test(navigator.language||'')&&!/bot|crawl|spider|lighthouse/i.test(navigator.userAgent);localStorage.setItem('lang',wantsTr?'tr':tr?'tr':'en');if(wantsTr&&!tr)location.replace('/tr'+p+location.search+location.hash);}}catch(e){}})();`;
+
+// What a document may do here: show images and media from anywhere (as the desktop app does),
+// never run script. Only in the build: the dev server injects its own inline scripts.
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' 'sha256-${createHash('sha256').update(boot).digest('base64')}'`,
+  "style-src 'self' 'unsafe-inline'",
+  'img-src * data: blob:',
+  'media-src * data: blob:',
+  "font-src 'self'",
+  "object-src 'none'",
+  "frame-src 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join('; ');
+---
+<!doctype html>
+<html lang={u.htmlLang} data-mv>
+  <head>
+    <meta charset="utf-8" />
+    {import.meta.env.PROD && <meta http-equiv="Content-Security-Policy" content={csp} />}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={t.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="tr" href={trHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
+    <meta name="theme-color" content="#ECEEE8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E110F" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="author" content={site.name} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={t.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site).href} />
+    <meta property="og:locale" content={u.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href={archivoCore} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoCore} as="font" type="font/woff2" crossorigin />
+    <script is:inline set:html={boot} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{u.skip}</a>
+
+    <header class="mv-bar">
+      <a class="wordmark" href={localize(lang, '/')} aria-label={`${site.name}, ${u.home}`}>
+        <span class="wordmark__dot" aria-hidden="true"></span><span class="wordmark__name">{site.name}</span>
+      </a>
+      <span class="mv-bar__sep" aria-hidden="true">/</span>
+      <a class="mv-bar__tool" href={path} data-act="home">{t.title}</a>
+      <span class="mv-bar__doc mono" data-doc-name></span>
+      <div class="mv-bar__actions">
+        <button class="mv-btn mv-btn--files" type="button" data-act="files" aria-controls="mv-side" aria-expanded="false">{t.files}</button>
+        <button class="mv-btn mv-btn--reload" type="button" data-act="reload" aria-keyshortcuts="F5">{t.reload}</button>
+        <button class="mv-btn" type="button" data-act="open" aria-keyshortcuts="Control+O">{t.open}</button>
+        <button class="mv-btn mv-btn--folder" type="button" data-act="folder" aria-keyshortcuts="Control+Shift+O">{t.openFolder}</button>
+        <a class="lang" href={otherLangPath(path)} hreflang={other} lang={other} data-lang-switch={other}>{u.langSwitch.short}<span class="sr-only">, {u.langSwitch.label}</span></a>
+      </div>
+    </header>
+
+    <div class="mv-shell">
+      <nav class="mv-side" id="mv-side" aria-label={t.files} data-side hidden>
+        <div class="mv-side__head">
+          <span class="mv-side__name label" data-folder-name></span>
+          <span class="mv-side__count mono" data-folder-count></span>
+        </div>
+        <input class="mv-side__filter" type="search" placeholder={t.filter} aria-label={t.filter} data-filter hidden />
+        <ul class="mv-files" data-file-list></ul>
+      </nav>
+
+      <main id="main" class="mv-main" tabindex="-1">
+        <section class="mv-welcome" aria-labelledby="mv-title" data-welcome>
+          <p class="mv-welcome__kicker label">{t.kicker}</p>
+          <h1 class="mv-welcome__title" id="mv-title">{t.title}</h1>
+          <div class="mv-zone">
+            <span class="mv-zone__label label" aria-hidden="true">{t.zone}</span>
+            <p class="mv-welcome__lead">{t.lead}</p>
+            <div class="mv-welcome__actions">
+              <button class="btn btn--solid" type="button" data-act="open">{t.open}</button>
+              <button class="btn" type="button" data-act="folder">{t.openFolder}</button>
+              <button class="btn" type="button" data-act="sample">{t.sample}</button>
+            </div>
+            <p class="mv-recent" data-recent hidden>
+              <span class="label">{t.recent}</span>
+              <button class="mv-recent__btn mono" type="button" data-act="resume"></button>
+            </p>
+          </div>
+          <div class="mv-welcome__aside">
+            <h2 class="label">{t.shortcutsTitle}</h2>
+            <dl class="mv-keys">
+              {t.shortcuts.map((s) => (
+                <div class="mv-keys__row">
+                  <dt>{s.keys.map((k, i) => <>{i > 0 && '+'}<kbd>{k}</kbd></>)}</dt>
+                  <dd>{s.what}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="mv-welcome__note">{t.privacy}</p>
+            <p class="mv-welcome__note" data-support hidden>{t.support}</p>
+            <p class="mv-welcome__note">{t.desktop}</p>
+          </div>
+        </section>
+
+        <article class="markdown-body" data-doc hidden></article>
+      </main>
+    </div>
+
+    <div class="mv-status" aria-hidden="true">
+      <span class="mv-status__item mv-status__item--file"><span class="mv-status__k">{t.client.status.file}</span><span class="mv-status__v" data-s="file"></span></span>
+      <span class="mv-status__item mv-status__item--wide"><span class="mv-status__k">{t.client.status.size}</span><span class="mv-status__v" data-s="size"></span></span>
+      <span class="mv-status__item mv-status__item--wide"><span class="mv-status__k">{t.client.status.words}</span><span class="mv-status__v" data-s="words"></span></span>
+      <span class="mv-status__item mv-status__item--wide"><span class="mv-status__k">{t.client.status.read}</span><span class="mv-status__v" data-s="read"></span></span>
+      <span class="mv-status__item"><span class="mv-status__k">{t.client.status.saved}</span><span class="mv-status__v" data-s="saved"></span></span>
+      <span class="mv-status__item mv-status__item--mode"><span class="mv-status__pt" aria-hidden="true"></span><span class="mv-status__v" data-s="mode"></span></span>
+    </div>
+
+    <p class="mv-toast" role="status" aria-live="polite" data-toast></p>
+    <div class="mv-drop" aria-hidden="true" data-drop><span class="mv-drop__label">{t.drop}</span></div>
+    <input type="file" accept={[...MARKDOWN_EXTENSIONS, 'text/markdown'].join(',')} hidden data-pick-file />
+    <input type="file" hidden data-pick-folder />
+
+    <script type="application/json" id="mv-copy" set:html={JSON.stringify(t.client)} />
+    <script>
+      import { start } from '../mdviewer/app';
+      start();
+    </script>
+  </body>
+</html>
