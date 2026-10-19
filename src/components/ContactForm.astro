@@ -1,0 +1,35 @@
+---
+// EmailJS form (same service, template and field names as the previous site). The keys are read at
+// build time from the environment (.env locally, Netlify's build environment in production) and
+// passed to the browser as data attributes; the EmailJS public key is meant to be public.
+import { ui, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].contact.form;
+const env = (k: string): string => (import.meta.env as Record<string, string | undefined>)[k] ?? process.env[k] ?? '';
+const service = env('VITE_EMAILJS_SERVICE_ID');
+const template = env('VITE_EMAILJS_TEMPLATE_ID');
+const key = env('VITE_EMAILJS_PUBLIC_KEY');
+---
+<form class="form" data-contact-form data-service={service} data-template={template} data-key={key} data-sending={t.sending} data-sent={t.sent} data-failed={t.failed}>
+  <div class="field">
+    <label for="f-name">{t.name}</label>
+    <input id="f-name" name="name" type="text" autocomplete="name" aria-label={t.name} required />
+  </div>
+  <div class="field">
+    <label for="f-email">{t.email}</label>
+    <input id="f-email" name="email" type="email" autocomplete="email" aria-label={t.email} required />
+  </div>
+  <div class="field field--wide">
+    <label for="f-subject">{t.subject}</label>
+    <input id="f-subject" name="subject" type="text" aria-label={t.subject} required />
+  </div>
+  <div class="field field--wide">
+    <label for="f-message">{t.message}</label>
+    <textarea id="f-message" name="message" rows="6" aria-label={t.message} required></textarea>
+  </div>
+  <div class="form__foot">
+    <button class="btn btn--solid" type="submit" data-label={t.send}>{t.send}</button>
+    <p class="form__status" role="status" aria-live="polite" data-form-status></p>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import volflow from '../../assets/work/volflow.png';
+import arcade from '../../assets/work/arcade.png';
+interface Props { image: 'volflow' | 'arcade'; alt: string; caption?: string }
+const { image, alt, caption } = Astro.props;
+const src = { volflow, arcade }[image];
+// Tall phone captures: sized by height on the page, so request widths that cover 1x and 2x.
+const widths = image === 'volflow' ? [340, 680] : [430, 860];
+---
+<figure class="shot">
+  <Image src={src} alt={alt} widths={widths} sizes={`(max-width: 767px) 80vw, ${widths[0]}px`} format="webp" quality={82} loading="lazy" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

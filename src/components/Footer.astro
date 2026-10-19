@@ -1,0 +1,41 @@
+---
+// The finale: the map comes back to full strength and the route ends at "Email me".
+// On the contact page the page itself is that invitation, so the footer keeps only its index.
+import { site, ui, localize, otherLangPath, type Lang } from '../data/site';
+import type { Page } from '../layouts/Base.astro';
+interface Props { lang: Lang; path: string; page: Page }
+const { lang, path, page } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'en' ? 'tr' : 'en';
+const switchHref = page === '404' ? localize(other, '/') : otherLangPath(path);
+const year = 2026;
+---
+<footer class:list={['footer', { 'footer--index': page === 'contact' }]} data-map={page === 'contact' ? undefined : 'full'}>
+  {page !== 'contact' && (
+    <div class="footer__cta">
+      <a class="cta-mega" href={`mailto:${site.email}`} data-route-target>
+        <span class="cta-mega__pt" aria-hidden="true"></span>
+        <span class="cta-mega__text" data-obstacle="glyphs">{t.footer.cta}</span>
+        <span class="cta-mega__line" aria-hidden="true"></span>
+      </a>
+      <a class="footer__email plot mono on-map" href={`mailto:${site.email}`}>{site.email}<span class="plot__line" aria-hidden="true"></span></a>
+    </div>
+  )}
+  <div class="footer__grid">
+    <div class="footer__col">
+      <h2 class="label footer__h">{t.footer.elsewhere}</h2>
+      <ul class="footer__list">
+        {site.socials.map((s) => <li><a class="ulink" href={s.href} rel="me noopener" target="_blank">{s.label}<span class="link__out" aria-hidden="true">→</span></a></li>)}
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h2 class="label footer__h">{t.footer.here}</h2>
+      <ul class="footer__list">
+        <li><a class="ulink" href={switchHref} hreflang={other} lang={other} data-lang-switch={other}>{t.langSwitch.label}</a></li>
+        <li><a class="ulink" href="#main" data-to-top>{t.footer.top}</a></li>
+      </ul>
+    </div>
+    <p class="footer__colophon">{t.footer.colophon}</p>
+    <p class="footer__legal mono">© {year} {t.footer.rights}</p>
+  </div>
+</footer>

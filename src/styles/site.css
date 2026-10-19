@@ -1,0 +1,1251 @@
+/* SITE: the survey sheet. Composition and motion language per DESIGN.md.
+   Verb: plot. A point is placed, a line draws through it, a label sets after. */
+
+/* ---------- Type roles ---------- */
+.label {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-stretch: 75%;
+  font-size: var(--t-xs);
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.mono-num { font-variant-numeric: tabular-nums; }
+.h-sec {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-indent: -0.04em;
+}
+.h-sub { font-weight: 700; font-size: var(--t-m); line-height: 1.15; letter-spacing: -0.01em; }
+.lead { font-size: var(--t-m); line-height: 1.35; font-weight: 450; letter-spacing: -0.005em; }
+.muted { color: var(--c-muted); }
+/* Small text that sits on the map gets a paper halo, like a printed map label. Small grey type
+   anywhere on the sheet carries it too: the linework stops short of the letters. */
+.on-map,
+:where(main, footer) :is(.label, .muted, .row__n, .row__stack, .figure__l, .role__date, .chart__cap, .log__points time, .commit__date, .tool__lang, .plugin__req, .footer__colophon, .footer__legal, .fig-cap, .symbol__name, .portrait__cap, .career__dates, .tools__list dd, .shipped__note) { text-shadow: var(--halo); }
+.on-map .btn { text-shadow: none; }
+
+/* ---------- Grid and rhythm ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--gutter);
+}
+.sec { padding-block: calc(var(--u) * 6); }
+.sec--tight { padding-block: calc(var(--u) * 4); }
+.sec--airy { padding-block: calc(var(--u) * 8) calc(var(--u) * 5); }
+.full { grid-column: 1 / -1; }
+
+/* ---------- Links and buttons ---------- */
+/* Inline links: underline at rest, thickens into the route colour on hover. */
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: currentColor;
+  transition: text-decoration-color 0.35s var(--e-soft), text-decoration-thickness 0.35s var(--e-soft), color 0.35s var(--e-soft);
+}
+.link:hover { text-decoration-thickness: 3px; text-decoration-color: var(--c-accent); }
+/* Links that leave the site carry an arrow that steps out the way it points. */
+/* (The fonts carry → but not ↗, so the arrow is turned.) */
+.link__out { display: inline-block; margin-left: 0.25em; rotate: -45deg; transition: translate 0.4s var(--e-out); }
+a:hover .link__out, a:focus-visible .link__out { translate: 0.18em -0.18em; }
+/* Utility links: colour only. */
+.ulink { transition: color 0.3s var(--e-soft); }
+.ulink:hover { color: var(--c-accent); }
+/* Standalone links plot a route, like the work rows: a point is placed at the start of the
+   underline, the route draws along it, and a ring closes it at the end. */
+.plot {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.28em;
+  background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+}
+.plot__line, .plot::before, .plot::after { position: absolute; pointer-events: none; }
+.plot__line {
+  left: 0;
+  right: 0;
+  bottom: -0.5px;
+  height: 2px;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.6s var(--e-pen) 0.05s;
+}
+.plot::before, .plot::after {
+  content: '';
+  border-radius: 50%;
+  scale: 0;
+  transition: scale 0.3s var(--e-out);
+}
+.plot::before { left: -4px; bottom: -3.5px; width: 8px; height: 8px; background: var(--c-accent); }
+.plot::after { right: -5px; bottom: -4.5px; width: 10px; height: 10px; border: 2px solid var(--c-accent); background: var(--c-bg); }
+.plot:is(:hover, :focus-visible)::before { scale: 1; }
+.plot:is(:hover, :focus-visible) .plot__line { scale: 1 1; }
+.plot:is(:hover, :focus-visible)::after { scale: 1; transition-delay: 0.5s; }
+
+/* Primary buttons flood from the bottom like rising water; the label inverts. */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.15rem;
+  border: 1px solid var(--c-fg);
+  /* Paper under the label: on the map a contour never runs through a button. */
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-size: var(--t-s);
+  font-weight: 600;
+  line-height: 1.2;
+  transition: color 0.45s var(--e-out);
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-fg);
+  border-top: 2px solid var(--c-accent);
+  translate: 0 101%;
+  transition: translate 0.55s var(--e-out);
+}
+.btn:hover, .btn:focus-visible, .btn[data-state='done'] { color: var(--c-bg); }
+.btn:hover::before, .btn:focus-visible::before, .btn[data-state='done']::before { translate: 0 0; }
+.btn:active { scale: 0.98; }
+.btn--solid { background: var(--c-fg); color: var(--c-bg); }
+/* Filled buttons flood with paper instead: the label turns to ink under the route-blue waterline. */
+.btn--solid::before { background: var(--c-bg); }
+.btn--solid:hover, .btn--solid:focus-visible, .btn--solid[data-state='done'] { color: var(--c-fg); }
+.btn[disabled] { opacity: 0.55; cursor: progress; }
+
+/* After a page change nothing under a resting pointer reacts until the pointer moves. */
+.hover-hold body { pointer-events: none; }
+
+/* Scrollbar in the sheet's colours; dark while the loader or a transition covers the page. */
+html { scrollbar-color: #9da29c var(--c-bg); }
+.js.motion:not(.is-loaded), html.lenis-stopped { scrollbar-color: var(--c-curtain) var(--c-curtain); }
+
+/* ---------- Header ---------- */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-inline: var(--gutter);
+  color: var(--c-fg);
+  transition: translate 0.6s var(--e-out), background-color 0.35s var(--e-soft), color 0.35s var(--e-soft), border-color 0.35s var(--e-soft);
+  border-bottom: 1px solid transparent;
+}
+/* At the top of a page the header sits straight on the map: the map labels' paper halo keeps it legible. */
+.header:not(.is-scrolled) :is(.wordmark, .nav__link) { text-shadow: var(--halo); }
+.header.is-scrolled {
+  background: color-mix(in srgb, var(--c-bg) 96%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--c-line);
+}
+.header.is-away { translate: 0 -100%; }
+.header:focus-within { translate: 0 0; }
+.wordmark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+.wordmark__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--c-accent);
+  transition: background-color 0.3s var(--e-soft), scale 0.45s var(--e-out);
+}
+.wordmark__name { position: relative; }
+.wordmark__name::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  height: 1px;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.5s var(--e-pen);
+}
+.wordmark:hover .wordmark__dot { background: var(--c-accent); scale: 1.25; }
+.wordmark:hover .wordmark__name::after { scale: 1 1; }
+
+.nav { display: flex; align-items: center; gap: clamp(0.75rem, 0.3rem + 1.6vw, 2rem); }
+.nav__list { display: flex; gap: clamp(0.9rem, 0.4rem + 1.6vw, 2.25rem); }
+/* The link's box starts at the point, so the focus ring holds the point and the label together. */
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-left: 0.7rem;
+  margin-left: -0.7rem;
+  font-size: var(--t-s);
+  font-weight: 550;
+}
+/* The point drops before the label, then the underline draws out of it. */
+.nav__pt {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  translate: 0 -0.6rem;
+  scale: 0;
+  transition: translate 0.4s var(--e-out), scale 0.3s var(--e-out);
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.6rem;
+  height: 1px;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.2s var(--e-pen);
+}
+/* The point and line mark the page you are on (and the one the pointer is on). Keyboard focus keeps
+   to the focus ring, so a focused link never reads as a second current page. A line draws out
+   slowly and is taken up at once: the page being left lets go before the next one is marked. */
+.nav__link:hover .nav__pt, .nav__link[aria-current] .nav__pt { translate: 0 0; scale: 1; }
+.nav__link:hover::after, .nav__link[aria-current]::after { scale: 1 1; transition: scale 0.5s var(--e-pen) 0.1s; }
+.lang {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2rem;
+  padding: 0 0.6rem;
+  border: 1px solid currentColor;
+  background-color: var(--c-bg);
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  transition: color 0.4s var(--e-out);
+}
+.lang::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-fg);
+  translate: 0 101%;
+  transition: translate 0.45s var(--e-out);
+}
+.lang:hover, .lang:focus-visible { color: var(--c-bg); }
+.lang:hover::before, .lang:focus-visible::before { translate: 0 0; }
+
+/* ---------- Status bar: live readouts from the route planner ---------- */
+.status {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--z-status);
+  height: var(--status-h);
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 0.4rem + 1.2vw, 1.75rem);
+  padding-inline: var(--gutter);
+  background: color-mix(in srgb, #eceee8 96%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgb(14 17 15 / 0.14);
+  color: #0e110f;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+}
+.status__item { display: inline-flex; gap: 0.55em; align-items: baseline; }
+.status__k {
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-stretch: 75%;
+  letter-spacing: 0.06em;
+  color: #555b56;
+}
+.status__v { font-variant-numeric: tabular-nums; }
+.status__v.is-live { color: #2236f5; }
+.status__sep { flex: 1; }
+.status__scale { display: inline-flex; align-items: center; gap: 0.6em; }
+.status__bar {
+  display: block;
+  width: 64px;
+  height: 6px;
+  border: 1px solid #0e110f;
+  border-top: 0;
+}
+@media (max-width: 1180px) { .status__item--wide { display: none; } }
+/* A phone keeps the route's two readouts and the scale, spread across the margins. */
+@media (max-width: 767px) {
+  .status { gap: 0.85rem; justify-content: space-between; }
+  .status__item:nth-child(-n+3), .status__sep { display: none; }
+}
+html:not(.js) .status { display: none; }
+/* Focus that moves the page (Tab, or a field scrolled into view) stops clear of the fixed header
+   and the status bar, so a focused control never sits under either. */
+html { scroll-padding-block: calc(var(--header-h) + 0.75rem) calc(var(--status-h) + 0.75rem); }
+
+/* ---------- Loader (first hard load only) and the flood ---------- */
+#loader { display: none; }
+.js.motion #loader:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--gutter) * 0.9) var(--gutter);
+  color: #eceee8;
+  pointer-events: none;
+}
+.js.motion:not(.is-loaded) #curtain { visibility: visible; }
+.loader__row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; overflow: hidden; }
+/* A repeat load in the same session: the water alone, no counter. */
+.seen #loader .loader__row { visibility: hidden; }
+.loader__row .label { color: #a3aaa4; }
+.loader__what { padding-bottom: 0.7rem; }
+.loader__count {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.loader__unit { margin-left: 0.5rem; font-family: var(--f-mono); font-weight: 500; font-stretch: 100%; font-size: clamp(1rem, 0.8rem + 0.8vw, 1.5rem); letter-spacing: 0; color: #a3aaa4; }
+.flood-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#curtain.is-gl .curtain__panel { visibility: hidden; }
+.curtain__label {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--status-h) + var(--gutter) * 1.5);
+  display: grid;
+  gap: 0.9rem;
+  color: #eceee8;
+  visibility: hidden;
+}
+.curtain__kicker { color: #a3aaa4; }
+.curtain__to {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+/* ---------- Hero: the name as the title block of the sheet ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: var(--gutter);
+  padding: calc(var(--header-h) + var(--u) * 2.5) var(--gutter) calc(var(--status-h) + var(--u) * 1.5);
+}
+.hero__kicker { grid-column: 1 / span 5; grid-row: 1; color: var(--c-muted); }
+.hero__statement {
+  grid-column: 1 / span 5;
+  grid-row: 2;
+  margin-top: calc(var(--u) * 1.25);
+  max-width: 25ch;
+  font-size: var(--t-m);
+  line-height: 1.28;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+.hero__name {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  align-self: end;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-mega);
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  margin-left: -0.055em;
+  padding-bottom: 0.02em;
+}
+/* The legend box of the sheet: the one paragraph that explains the map sits on clean paper. */
+.hero__caption {
+  grid-column: 9 / -1;
+  grid-row: 4;
+  align-self: end;
+  justify-self: end;
+  max-width: 36ch;
+  margin-bottom: 0.35rem;
+  padding: 0.8rem 1rem 0.85rem;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-bg);
+  font-size: var(--t-s);
+  line-height: 1.5;
+  color: var(--c-muted);
+}
+.cap { display: none; }
+.cap--fine { display: inline; }
+@media (hover: none), (pointer: coarse) {
+  .cap--fine { display: none; }
+  .cap--touch { display: inline; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .cap--fine { display: none; }
+  .cap--still { display: inline; }
+}
+
+/* ---------- Selected work: index list ---------- */
+.work__head { align-items: end; padding-bottom: calc(var(--u) * 3); }
+.work__title { grid-column: 1 / span 8; }
+.work__count { grid-column: 10 / -1; justify-self: end; color: var(--c-muted); padding-bottom: 0.4rem; }
+.work__cols { color: var(--c-muted); padding-bottom: 0.7rem; border-bottom: 1px solid var(--c-line-strong); margin-inline: var(--gutter); padding-inline: 0; }
+.work__list { padding-inline: var(--gutter); }
+.row__link, .work__cols {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+}
+.row__link {
+  position: relative;
+  padding-block: calc(var(--u) * 1.6) calc(var(--u) * 1.7);
+  border-bottom: 1px solid var(--c-line-strong);
+  outline-offset: -2px;
+}
+.c-n { grid-column: 1; }
+.c-title { grid-column: 2 / span 4; }
+.c-what { grid-column: 6 / span 3; }
+.c-stack { grid-column: 9 / span 2; }
+/* Where each project stands, in the words its case study uses: the last column says what a year
+   could not, since all six were worked on this year. */
+.c-state { grid-column: 11 / span 2; justify-self: end; text-align: right; }
+.row__n { font-size: var(--t-xs); color: var(--c-muted); }
+.row__title {
+  font-size: var(--t-l);
+  font-weight: 700;
+  font-stretch: 104%;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: translate 0.6s var(--e-out);
+}
+.row__what { font-size: var(--t-body); line-height: 1.35; }
+.row__stack { font-size: var(--t-xs); color: var(--c-muted); line-height: 1.5; }
+.row__state { font-size: var(--t-xs); line-height: 1.5; }
+/* On a wide screen the stack and the status keep to their columns; on a phone they share a line. */
+.row__facts { display: contents; }
+.row__pt {
+  position: absolute;
+  left: -4px;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  translate: 0 -0.75rem;
+  scale: 0;
+  transition: translate 0.4s var(--e-out), scale 0.3s var(--e-out);
+}
+.row__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.75s var(--e-pen) 0.08s;
+}
+.row__end {
+  position: absolute;
+  right: -5px;
+  bottom: -6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--c-accent);
+  background: var(--c-bg);
+  scale: 0;
+  transition: scale 0.35s var(--e-out);
+}
+:is(.row__link, .shipped__row, a.plugin__row, .commit a, .tool a):is(:hover, :focus-visible) .row__pt { translate: 0 0; scale: 1; }
+.row__link:hover .row__title, .row__link:focus-visible .row__title { translate: clamp(0.6rem, 1.4vw, 1.4rem) 0; }
+:is(.row__link, .shipped__row, a.plugin__row, .commit a, .tool a):is(:hover, :focus-visible) .row__line { scale: 1 1; }
+:is(.row__link, .shipped__row, a.plugin__row, .commit a, .tool a):is(:hover, :focus-visible) .row__end { scale: 1; transition-delay: 0.62s; }
+.row__link:active .row__title { translate: clamp(0.9rem, 1.8vw, 1.8rem) 0; }
+
+/* ---------- Day job ---------- */
+.job { row-gap: calc(var(--u) * 3); }
+.job__title { grid-column: 1 / span 6; }
+.job__text { grid-column: 1 / span 5; display: grid; gap: 1.1em; max-width: 54ch; }
+.job__text p:last-child { font-weight: 600; }
+.job__figures { grid-column: 7 / -1; align-self: start; }
+.figure {
+  display: grid;
+  row-gap: 0.45rem;
+  padding-block: calc(var(--u) * 1.4);
+  border-top: 1px solid var(--c-line-strong);
+}
+.figure:last-child { border-bottom: 1px solid var(--c-line-strong); }
+.figure__v {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 108%;
+  font-size: var(--t-l);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.figure__l { font-size: var(--t-body); line-height: 1.45; }
+.job__title { font-family: var(--f-display); font-weight: 800; font-stretch: 108%; font-size: var(--t-l); line-height: 1; letter-spacing: -0.03em; max-width: 18ch; }
+.roles {
+  grid-column: 1 / -1;
+  position: relative;
+  margin-top: calc(var(--u) * 4);
+  padding-top: 1.6rem;
+}
+.roles__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+.roles__line {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--c-accent);
+  transform-origin: left;
+}
+.role { position: relative; display: grid; gap: 0.3rem; }
+.role__pt {
+  position: absolute;
+  top: calc(-1.6rem - 1px);
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid var(--c-accent);
+  background: var(--c-bg);
+}
+.role:last-child .role__pt { background: var(--c-accent); }
+.role__date { font-size: var(--t-xs); color: var(--c-muted); }
+.role__name { font-weight: 650; line-height: 1.25; }
+.job__more { grid-column: 1 / -1; margin-top: calc(var(--u) * 2); }
+
+/* ---------- Field log: commits as an elevation profile ---------- */
+.log { row-gap: calc(var(--u) * 3); }
+.log__title { grid-column: 1 / span 6; }
+.log__lead { grid-column: 7 / -1; align-self: end; max-width: 46ch; }
+.log__lead strong { font-weight: 700; }
+.log__figure { grid-column: 1 / -1; margin-top: calc(var(--u) * 2); }
+.chart { position: relative; height: clamp(15rem, 10rem + 14vw, 24rem); margin-top: 2.75rem; }
+.chart svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.chart__m { display: none; }
+.chart__pub { fill: var(--c-fg); }
+.chart__priv { fill: url(#hatch); }
+.chart__priv-m { fill: url(#hatch-m); }
+.chart__edge { fill: none; stroke: var(--c-fg); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.chart__base { stroke: var(--c-fg); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart__grid { stroke: var(--c-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+/* A numbered point stands on the ridge: the stem ends on the profile, the number sits on the stem. */
+.chart__mark {
+  position: absolute;
+  translate: -50% -100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.chart__num {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+.chart__stem { width: 1px; height: var(--stem, 1.5rem); background: var(--c-accent); }
+.chart__months {
+  position: relative;
+  height: 1.5rem;
+  margin-top: 0.6rem;
+  font-size: var(--t-xs);
+  color: var(--c-muted);
+}
+.chart__months span { position: absolute; top: 0; white-space: nowrap; }
+/* The year sits on its own tick, longer than the months', in the mono of the map's readouts. */
+.chart__yr { font-family: var(--f-mono); font-weight: 500; font-size: 0.6875rem; letter-spacing: 0.02em; color: var(--c-fg); }
+.chart__months span::before { content: ''; position: absolute; left: 0; top: -0.6rem; height: 0.4rem; width: 1px; background: var(--c-fg); }
+.chart__months span:has(.chart__yr)::before { top: -0.9rem; height: 0.85rem; }
+.chart__cap { margin-top: 0.75rem; font-size: var(--t-xs); color: var(--c-muted); }
+.chart__key { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; font-size: var(--t-s); }
+.chart__key span { display: inline-flex; align-items: center; gap: 0.5rem; }
+.chart__key i { display: inline-block; width: 1.4rem; height: 0.8rem; border: 1px solid var(--c-fg); }
+.key-pub { background: var(--c-fg); }
+.key-priv { background: repeating-linear-gradient(-45deg, transparent 0 3px, var(--c-fg) 3px 4px); }
+.log__points {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(var(--u) * 1.6) var(--gutter);
+  margin-top: calc(var(--u) * 1.5);
+  counter-reset: pt;
+}
+.log__points li { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr); gap: 0.75rem; font-size: var(--t-s); line-height: 1.45; }
+.log__points li::before {
+  counter-increment: pt;
+  content: counter(pt);
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-accent);
+  color: var(--c-accent);
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+.log__points time { display: block; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-muted); }
+.log__recent { grid-column: 1 / span 6; margin-top: calc(var(--u) * 5); }
+.log__also { grid-column: 8 / -1; margin-top: calc(var(--u) * 5); }
+.log__h { color: var(--c-muted); padding-bottom: 0.8rem; border-bottom: 1px solid var(--c-line-strong); }
+.commit, .tool { border-bottom: 1px solid var(--c-line); }
+/* A commit or a tool plots the work rows' route along its rule, and its name steps onto it. */
+.commit a, .tool a {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+  padding-block: 0.8rem;
+  font-size: var(--t-s);
+  outline-offset: -2px;
+  transition: color 0.3s var(--e-soft);
+}
+.commit a:is(:hover, :focus-visible) .commit__repo, .tool a:is(:hover, :focus-visible) .tool__name { color: var(--c-accent); translate: 0.6rem 0; }
+.commit__repo .link__out, .tool__name .link__out { margin-left: 0.4em; font-weight: 400; }
+.commit__repo, .tool__name { font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 600; overflow-wrap: anywhere; transition: color 0.3s var(--e-soft), translate 0.6s var(--e-out); }
+.commit__msg { overflow-wrap: anywhere; }
+.commit__date, .tool__lang { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-muted); white-space: nowrap; }
+.tool a { grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto; }
+.log__profile { margin-top: 1.25rem; display: inline-flex; }
+
+/* ---------- Restricted area (printed in negative) ---------- */
+.restricted { background: var(--c-bg); color: var(--c-fg); position: relative; }
+.restricted__head { align-items: end; row-gap: calc(var(--u) * 2); padding-bottom: calc(var(--u) * 4); }
+.restricted__title { grid-column: 1 / span 6; }
+.restricted__lead { grid-column: 7 / -1; max-width: 40ch; }
+.zones { row-gap: var(--gutter); grid-auto-flow: row; }
+.zone {
+  grid-column: var(--c) / span var(--w);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: var(--h, 15rem);
+  padding: 3.4rem 1.25rem 1.25rem;
+  border: 1px solid var(--c-line-strong);
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 7px, rgb(236 238 232 / 0.2) 7px 8px) top left / 100% 2.35rem no-repeat;
+}
+.zone::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2.35rem;
+  height: 1px;
+  background: var(--c-line-strong);
+}
+.zone__tag {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.62rem;
+  padding: 0.18rem 0.45rem;
+  background: var(--c-bg);
+  color: var(--c-fg);
+}
+.zone__name { font-size: var(--t-m); font-weight: 750; letter-spacing: -0.015em; line-height: 1.1; }
+.zone__text { font-size: var(--t-s); line-height: 1.5; max-width: 48ch; }
+.zone__meta { margin-top: auto; display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: var(--t-xs); }
+.zone__meta dt { color: var(--c-muted); }
+.zone__meta dd { font-family: var(--f-mono); }
+/* A wide zone reads across: its facts sit in one row like a map legend, not in a column pushed to
+   the floor of an empty card. */
+@media (min-width: 1100px) {
+  .zone--l .zone__meta { grid-template-columns: repeat(3, max-content); grid-template-rows: auto auto; grid-auto-flow: column; gap: 0.3rem 2.5rem; }
+}
+.zone--hatched {
+  justify-content: flex-end;
+  padding-top: 1.25rem;
+  background: repeating-linear-gradient(-45deg, transparent 0 7px, rgb(236 238 232 / 0.22) 7px 8px);
+}
+.zone--hatched::after { display: none; }
+.zone--hatched .zone__text { background: var(--c-bg); padding: 0.75rem 0.9rem; max-width: 34ch; }
+.zone--hatched .zone__tag { position: static; align-self: flex-start; }
+
+/* ---------- Plugin repository ---------- */
+.plugins { row-gap: calc(var(--u) * 3); }
+.plugins__title { grid-column: 1 / span 5; }
+.plugins__body { grid-column: 7 / -1; max-width: 52ch; align-self: end; }
+.plugins__addr { grid-column: 1 / -1; display: flex; align-items: stretch; border: 1px solid var(--c-fg); background: color-mix(in srgb, var(--c-bg) 80%, transparent); }
+.plugins__url {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  font-family: var(--f-mono);
+  font-size: clamp(0.75rem, 0.6rem + 0.5vw, 1rem);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.plugins__addr .btn { border-width: 0 0 0 1px; min-width: 10.5rem; }
+.plugins__list { grid-column: 1 / -1; }
+.plugin { border-bottom: 1px solid var(--c-line-strong); }
+/* A row leads to its case study: it plots the work rows' route along its rule, the name steps on. */
+.plugin__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+  padding-block: calc(var(--u) * 1.4);
+  outline-offset: -2px;
+}
+.plugin__name { grid-column: 1 / span 3; font-weight: 700; font-size: var(--t-m); line-height: 1.15; transition: translate 0.6s var(--e-out); }
+a.plugin__row:is(:hover, :focus-visible) .plugin__name { translate: 0.6rem 0; }
+.plugin__text { grid-column: 4 / span 5; font-size: var(--t-s); }
+.plugin__ver { grid-column: 9 / span 2; font-family: var(--f-mono); font-size: var(--t-xs); }
+.plugin__req { grid-column: 11 / span 2; justify-self: end; font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-muted); text-align: right; }
+
+/* ---------- Footer: the finale, map at full strength ---------- */
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  padding: calc(var(--u) * 6) var(--gutter) calc(var(--status-h) + var(--u) * 2);
+  min-height: 92svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(var(--u) * 8);
+}
+/* Index only (the contact page): the page ends on the sheet's margin, no band of map below it. */
+.footer--index { min-height: 0; padding-top: calc(var(--u) * 4); }
+.footer__cta { display: grid; justify-items: start; gap: 1.5rem; }
+.cta-mega {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12em;
+  margin-left: -0.05em;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: clamp(3.5rem, 0.6rem + 11.5vw, 12rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  padding-bottom: 0.08em;
+}
+.cta-mega__pt {
+  flex: none;
+  width: 0.13em;
+  height: 0.13em;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 0.05em var(--c-bg), 0 0 0 0.075em var(--c-accent);
+  transition: translate 0.6s var(--e-out);
+}
+.cta-mega__text { transition: translate 0.6s var(--e-out); }
+.cta-mega__line {
+  position: absolute;
+  left: 0.065em;
+  right: 0;
+  bottom: 0;
+  height: 0.045em;
+  background: var(--c-accent);
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.85s var(--e-pen);
+}
+.cta-mega:hover .cta-mega__text, .cta-mega:focus-visible .cta-mega__text { translate: 0.08em 0; }
+.cta-mega:hover .cta-mega__line, .cta-mega:focus-visible .cta-mega__line { scale: 1 1; }
+.footer__email { font-size: var(--t-m); }
+.footer__grid {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: calc(var(--u) * 3);
+  align-items: end;
+  padding-top: calc(var(--u) * 2);
+  border-top: 1px solid var(--c-line-strong);
+}
+/* The sheet's margin: the map stops at the neatline, the index sits on clean paper below it. */
+.footer__grid::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(var(--gutter) * -1) calc((var(--status-h) + var(--u) * 2) * -1);
+  background: var(--c-bg);
+}
+.footer__col { grid-column: span 2; align-self: start; } /* headings on one line; the colophon sits on the bottom edge */
+.footer__h { color: var(--c-muted); margin-bottom: 0.6rem; }
+.footer__list { display: grid; gap: 0.15rem; }
+.footer__list a { display: inline-flex; min-height: 2rem; min-width: 1.5rem; align-items: center; }
+.footer__colophon { grid-column: 6 / span 5; font-size: var(--t-xs); color: var(--c-muted); line-height: 1.55; max-width: 60ch; }
+.footer__legal { grid-column: 11 / -1; justify-self: end; font-size: var(--t-xs); color: var(--c-muted); }
+
+/* ---------- Case study ---------- */
+.case__hero {
+  min-height: 92svh;
+  grid-template-rows: auto auto 1fr auto;
+  row-gap: calc(var(--u) * 2);
+  padding-top: calc(var(--header-h) + var(--u) * 2.5);
+  padding-bottom: calc(var(--u) * 4);
+}
+.case__top { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+.case__back { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
+/* The arrow steps back along the way it points and a route draws back under the label. */
+.case__back { position: relative; }
+.case__back span { transition: translate 0.4s var(--e-out); }
+.case__back::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  height: 1px;
+  background: var(--c-accent);
+  transform-origin: right;
+  scale: 0 1;
+  transition: scale 0.5s var(--e-pen);
+}
+.case__back:hover span, .case__back:focus-visible span { translate: -0.35rem 0; }
+.case__back:hover::after, .case__back:focus-visible::after { scale: 1 1; }
+.case__index { color: var(--c-muted); }
+.case__title {
+  grid-column: 1 / span 9;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  margin-left: -0.05em;
+  overflow-wrap: anywhere;
+}
+/* The summary keeps to its lines: on a phone its paper wash must not spread over the open sheet
+   around it. */
+.case__summary { grid-column: 1 / span 6; max-width: 34ch; align-self: start; }
+.case__meta {
+  grid-column: 1 / -1;
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 1.25rem;
+  padding-top: calc(var(--u) * 1.4);
+  border-top: 1px solid var(--c-line-strong);
+}
+.case__meta div { grid-column: span 2; display: grid; gap: 0.35rem; align-content: start; }
+.case__meta div.is-wide { grid-column: span 3; }
+.case__meta dt { color: var(--c-muted); }
+.case__meta dd { font-size: var(--t-s); line-height: 1.45; }
+.case__meta dd a { margin-right: 1.1rem; }
+.case__sec { row-gap: 1rem; padding-block: calc(var(--u) * 5); }
+.case__sec h2 { grid-column: 1 / span 3; color: var(--c-muted); padding-top: 0.5rem; }
+.case__sec p { grid-column: 4 / span 7; font-size: var(--t-m); line-height: 1.42; letter-spacing: -0.005em; }
+.case__sec + .case__sec { border-top: 1px solid var(--c-line); }
+.craft { row-gap: calc(var(--u) * 3); padding-block: calc(var(--u) * 6); border-top: 1px solid var(--c-line); }
+.craft > h2 { grid-column: 1 / span 3; color: var(--c-muted); padding-top: 0.5rem; }
+.craft__list { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: calc(var(--u) * 3); }
+/* Every detail reads at one size on one column line: the first holds its figure to the right, the
+   rest follow it down the page as a numbered list. */
+.craft__item { grid-column: 1 / -1; display: grid; grid-template-columns: 2.25rem minmax(0, 4fr) minmax(0, 7fr); column-gap: var(--gutter); align-items: start; }
+.craft__item--fig { padding-bottom: calc(var(--u) * 2); }
+.craft__n { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-accent); padding-top: 0.35rem; }
+.craft__text { font-size: var(--t-m); line-height: 1.4; }
+.craft__item:not(.craft__item--fig) .craft__text { grid-column: 2 / -1; max-width: 40ch; }
+.craft__fig { min-width: 0; }
+.case__next {
+  border-top: 1px solid var(--c-line-strong);
+  padding: calc(var(--u) * 5) var(--gutter);
+}
+/* As wide as its words: the map beside it stays the map, to point at or tap. */
+.next {
+  display: grid;
+  width: fit-content;
+  gap: 1rem;
+}
+.next__k { color: var(--c-muted); }
+.next__k, .next__what { text-shadow: var(--halo); }
+.next__title {
+  position: relative;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+/* At rest the name sits on the column line with the label above it; pointing at it sets the point
+   down where the name began, the name steps off it, and the route draws to its end. */
+.next__pt { position: absolute; left: 0; top: 50%; margin-top: -0.08em; width: 0.16em; height: 0.16em; border-radius: 50%; background: var(--c-accent); scale: 0; translate: 0 -0.4em; transition: scale 0.35s var(--e-out), translate 0.45s var(--e-out); }
+.next__line { position: absolute; left: 0; right: -0.31em; bottom: -0.08em; height: 0.05em; background: var(--c-accent); transform-origin: left; scale: 0 1; transition: scale 0.8s var(--e-pen) 0.1s; }
+.next__text { transition: translate 0.6s var(--e-out); }
+.next:hover .next__pt, .next:focus-visible .next__pt { scale: 1; translate: 0 0; }
+.next:hover .next__line, .next:focus-visible .next__line { scale: 1 1; }
+.next:hover .next__text, .next:focus-visible .next__text { translate: 0.31em 0; }
+.next__what { font-size: var(--t-body); color: var(--c-muted); }
+
+/* Case figures */
+.shot { display: grid; justify-items: start; gap: 0.75rem; }
+.shot img { width: auto; max-width: 100%; max-height: min(78svh, 46rem); border: 1px solid var(--c-line-strong); background: var(--c-fg); }
+.shot figcaption, .fig-cap { font-size: var(--t-xs); color: var(--c-muted); line-height: 1.5; max-width: 52ch; }
+.keys { display: flex; align-items: center; gap: 1.25rem; padding: calc(var(--u) * 3) 0; }
+.key {
+  display: inline-grid;
+  place-items: center;
+  min-width: clamp(5rem, 3rem + 7vw, 9rem);
+  height: clamp(5rem, 3rem + 7vw, 9rem);
+  padding: 0 1.25rem;
+  border: 1.5px solid var(--c-fg);
+  box-shadow: 0 0.4rem 0 -1px var(--c-bg), 0 0.4rem 0 0 var(--c-fg);
+  font-family: var(--f-mono);
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  font-weight: 500;
+}
+.keys__plus { font-family: var(--f-mono); font-size: var(--t-l); color: var(--c-muted); }
+.diagram svg { width: 100%; height: auto; }
+.diagram__m { display: none; }
+.diagram text { font-family: var(--f-body); }
+.diagram text:not([fill]) { fill: var(--c-fg); } /* labels that set their own colour keep it */
+.symbols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--c-line-strong); border: 1px solid var(--c-line-strong); }
+.symbol { display: grid; justify-items: center; align-content: space-between; gap: 1rem; padding: 1.4rem 0.75rem 1rem; background: var(--c-bg); min-height: 11rem; }
+.symbol__svg { display: grid; place-items: center; height: 6rem; }
+.symbol__svg svg { max-height: 6rem; width: auto; }
+.symbol__code { font-family: var(--f-mono); font-size: 0.6875rem; letter-spacing: 0.02em; }
+.symbol__name { font-size: var(--t-xs); color: var(--c-muted); text-align: center; line-height: 1.35; }
+.tree { font-family: var(--f-mono); font-size: var(--t-s); line-height: 1.9; padding: 1.25rem 1.5rem; border: 1px solid var(--c-line-strong); background: color-mix(in srgb, var(--c-bg) 85%, transparent); }
+.tree ul { margin-left: 0.55rem; padding-left: 1.1rem; border-left: 1px solid var(--c-line-strong); }
+.tree li { position: relative; }
+.tree ul > li::before { content: ''; position: absolute; left: -1.1rem; top: 0.95em; width: 0.8rem; height: 1px; background: var(--c-line-strong); }
+.tree .is-dir { font-weight: 600; }
+.tree .is-note { color: var(--c-accent); }
+.tree__aside { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--c-line-strong); color: var(--c-muted); }
+
+/* ---------- About ---------- */
+.about__hero { padding-top: calc(var(--header-h) + var(--u) * 5); row-gap: calc(var(--u) * 4); }
+.about__title {
+  grid-column: 1 / -1;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-mega);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+}
+/* The page's name, small, then the words; the words hang into the margin, the label sits on it. */
+.about__kicker { display: block; margin-bottom: calc(var(--u) * 2.5); color: var(--c-muted); }
+.about__words { display: block; margin-left: -0.055em; }
+/* "Çoğunlukla" is ten letters with a cedilla and a breve: smaller, with room between the lines. */
+.about__title:lang(tr) { font-size: clamp(3rem, 0.2rem + 9.6vw, 10rem); line-height: 0.98; }
+.portrait { grid-column: 1 / span 5; align-self: start; position: relative; }
+.portrait__frame { position: relative; aspect-ratio: 1; border: 1px solid var(--c-line-strong); background: var(--c-bg); overflow: hidden; }
+.portrait__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s var(--e-soft); }
+/* The photo stays unloaded (lazy and not displayed) until the visitor reaches for its toggle. */
+.portrait__photo { display: none; opacity: 0; filter: grayscale(1) contrast(1.05); }
+.portrait[data-photo] .portrait__photo { display: block; }
+html:not(.js) .portrait__bar .btn { display: none; }
+.portrait[data-show='photo'] .portrait__photo { opacity: 1; }
+.portrait[data-show='photo'] .portrait__lines { opacity: 0; }
+.portrait__bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 0.75rem; }
+.portrait__cap { font-size: var(--t-xs); color: var(--c-muted); max-width: 34ch; }
+.portrait__bar .btn { flex: none; white-space: nowrap; }
+.about__bio { grid-column: 7 / -1; display: grid; gap: 1.2em; align-content: start; }
+.about__bio p:first-child { font-size: var(--t-m); line-height: 1.38; letter-spacing: -0.008em; }
+.career { row-gap: 0; }
+/* A section's name heads the margin column in display type (About's lists, the contact form). On a
+   wide screen it holds there while its section scrolls past, so the column carries its title all
+   the way down; under it the column stays open sheet with the map showing through, the way a
+   printed sheet keeps its margin for titles. It moves against the page, so the route planner and
+   the knockout measure it live (data-live). */
+.h-margin {
+  grid-column: 1 / span 4;
+  align-self: start;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: clamp(2.5rem, 1.2rem + 3.4vw, 4.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-indent: -0.04em;
+}
+@media (min-width: 768px) {
+  .h-margin { position: sticky; top: calc(var(--header-h) + var(--u) * 2); }
+}
+.career__list { grid-column: 5 / -1; }
+.career__item { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr); column-gap: var(--gutter); padding-block: calc(var(--u) * 2); border-top: 1px solid var(--c-line-strong); }
+.career__item:last-child { border-bottom: 1px solid var(--c-line-strong); }
+.career__role { font-weight: 700; font-size: var(--t-m); line-height: 1.2; }
+.career__org { font-size: var(--t-s); }
+.career__dates { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-muted); margin-top: 0.4rem; }
+.career__points { display: grid; gap: 0.55rem; }
+.career__points li { position: relative; padding-left: 1.1rem; font-size: var(--t-body); line-height: 1.5; }
+.career__points li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--c-accent); }
+.tools__list { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+.tools__list dt { font-weight: 700; margin-bottom: 0.5rem; }
+.tools__list dd { font-size: var(--t-body); line-height: 1.5; }
+.shipped__list { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--u) * 2) var(--gutter); }
+.shipped__group h3 { margin-bottom: 0.6rem; color: var(--c-muted); }
+.shipped__row { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 2.6rem; padding-block: 0.4rem; border-bottom: 1px solid var(--c-line); font-size: var(--t-body); outline-offset: -2px; }
+/* A shipped thing plots the work rows' route along its rule, and the name steps onto it. */
+.shipped__name { transition: translate 0.6s var(--e-out); }
+a.shipped__row:is(:hover, :focus-visible) .shipped__name { translate: 0.6rem 0; }
+.shipped__note { font-family: var(--f-mono); font-size: var(--t-xs); color: var(--c-muted); white-space: nowrap; }
+
+/* ---------- Contact ---------- */
+.contact__hero { min-height: 88svh; padding-top: calc(var(--header-h) + var(--u) * 5); padding-bottom: calc(var(--u) * 5); row-gap: calc(var(--u) * 3); grid-template-rows: auto auto 1fr auto; }
+.contact__title {
+  grid-column: 1 / -1;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-mega);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  margin-left: -0.055em;
+}
+.contact__lead { grid-column: 1 / span 6; max-width: 40ch; }
+.contact__email {
+  grid-column: 1 / span 8;
+  grid-row: 4;
+  align-self: end;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--f-mono);
+  font-size: clamp(1.15rem, 0.7rem + 2.3vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.contact__email .cta-mega__pt { width: 0.4em; height: 0.4em; transition: scale 0.45s var(--e-out); }
+.contact__email span:last-child {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: translate 0.6s var(--e-out), text-decoration-color 0.35s var(--e-soft), text-decoration-thickness 0.35s var(--e-soft);
+}
+/* The address steps off its point, the underline turns into the route. */
+.contact__email:hover span:last-child, .contact__email:focus-visible span:last-child { translate: 0.18em 0; text-decoration-thickness: 3px; text-decoration-color: var(--c-accent); }
+.contact__email:hover .cta-mega__pt, .contact__email:focus-visible .cta-mega__pt { scale: 1.25; }
+.contact__where { grid-column: 9 / -1; grid-row: 4; align-self: end; justify-self: end; text-align: right; font-size: var(--t-s); }
+.form-sec { row-gap: calc(var(--u) * 3); padding-block: calc(var(--u) * 6) calc(var(--u) * 4); border-top: 1px solid var(--c-line-strong); }
+.form { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem var(--gutter); }
+/* Fields are lines on the sheet: a label in the status bar's caps, the entry in mono on a paper
+   wash, an ink rule under it. In use, the rule draws out of a point as a route, as the nav's does. */
+.field { position: relative; display: grid; gap: 0.5rem; }
+.field--wide { grid-column: 1 / -1; }
+.field label { font-weight: 600; font-stretch: 75%; font-size: var(--t-xs); line-height: 1.25; letter-spacing: 0.06em; text-transform: uppercase; }
+.field input, .field textarea {
+  width: 100%;
+  padding: 0.7rem 0.75rem 0.6rem;
+  border: 0;
+  border-bottom: 1px solid var(--c-fg);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  font-family: var(--f-mono);
+  font-size: 1rem;
+  letter-spacing: 0;
+  transition: background-color 0.3s var(--e-soft);
+}
+.field textarea { min-height: 10rem; resize: vertical; line-height: 1.5; }
+.field input:hover, .field textarea:hover { background: color-mix(in srgb, var(--c-bg) 96%, transparent); }
+.field input:focus-visible, .field textarea:focus-visible { outline: none; background: var(--c-bg); }
+.field::before, .field::after { content: ''; position: absolute; left: 0; bottom: 0; pointer-events: none; }
+.field::before { right: 0; height: 2px; background: var(--c-accent); transform-origin: left; scale: 0 1; transition: scale 0.2s var(--e-pen); }
+.field::after { width: 7px; height: 7px; margin: 0 0 -2.5px -3.5px; border-radius: 50%; background: var(--c-accent); scale: 0; transition: scale 0.3s var(--e-out); }
+.field:focus-within::before { scale: 1 1; transition: scale 0.5s var(--e-pen) 0.1s; }
+.field:focus-within::after { scale: 1; }
+.form__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.form__status { font-size: var(--t-s); }
+.form__status[data-kind='error'] { color: #a3261b; }
+.form__status[data-kind='ok'] { color: var(--c-accent); }
+
+/* ---------- 404 ---------- */
+.nf { min-height: 100svh; padding-top: calc(var(--header-h) + var(--u) * 4); padding-bottom: calc(var(--status-h) + var(--u) * 4); grid-template-rows: auto 1fr auto; row-gap: calc(var(--u) * 3); }
+.nf__code { grid-column: 1 / -1; color: var(--c-muted); }
+.nf__title {
+  grid-column: 1 / span 9;
+  align-self: end;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: var(--t-xl);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+.nf__body { grid-column: 1 / span 5; max-width: 40ch; }
+.nf__tr { grid-column: 7 / span 5; max-width: 40ch; }
+.nf__tr strong { display: block; color: var(--c-fg); font-weight: 700; margin-bottom: 0.3rem; }
+.nf__links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+
+/* ---------- Phones: composed for 390 px ---------- */
+@media (max-width: 767px) {
+  :root { --t-mega: clamp(4.25rem, 25.5vw, 7rem); }
+  /* Sections stack in one column: the space between them tightens so a short one is not an island. */
+  .sec { padding-block: calc(var(--u) * 4); }
+  .sec--tight { padding-block: calc(var(--u) * 3); }
+  /* Kızılay sits 43% down a phone's screen. The head keeps its band of open sheet there, between
+     the title and the summary, so the route sets off in the open and no words cover its start. */
+  .case__hero { min-height: 80svh; grid-template-rows: auto auto minmax(max(0px, calc(43svh - 11rem)), 1fr) auto auto; }
+  .case__summary { grid-row: 4; }
+  .case__meta { grid-row: 5; }
+  /* The links sit too close for the point to read as its own: the line alone marks the page. */
+  .nav__pt { display: none; }
+  .nav__link { padding-left: 0; margin-left: 0; }
+  .grid > *, .work__head > *, .job > *, .log > *, .plugins > * { grid-column: 1 / -1; }
+  .hero { grid-template-rows: auto auto 1fr auto auto; padding-bottom: calc(var(--status-h) + var(--u) * 1.25); }
+  .hero__kicker, .hero__statement { grid-column: 1 / -1; }
+  .hero__statement { font-size: 1.25rem; max-width: 22ch; }
+  /* On a phone the words cover most of the sheet: a block of text set on the map lifts off on a soft
+     wash of paper, the way a printed sheet clears its linework around a label. The route planner
+     treats the washed block as one piece of furniture (obstacles.ts), so no route ends under it. */
+  [data-wash] {
+    background: color-mix(in srgb, var(--c-bg) 76%, transparent);
+    box-shadow: 0 0 0.9rem 0.6rem color-mix(in srgb, var(--c-bg) 76%, transparent);
+  }
+  .hero__name { grid-row: 4; }
+  .hero__caption { grid-column: 1 / -1; grid-row: 5; justify-self: stretch; max-width: none; margin: 1rem 0 0; font-size: 0.8125rem; }
+  .work__count { justify-self: start; margin-top: 0.75rem; }
+  .work__cols { display: none; }
+  .row__link { grid-template-columns: 2rem minmax(0, 1fr) auto; row-gap: 0.45rem; }
+  .c-n { grid-column: 1; grid-row: 1; }
+  .c-title { grid-column: 2 / -1; grid-row: 1; }
+  .c-what { grid-column: 2 / -1; grid-row: 2; }
+  /* Stack left, status right, on one line while both fit; a long status drops below, still right. */
+  .row__facts { grid-column: 2 / -1; grid-row: 3; display: flex; flex-wrap: wrap; column-gap: 1rem; }
+  .c-state { margin-left: auto; }
+  .row__title { font-size: 1.75rem; }
+  .roles { padding-top: 0; padding-left: 2rem; margin-top: calc(var(--u) * 2); }
+  .roles__list { grid-template-columns: 1fr; row-gap: 1.6rem; }
+  .roles__line { top: 0; bottom: 0; left: 5px; right: auto; width: 2px; height: auto; transform-origin: top; }
+  .role__pt { top: 0.15rem; left: -2rem; }
+  .log__lead { grid-column: 1 / -1; }
+  .chart { height: 15rem; }
+  .chart__d { display: none; }
+  .chart__m { display: block; }
+  .chart__months { height: 2.5rem; }
+  .chart__months span:nth-child(even) { display: none; }
+  .chart__yr { display: block; margin-top: 0.1rem; }
+  .log__points { grid-template-columns: 1fr; }
+  .commit a, .tool a { grid-template-columns: 1fr auto; }
+  .commit__msg, .tool__text { grid-column: 1 / -1; grid-row: 2; }
+  .zone, .zone--l { grid-column: 1 / -1; --h: auto; }
+  .plugins__addr { flex-direction: column; }
+  .plugins__url { display: block; white-space: normal; overflow-x: visible; line-height: 1.5; }
+  .plugins__addr .btn { border-width: 1px 0 0; }
+  .plugin__row { grid-template-columns: 1fr auto; row-gap: 0.4rem; }
+  .plugin__name { grid-column: 1 / -1; grid-row: 1; }
+  .plugin__text { grid-column: 1 / -1; grid-row: 2; }
+  .plugin__req { grid-column: 1; grid-row: 3; justify-self: start; text-align: left; }
+  .plugin__ver { grid-column: 2; grid-row: 3; justify-self: end; }
+  .footer:not(.footer--index) { min-height: 80svh; }
+  .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer__col { grid-column: span 1; }
+  .footer__colophon, .footer__legal { grid-column: 1 / -1; justify-self: start; }
+  .case__meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case__meta div, .case__meta div.is-wide { grid-column: span 1; }
+  .case__meta div.is-full { grid-column: 1 / -1; }
+  .case__sec h2, .case__sec p, .craft > h2 { grid-column: 1 / -1; }
+  .case__sec p { font-size: 1.125rem; }
+  .craft__list { grid-template-columns: 1fr; }
+  .craft__item, .craft__item--fig { grid-column: 1 / -1; grid-template-columns: 1.75rem minmax(0, 1fr); column-gap: 1rem; row-gap: 1.25rem; }
+  .craft__item--fig .craft__fig { grid-column: 1 / -1; }
+  .craft__text, .craft__item:not(.craft__item--fig) .craft__text { grid-column: 2; font-size: 1.125rem; }
+  .symbols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .diagram__d { display: none; }
+  .diagram__m { display: block; max-width: 26rem; }
+  .keys { gap: 0.75rem; }
+  .about__title:lang(tr) { font-size: 15.4vw; } /* Çoğunlukla fits from 320 px up */
+  /* The longest single word (ChalkNotes) still fits 358 px at this size. */
+  .case__title { font-size: clamp(2.6rem, 14vw, 3.6rem); }
+  .portrait, .about__bio { grid-column: 1 / -1; }
+  .career > h2, .tools > h2, .shipped > h2, .career__list, .tools__list, .shipped__list { grid-column: 1 / -1; }
+  /* Stacked above its list, a section label gets the same rule the career list starts with. */
+  .tools > h2, .shipped > h2 { padding-bottom: 0.75rem; margin-bottom: calc(var(--u) * 1.5); border-bottom: 1px solid var(--c-line-strong); }
+  .career__item { grid-template-columns: 1fr; row-gap: 1rem; }
+  .tools__list, .shipped__list { grid-template-columns: 1fr; }
+  /* Kızılay sits under where the lead would be: the address comes up to meet the route first,
+     and the lead follows it. */
+  .contact__hero { grid-template-rows: auto 1fr auto auto auto; }
+  .contact__email { grid-row: 3; }
+  .contact__lead { grid-row: 4; }
+  .contact__where { grid-row: 5; justify-self: start; text-align: left; }
+  .form-sec > h2, .form { grid-column: 1 / -1; }
+  .form { grid-template-columns: 1fr; }
+  .nf__title, .nf__body, .nf__tr { grid-column: 1 / -1; }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .c-what { grid-column: 6 / span 5; }
+  .c-stack { display: none; }
+  .log__points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer__col { grid-column: span 3; }
+  .footer__colophon { grid-column: 7 / -1; }
+  .footer__legal { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* ---------- Reduced motion: everything visible, nothing travels ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .header.is-away { translate: none; }
+}

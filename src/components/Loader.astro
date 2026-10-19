@@ -1,0 +1,22 @@
+---
+// First hard load of a session. The screen starts flooded; the counter tracks real work (fonts and
+// the elevation model) as the water level, falling from the highest ground on the sheet to
+// Kızılay's height; then the water drains into the hero (src/motion/flood.ts). Only the home page
+// holds the counter for a designed pause (data-pause); a deep link waits for the work alone.
+import { site, ui, type Lang } from '../data/site';
+import terrain from '../data/terrain.json';
+interface Props { lang: Lang; pause: boolean }
+const { lang, pause } = Astro.props;
+const t = ui[lang].loader;
+const top = new Intl.NumberFormat(lang === 'tr' ? 'tr-TR' : 'en-US').format(terrain.max);
+---
+<div id="loader" role="status" aria-label={t.label} data-pause={pause ? '' : undefined}>
+  <div class="loader__row">
+    <span class="label" data-loader-out>{site.name}</span>
+    <span class="label mono-num" data-loader-out>{t.place}</span>
+  </div>
+  <div class="loader__row loader__row--end">
+    <span class="loader__what label" data-loader-out>{t.terrain}</span>
+    <span class="loader__count" data-loader-out><span data-loader-count>{top}</span><span class="loader__unit">m</span></span>
+  </div>
+</div>

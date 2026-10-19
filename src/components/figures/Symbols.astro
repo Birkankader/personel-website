@@ -1,0 +1,32 @@
+---
+// Real output, rendered at build time with milsymbol (the JavaScript original that
+// tmap-milsymbol mirrors in Java). Same letter codes, same pictures.
+import ms from 'milsymbol';
+import type { Lang } from '../../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const list = [
+  { sidc: 'SFGPUCI----E---', en: 'Friendly infantry company', tr: 'Dost piyade bölüğü' },
+  { sidc: 'SHGPUCA----F---', en: 'Hostile armor battalion', tr: 'Düşman zırhlı tabur' },
+  { sidc: 'SNGPUCR----D---', en: 'Neutral reconnaissance platoon', tr: 'Tarafsız keşif takımı' },
+  { sidc: 'SUAPMF---------', en: 'Unknown fixed-wing aircraft', tr: 'Kimliği bilinmeyen sabit kanatlı uçak' },
+  { sidc: 'SFSPCLDD-------', en: 'Friendly destroyer', tr: 'Dost muhrip' },
+  { sidc: 'SFGPUCF----E---', en: 'Friendly field artillery battery', tr: 'Dost sahra topçu bataryası' },
+].map((s) => ({ ...s, svg: new ms.Symbol(s.sidc, { size: 44 }).asSVG() }));
+const caption = {
+  en: 'Six symbols, drawn from their letter codes while this site was built. The frame shows the affiliation, the icon the unit type, the marks above it the size.',
+  tr: 'Bu site derlenirken harf kodlarından çizilen altı sembol. Çerçeve tarafı, ikon birliğin türünü, üstteki işaretler de büyüklüğünü gösteriyor.',
+};
+---
+<figure class="symbols-fig">
+  <ul class="symbols">
+    {list.map((s) => (
+      <li class="symbol">
+        <span class="symbol__svg" role="img" aria-label={s[lang]} set:html={s.svg} />
+        <code class="symbol__code">{s.sidc}</code>
+        <span class="symbol__name">{s[lang]}</span>
+      </li>
+    ))}
+  </ul>
+  <figcaption class="fig-cap">{caption[lang]}</figcaption>
+</figure>

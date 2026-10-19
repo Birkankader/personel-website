@@ -1,79 +1,66 @@
-# Personal Portfolio - Sifa Birkan KADER
+# birkankader.com
 
-A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS.
+Personal site of Birkan Kader, software engineer in Ankara. Kader is Turkish for fate; the site is
+Ankara's real terrain, and a route planner (A* with a slope cost, on SRTM elevation data) draws a
+route across it toward wherever you point. English at `/`, Turkish at `/tr/`.
 
-## Features
+The design record (concept, palette, type, grid, motion, map rules) is in [DESIGN.md](DESIGN.md).
 
-- 🌐 Bilingual support (English/Turkish)
-- 🌙 Dark/Light theme toggle
-- 📱 Fully responsive design
-- 📧 Contact form with EmailJS
-- ⚡ Fast loading with Vite
-- 🎨 Modern UI with Tailwind CSS
+## Stack
 
-## Tech Stack
+- [Astro](https://astro.build) 7, static output, with the client router for page transitions
+- GSAP (ScrollTrigger, SplitText) and Lenis for motion and scroll, on one ticker
+- OGL (WebGL2) for the contour layer and the flood transition, with a 2D canvas fallback
+- Plain CSS with tokens in `src/styles/tokens.css`; Archivo and JetBrains Mono, self-hosted
 
-- React 18
-- TypeScript
-- Tailwind CSS
-- Vite
-- EmailJS
-- Lucide React Icons
+## Commands
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/birkankader/personel-website.git
-cd personel-website
-```
-
-2. Install dependencies:
 ```bash
 npm install
+npm run dev          # local dev server
+npm run build        # site into dist/, then merges the JetBrains plugin repository feed
+npm run check        # astro check (types)
+npm test             # plugin repository merge tests
 ```
 
-3. Set up environment variables:
-   - Copy `.env.example` to `.env`
-   - Fill in your EmailJS credentials:
+Data refreshers (outputs are committed):
+
 ```bash
-cp .env.example .env
+npm run terrain                                # elevation texture from Mapzen terrain tiles, plus
+                                               # src/data/terrain.json (bounds, spot heights, Kızılay's height)
+GITHUB_TOKEN=<token> npm run github:sync       # field log snapshot in src/data/github.json
+node scripts/portrait.mjs <photo>              # contour portrait for the About page
 ```
 
-4. Start the development server:
-```bash
-npm run dev
-```
+`github:sync` needs a token that can read private repositories. Private repositories only
+contribute counts; their names and commit messages never leave the script. Public commit
+headlines are quoted as written, minus conventional-commit prefixes and dashes; messages that say
+nothing on their own (an initial commit, a merge, a version number, one word) are skipped.
 
-### Environment Variables
+## Content
 
-For the contact form to work, you need to set up EmailJS and add these environment variables:
+- `src/data/site.ts`: every UI string, English and Turkish, written separately
+- `src/data/projects.ts`: the six case studies
+- `src/data/restricted.ts`: private repositories, described without code (the count comes from
+  the GitHub snapshot)
+- `src/data/plugins.ts`: plugin repository rows
+
+No em or en dashes in visible copy.
+
+## Contact form
+
+The form posts to EmailJS. Set these in `.env` locally and in the Netlify environment:
 
 | Variable | Description |
 |----------|-------------|
-| `VITE_EMAILJS_SERVICE_ID` | Your EmailJS service ID |
-| `VITE_EMAILJS_TEMPLATE_ID` | Your EmailJS template ID |
-| `VITE_EMAILJS_PUBLIC_KEY` | Your EmailJS public key |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service ID |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template ID |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key |
 
-#### For Local Development:
-Create a `.env` file in the root directory and add your values.
+Without them the page still offers the email address.
 
-#### For Netlify Deployment:
-Add the environment variables in your Netlify dashboard:
-1. Go to Site Settings → Environment Variables
-2. Add each variable with its corresponding value
+## Deploy
 
-### EmailJS Setup
-
-1. Create an account at [EmailJS](https://www.emailjs.com/)
-2. Create a new service (Gmail, Outlook, etc.)
-3. Create an email template
-4. Get your Service ID, Template ID, and Public Key
-5. Add them to your environment variables
+Netlify builds `main` with `npm run build` and publishes `dist/` (see `netlify.toml`). The
+JetBrains plugin feed stays at `/plugins/updatePlugins.xml`, and `/api/*` goes to
+`netlify/functions`.

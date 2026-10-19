@@ -1,0 +1,332 @@
+{
+  "generated": "2026-10-18",
+  "login": "Birkankader",
+  "repos": {
+    "total": 49,
+    "public": 27,
+    "private": 22
+  },
+  "contributions": 1134,
+  "commits": {
+    "total": 1042,
+    "public": 513,
+    "private": 529
+  },
+  "weeks": [
+    {
+      "start": "2025-10-19",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-10-26",
+      "public": 18,
+      "private": 0
+    },
+    {
+      "start": "2025-11-02",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-11-09",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-11-16",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-11-23",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-11-30",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-12-07",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-12-14",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-12-21",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2025-12-28",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-01-04",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-01-11",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-01-18",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-01-25",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-02-01",
+      "public": 2,
+      "private": 0
+    },
+    {
+      "start": "2026-02-08",
+      "public": 0,
+      "private": 4
+    },
+    {
+      "start": "2026-02-15",
+      "public": 12,
+      "private": 0
+    },
+    {
+      "start": "2026-02-22",
+      "public": 22,
+      "private": 5
+    },
+    {
+      "start": "2026-03-01",
+      "public": 146,
+      "private": 8
+    },
+    {
+      "start": "2026-03-08",
+      "public": 44,
+      "private": 10
+    },
+    {
+      "start": "2026-03-15",
+      "public": 37,
+      "private": 0
+    },
+    {
+      "start": "2026-03-22",
+      "public": 10,
+      "private": 0
+    },
+    {
+      "start": "2026-03-29",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-04-05",
+      "public": 22,
+      "private": 0
+    },
+    {
+      "start": "2026-04-12",
+      "public": 40,
+      "private": 0
+    },
+    {
+      "start": "2026-04-19",
+      "public": 84,
+      "private": 1
+    },
+    {
+      "start": "2026-04-26",
+      "public": 18,
+      "private": 5
+    },
+    {
+      "start": "2026-05-03",
+      "public": 7,
+      "private": 0
+    },
+    {
+      "start": "2026-05-10",
+      "public": 0,
+      "private": 27
+    },
+    {
+      "start": "2026-05-17",
+      "public": 0,
+      "private": 11
+    },
+    {
+      "start": "2026-05-24",
+      "public": 0,
+      "private": 5
+    },
+    {
+      "start": "2026-05-31",
+      "public": 1,
+      "private": 0
+    },
+    {
+      "start": "2026-06-07",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-06-14",
+      "public": 2,
+      "private": 63
+    },
+    {
+      "start": "2026-06-21",
+      "public": 6,
+      "private": 52
+    },
+    {
+      "start": "2026-06-28",
+      "public": 1,
+      "private": 18
+    },
+    {
+      "start": "2026-07-05",
+      "public": 0,
+      "private": 28
+    },
+    {
+      "start": "2026-07-12",
+      "public": 0,
+      "private": 7
+    },
+    {
+      "start": "2026-07-19",
+      "public": 4,
+      "private": 13
+    },
+    {
+      "start": "2026-07-26",
+      "public": 0,
+      "private": 8
+    },
+    {
+      "start": "2026-08-02",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-08-09",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-08-16",
+      "public": 0,
+      "private": 0
+    },
+    {
+      "start": "2026-08-23",
+      "public": 0,
+      "private": 1
+    },
+    {
+      "start": "2026-08-30",
+      "public": 1,
+      "private": 6
+    },
+    {
+      "start": "2026-09-06",
+      "public": 0,
+      "private": 2
+    },
+    {
+      "start": "2026-09-13",
+      "public": 15,
+      "private": 3
+    },
+    {
+      "start": "2026-09-20",
+      "public": 3,
+      "private": 0
+    },
+    {
+      "start": "2026-09-27",
+      "public": 0,
+      "private": 4
+    },
+    {
+      "start": "2026-10-04",
+      "public": 10,
+      "private": 29
+    },
+    {
+      "start": "2026-10-11",
+      "public": 6,
+      "private": 205
+    },
+    {
+      "start": "2026-10-18",
+      "public": 2,
+      "private": 14
+    }
+  ],
+  "recent": [
+    {
+      "repo": "personel-website",
+      "date": "2026-10-18",
+      "message": "Publish AI Bridge plugin 0.7",
+      "url": "https://github.com/Birkankader/personel-website/commit/e5fd8ecd2e54daf3d89fb478ebbecf5fad34f9a9"
+    },
+    {
+      "repo": "WhaleCode",
+      "date": "2026-10-18",
+      "message": "Archive WhaleCode: add archive note to README",
+      "url": "https://github.com/Birkankader/WhaleCode/commit/9f9b0bea6a96b3e39c3483a3f44fcdd59c14fa7d"
+    },
+    {
+      "repo": "chalknotes-releases",
+      "date": "2026-09-01",
+      "message": "Describe public release repository",
+      "url": "https://github.com/Birkankader/chalknotes-releases/commit/2ad76d26a706632ececfe318fb73ad8a71838cce"
+    },
+    {
+      "repo": "OpencodeConfigurator",
+      "date": "2026-07-24",
+      "message": "Sağlık kontrolü, Güvenli Mod ve ekleme sonrası gerçek doğrulama",
+      "url": "https://github.com/Birkankader/OpencodeConfigurator/commit/5b84fee44fd71251b0fdd128113b33339f0b5de7"
+    },
+    {
+      "repo": "MDConverter",
+      "date": "2026-07-02",
+      "message": "MD converter (PDF/DOCX/HTML) scaffold",
+      "url": "https://github.com/Birkankader/MDConverter/commit/d64e0cf2b003d652e2666e7a8e63c961febc7a52"
+    },
+    {
+      "repo": "vulfyn",
+      "date": "2026-06-23",
+      "message": "Vulfyn site: landing, support, privacy",
+      "url": "https://github.com/Birkankader/vulfyn/commit/d73300258b23f5b06aeca57a3a152613b2e4d4fa"
+    },
+    {
+      "repo": "tmap-milsymbol",
+      "date": "2026-04-08",
+      "message": "Add fetch-upstream command for automatic JS→TSV mapping sync",
+      "url": "https://github.com/Birkankader/tmap-milsymbol/commit/c711f58311355e4fe7d86f68d3229a928067eea6"
+    },
+    {
+      "repo": "Hacrandevu",
+      "date": "2026-03-24",
+      "message": "Ignore hidden login fields when checking post-login state",
+      "url": "https://github.com/Birkankader/Hacrandevu/commit/37c936e6dd300a0074bb3d46c184a16a5b78e99f"
+    }
+  ]
+}

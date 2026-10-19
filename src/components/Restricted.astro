@@ -1,0 +1,46 @@
+---
+// Private repositories as restricted zones on the sheet: what they hold, never the code.
+import { ui, type Lang } from '../data/site';
+import Caps from './Caps.astro';
+import { zones, privateTotal, hatchedRepos } from '../data/restricted';
+import { github, formatDate } from '../data/github';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].restricted;
+// Desktop placement on the work index's column lines (1, 5, 9): a wide zone and a narrow one, a
+// narrow one and a wide one, three narrow ones, and under them the hatched ground across the whole
+// sheet: everything not described.
+const place = [
+  { c: 1, w: 8 },
+  { c: 9, w: 4 },
+  { c: 1, w: 4 },
+  { c: 5, w: 8 },
+  { c: 1, w: 4 },
+  { c: 5, w: 4 },
+  { c: 9, w: 4 },
+];
+---
+<section class="restricted sec" data-tone="dark" id="restricted" aria-labelledby="restricted-title">
+  <div class="restricted__head grid">
+    <h2 class="restricted__title h-sec" id="restricted-title" data-split="lines">{t.title}</h2>
+    <p class="restricted__lead lead">{t.lead(privateTotal, github.repos.total)}</p>
+  </div>
+  <div class="zones grid">
+    {zones.map((z, i) => (
+      <article class={`zone zone--${z.size}`} style={`--c:${place[i].c};--w:${place[i].w}`} aria-labelledby={`zone-${i}`} data-reveal="fade">
+        <p class="zone__tag label">{t.zone} · {t.repos(z.repos)}</p>
+        <h3 class="zone__name" id={`zone-${i}`}>{z.name}</h3>
+        <p class="zone__text">{z.text[lang]}</p>
+        <dl class="zone__meta">
+          <dt class="label">{t.stack}</dt><dd>{z.stack}</dd>
+          <dt class="label">{t.status}</dt><dd>{z.status[lang]}</dd>
+          <dt class="label"><Caps text={t.last} lang={lang} /></dt><dd><time datetime={z.last}>{formatDate(z.last, lang)}</time></dd>
+        </dl>
+      </article>
+    ))}
+    <div class="zone zone--hatched" style="--c:1;--w:12;--h:10rem" data-reveal="fade">
+      <p class="zone__tag label">{t.zone} · {t.repos(hatchedRepos)}</p>
+      <p class="zone__text">{t.hatched(hatchedRepos)}</p>
+    </div>
+  </div>
+</section>

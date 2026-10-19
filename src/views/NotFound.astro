@@ -1,0 +1,27 @@
+---
+// One 404 for both languages (Netlify serves /404.html for every missing path). The map behind it
+// searches every reachable cell for a way to this address and finds none.
+import Base from '../layouts/Base.astro';
+import { ui, localize } from '../data/site';
+const en = ui.en.notFound;
+const tr = ui.tr.notFound;
+---
+<Base lang="en" page="404" title={en.metaTitle} description={en.body} noindex>
+  <section class="nf grid" data-map="full" data-fail aria-labelledby="nf-title">
+    <p class="nf__code label mono">404 · {ui.en.status.none}</p>
+    <h1 class="nf__title" id="nf-title" data-obstacle="glyphs">{en.title}</h1>
+    <div class="nf__body on-map">
+      <p data-wash>{en.body}</p>
+      <p class="nf__links">
+        <a class="btn btn--solid" href="/">{en.home}</a>
+        <a class="btn" href="/#work">{en.work}</a>
+      </p>
+    </div>
+    <div class="nf__tr on-map" lang="tr">
+      <p data-wash><strong>{tr.title}</strong>{tr.body}</p>
+      <p class="nf__links">
+        <a class="btn" href={localize('tr', '/')} hreflang="tr">{tr.home}</a>
+      </p>
+    </div>
+  </section>
+</Base>

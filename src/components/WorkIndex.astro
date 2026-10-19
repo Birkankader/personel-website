@@ -1,0 +1,38 @@
+---
+// Six projects as an index. Each row is a destination on the map (data-place): hovering or
+// focusing a row sends the route to that project's hilltop. The table is shy (data-shy): map labels
+// keep off its whole box, so none reads as one of its cells.
+import { ui, localize, type Lang } from '../data/site';
+import { projects } from '../data/projects';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].work;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<section class="work sec" id="work" aria-labelledby="work-title" data-map="index">
+  <div class="work__head grid">
+    <h2 class="work__title h-sec" id="work-title" data-split="lines">{t.title}</h2>
+    <p class="work__count label">{t.count}</p>
+  </div>
+  <div class="work__cols label" aria-hidden="true" data-shy>
+    <span class="c-n">#</span><span class="c-title">{t.cols.project}</span><span class="c-what">{t.cols.what}</span><span class="c-stack">{t.cols.stack}</span><span class="c-state">{t.cols.state}</span>
+  </div>
+  <ol class="work__list" data-shy>
+    {projects.map((p, i) => (
+      <li class="row">
+        <a class="row__link" href={localize(lang, `/work/${p.slug}/`)} data-place={p.slug}>
+          <span class="row__n mono c-n">{pad(i + 1)}</span>
+          <span class="row__title c-title">{p.title}</span>
+          <span class="row__what c-what">{p[lang].what}</span>
+          <span class="row__facts">
+            <span class="row__stack mono c-stack">{p.stack.slice(0, 3).join(', ')}</span>
+            <span class="row__state mono c-state">{p.state[lang]}</span>
+          </span>
+          <span class="row__pt" aria-hidden="true"></span>
+          <span class="row__line" aria-hidden="true"></span>
+          <span class="row__end" aria-hidden="true"></span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</section>

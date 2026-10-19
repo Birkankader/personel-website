@@ -1,0 +1,26 @@
+---
+// The map's status bar: live readouts from the route planner (src/motion/map/driver.ts).
+// Decorative for assistive tech: the same facts are described in text on each page.
+import { ui, type Lang } from '../data/site';
+import terrain from '../data/terrain.json';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = ui[lang].status;
+const num = (n: number, d: number) => n.toLocaleString(lang === 'tr' ? 'tr-TR' : 'en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const ns = lang === 'tr' ? 'K' : 'N';
+const ew = lang === 'tr' ? 'D' : 'E';
+const pct = (s: string) => (lang === 'tr' ? `%${s}` : `${s}%`); // Turkish puts the sign first
+const minutes = lang === 'tr' ? 'dk' : 'min';
+---
+<div class="status" data-status data-lang={lang} aria-hidden="true">
+  <span class="status__item"><span class="status__k">{s.lat}</span><span class="status__v" data-s="lat">{num(terrain.origin.lat, 5)} {ns}</span></span>
+  <span class="status__item"><span class="status__k">{s.lon}</span><span class="status__v" data-s="lon">{num(terrain.origin.lon, 5)} {ew}</span></span>
+  <span class="status__item"><span class="status__k">{s.elev}</span><span class="status__v" data-s="elev">872 m</span></span>
+  <span class="status__item status__item--wide"><span class="status__k">{s.slope}</span><span class="status__v" data-s="slope">{pct(num(0, 1))}</span></span>
+  <span class="status__sep" aria-hidden="true"></span>
+  <span class="status__item status__item--route"><span class="status__k">{s.route}</span><span class="status__v" data-s="route">{num(0, 1)} km</span></span>
+  <span class="status__item status__item--wide"><span class="status__k">{s.climb}</span><span class="status__v" data-s="climb">+0 m</span></span>
+  <span class="status__item status__item--route"><span class="status__k">{s.foot}</span><span class="status__v" data-s="foot">0 {minutes}</span></span>
+  <span class="status__item status__item--wide"><span class="status__k">{s.nodes}</span><span class="status__v" data-s="nodes">0</span></span>
+  <span class="status__scale"><span class="status__bar" data-s="scalebar"></span><span class="status__v" data-s="scale">1 km</span></span>
+</div>

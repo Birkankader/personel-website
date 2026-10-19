@@ -1,0 +1,125 @@
+/* DESIGN TOKENS: the survey sheet. Values come from DESIGN.md (palette, type, grid). */
+
+/* Each family is a small core holding every character the site shows (Basic Latin, the Turkish
+   letters, quotes, primes and the arrows), preloaded, and the rest of the Latin sets in files that
+   load only when a page needs one of their characters. For a character, the last matching rule is
+   tried first, so the core comes last. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 300 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url('../assets/fonts/archivo-ext.woff2') format('woff2');
+  unicode-range: U+0100-011D, U+0120-012F, U+0132-015D, U+0160-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 300 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url('../assets/fonts/archivo-rest.woff2') format('woff2');
+  unicode-range: U+00A1-00A8, U+00AA-00AF, U+00B1-00B6, U+00B8-00C1, U+00C3-00C4, U+00C6, U+00C8-00CD, U+00CF-00D5, U+00D7-00DB, U+00DD-00E1, U+00E3-00E4, U+00E6, U+00E8-00ED, U+00EF-00F5, U+00F7-00FB, U+00FD-00FF, U+0152-0153, U+02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+2013-2014, U+201A, U+201E, U+2022, U+2039-203A, U+2044, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 300 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url('../assets/fonts/archivo-core.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00C2, U+00C5, U+00C7, U+00CE, U+00D6, U+00DC, U+00E2, U+00E5, U+00E7, U+00EE, U+00F6, U+00FC, U+011E-011F, U+0130-0131, U+015E-015F, U+2009, U+2018-2019, U+201C-201D, U+2026, U+2032-2033, U+2190, U+2192;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-ext.woff2') format('woff2');
+  unicode-range: U+0100-011D, U+0120-012F, U+0132-015D, U+0160-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-rest.woff2') format('woff2');
+  unicode-range: U+00A1-00A8, U+00AA-00AF, U+00B1-00B6, U+00B8-00C1, U+00C3-00C4, U+00C6, U+00C8-00CD, U+00CF-00D5, U+00D7-00DB, U+00DD-00E1, U+00E3-00E4, U+00E6, U+00E8-00ED, U+00EF-00F5, U+00F7-00FB, U+00FD-00FF, U+0152-0153, U+02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+2013-2014, U+201A, U+201E, U+2022, U+2039-203A, U+2044, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-core.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00C2, U+00C5, U+00C7, U+00CE, U+00D6, U+00DC, U+00E2, U+00E5, U+00E7, U+00EE, U+00F6, U+00FC, U+011E-011F, U+0130-0131, U+015E-015F, U+2018-2019, U+201C-201D, U+2026, U+2032-2033, U+2190, U+2192, U+2197;
+}
+
+:root {
+  /* Color, by role */
+  --c-bg: #eceee8; /* survey paper */
+  --c-fg: #0e110f; /* plate black */
+  --c-muted: #4a504b; /* 7.1:1 on paper */
+  --c-line: rgb(14 17 15 / 0.14);
+  --c-line-strong: rgb(14 17 15 / 0.32);
+  --c-accent: #2236f5; /* the plotted route, 6.2:1 on paper */
+  --c-accent-soft: rgb(34 54 245 / 0.12);
+  --c-curtain: #0e110f;
+  --c-paper-scrim: rgb(236 238 232 / 0.86);
+  /* A printed label's halo: a tight paper rim that stops linework short of the letters, then a soft glow. */
+  --halo: 0 0 1px var(--c-bg), 0 0 1px var(--c-bg), 0 0 2px var(--c-bg), 0 0 2px var(--c-bg), 0 0 0.35em var(--c-bg), 0 0 0.6em var(--c-bg);
+
+  /* Type */
+  --f-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --f-body: 'Archivo', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  --t-mega: clamp(4.25rem, 0.6rem + 15.2vw, 15.5rem);
+  --t-xl: clamp(2.6rem, 1.3rem + 5.2vw, 6.5rem);
+  --t-l: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  --t-m: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --t-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --t-s: 0.875rem;
+  --t-xs: 0.75rem;
+
+  /* Space */
+  --u: clamp(0.5rem, 0.35rem + 0.6vw, 1rem);
+  --gutter: clamp(1rem, 0.6rem + 1.6vw, 2.5rem);
+  --cols: 12;
+  --header-h: 4rem;
+  --status-h: 2rem;
+
+  /* Shape: rectangles are zones, circles are points */
+  --radius: 0px;
+
+  /* Motion */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-soft: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --e-pen: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+  /* Layers */
+  --z-gl: 0;
+  --z-content: 1;
+  --z-status: 40;
+  --z-header: 50;
+  --z-cursor: 80;
+  --z-curtain: 90;
+  --z-loader: 100;
+}
+
+/* The restricted area and the flood are printed in negative. */
+[data-tone='dark'] {
+  --c-bg: #0e110f;
+  --c-fg: #eceee8;
+  --c-muted: #a3aaa4;
+  --c-line: rgb(236 238 232 / 0.16);
+  --c-line-strong: rgb(236 238 232 / 0.36);
+  --c-accent: #8e9bff;
+  --c-accent-soft: rgb(142 155 255 / 0.14);
+  --halo: 0 0 1px var(--c-bg), 0 0 1px var(--c-bg), 0 0 2px var(--c-bg), 0 0 2px var(--c-bg), 0 0 0.35em var(--c-bg), 0 0 0.6em var(--c-bg);
+}
+
+@media (max-width: 767px) {
+  :root { --cols: 4; --header-h: 3.5rem; --status-h: 1.75rem; }
+}

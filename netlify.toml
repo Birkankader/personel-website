@@ -3,7 +3,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
-# Functions istisnası
+[build.environment]
+  # Astro 7.4 needs Node 22.22 or newer.
+  NODE_VERSION = "24"
+
+# Functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
@@ -23,8 +27,8 @@
   status = 200
   force = true
 
-# SPA yönlendirmesi
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Hashed build assets (scripts, styles, images, fonts) never change.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

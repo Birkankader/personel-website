@@ -1,0 +1,42 @@
+---
+import { ui, site, localize, type Lang } from '../data/site';
+import { pluginReleases } from '../data/plugins';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].plugins;
+const releases = pluginReleases();
+// Each row leads to the case study that tells its story; the weekly vote runs on Arcade Machine's
+// server and is told there. Pointing at a row routes the map to that project, like the work rows.
+const CASE: Record<string, string> = { 'ai-bridge': 'ai-bridge', 'arcade-machine': 'arcade-machine', 'haftanin-seyirligi': 'arcade-machine' };
+// On a phone the address wraps after a slash, never inside a word.
+const [scheme, path] = site.pluginRepo.split('://');
+const urlParts = path.split('/');
+---
+<section class="plugins sec grid" id="plugins" aria-labelledby="plugins-title">
+  <h2 class="plugins__title h-sec" id="plugins-title" data-split="lines">{t.title}</h2>
+  <p class="plugins__body">{t.body}</p>
+  <div class="plugins__addr">
+    <code class="plugins__url">{scheme}://{urlParts.map((part, i) => (i < urlParts.length - 1 ? <>{part}/<wbr /></> : part))}</code>
+    <button class="btn btn--solid" type="button" data-copy={site.pluginRepo} data-copied={t.copied}>
+      <span data-copy-label>{t.copy}</span>
+    </button>
+  </div>
+  <ul class="plugins__list" data-shy>
+    {releases.map((r) => {
+      const slug = CASE[r.slug];
+      const Row = slug ? 'a' : 'div';
+      return (
+        <li class="plugin">
+          <Row class="plugin__row" href={slug ? localize(lang, `/work/${slug}/`) : undefined} data-place={slug}>
+            <span class="plugin__name" lang={r.nameLang !== lang ? r.nameLang : undefined}>{r.name}</span>
+            <span class="plugin__text">{t.items[r.id]}</span>
+            <span class="plugin__ver">{r.version}</span>
+            <span class="plugin__req">{t.requires} {r.sinceBuild}+</span>
+            {slug && <><span class="row__pt" aria-hidden="true"></span><span class="row__line" aria-hidden="true"></span><span class="row__end" aria-hidden="true"></span></>}
+          </Row>
+        </li>
+      );
+    })}
+  </ul>
+  <p class="sr-only" aria-live="polite" data-copy-status></p>
+</section>

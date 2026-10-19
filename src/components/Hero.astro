@@ -1,0 +1,18 @@
+---
+// The title block of the sheet. Like all type on the page, the name and the text blocks are terrain
+// the route planner goes around, so the line bends around the type instead of running under it. The
+// name counts letter by letter (data-obstacle="glyphs"): the line can thread between its two lines.
+import { ui, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+<section class="hero" data-map="full" aria-labelledby="hero-title">
+  <p class="hero__kicker label on-map" data-reveal="fade" data-intro data-delay="0.35">{t.hero.kicker}</p>
+  <p class="hero__statement on-map" data-wash data-split="lines" data-intro data-delay="0.45">{t.hero.statement}</p>
+  <h1 class="hero__name" id="hero-title" data-obstacle="glyphs">Birkan <br />Kader</h1>
+  <p class="hero__caption" data-reveal="fade" data-intro data-delay="0.8">
+    {t.hero.captionStart} <span class="cap cap--fine">{t.hero.captionFine}</span><span class="cap cap--touch">{t.hero.captionTouch}</span><span class="cap cap--still">{t.hero.captionStill}</span>
+  </p>
+  <p class="sr-only">{t.map.described}</p>
+</section>

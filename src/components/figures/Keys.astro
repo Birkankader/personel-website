@@ -1,0 +1,11 @@
+---
+import type { Lang } from '../../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const label = { en: 'The shortcut: Alt and K', tr: 'Kısayol: Alt ve K' };
+---
+<figure class="keys-fig">
+  <div class="keys" role="img" aria-label={label[lang]}>
+    <kbd class="key">Alt</kbd><span class="keys__plus" aria-hidden="true">+</span><kbd class="key">K</kbd>
+  </div>
+</figure>

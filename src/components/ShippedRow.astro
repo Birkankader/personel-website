@@ -1,0 +1,7 @@
+---
+// A released thing in the About list. The whole row is the link, and hovering it plots the work
+// rows' route along its rule: a point, the line, a ring at the end.
+interface Props { href: string; note: string }
+const { href, note } = Astro.props;
+---
+<li><a class="shipped__row" href={href} target="_blank" rel="noopener"><span class="shipped__name"><slot /><span class="link__out" aria-hidden="true">→</span></span><span class="shipped__note">{note}</span><span class="row__pt" aria-hidden="true"></span><span class="row__line" aria-hidden="true"></span><span class="row__end" aria-hidden="true"></span></a></li>

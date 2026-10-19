@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import Keys from '../components/figures/Keys.astro';
+import Diagram from '../components/figures/Diagram.astro';
+import Symbols from '../components/figures/Symbols.astro';
+import Tree from '../components/figures/Tree.astro';
+import Shot from '../components/figures/Shot.astro';
+import { ui, site, localize, type Lang } from '../data/site';
+import { projects, projectBySlug, nextProject } from '../data/projects';
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = ui[lang].case;
+const p = projectBySlug(slug);
+const c = p[lang];
+const i = projects.indexOf(p);
+const next = nextProject(slug);
+const pad = (n: number) => String(n).padStart(2, '0');
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: p.title,
+  description: c.description,
+  dateCreated: String(p.year),
+  inLanguage: lang,
+  keywords: p.stack.join(', '),
+  author: { '@type': 'Person', name: site.name, url: site.url },
+  url: new URL(localize(lang, `/work/${p.slug}/`), site.url).href,
+};
+---
+<Base lang={lang} page="work" title={p.title} description={c.description} jsonLd={ld}>
+  <article class="case" data-dest={p.slug}>
+    <header class="case__hero grid" data-map="full">
+      <div class="case__top on-map">
+        <a class="case__back ulink label" href={localize(lang, '/#work')}><span aria-hidden="true">←</span>{t.back}</a>
+        <p class="case__index label mono">{t.index(i + 1, projects.length)}</p>
+      </div>
+      <h1 class="case__title" data-obstacle="glyphs">{p.title}</h1>
+      <p class="case__summary lead on-map" data-wash data-split="lines" data-intro data-delay="0.25">{c.summary}</p>
+      <dl class="case__meta on-map" data-shy>
+        <div><dt class="label">{t.meta.year}</dt><dd class="mono">{p.year}</dd></div>
+        <div class="is-wide"><dt class="label">{t.meta.role}</dt><dd>{c.role}</dd></div>
+        <div class="is-wide"><dt class="label">{t.meta.stack}</dt><dd>{p.stack.join(', ')}</dd></div>
+        <div><dt class="label">{t.meta.status}</dt><dd>{c.status}</dd></div>
+        <div class="is-full"><dt class="label">{t.meta.links}</dt><dd>{p.links.map((l) => <a class="plot" href={l.href} target="_blank" rel="noopener">{l.label[lang]}<span class="link__out" aria-hidden="true">→</span><span class="plot__line" aria-hidden="true"></span></a>)}</dd></div>
+      </dl>
+    </header>
+
+    <section class="case__sec grid" aria-labelledby="sec-context">
+      <h2 class="label" id="sec-context">{t.sections.context}</h2>
+      <p data-split="lines">{c.context}</p>
+    </section>
+    <section class="case__sec grid" aria-labelledby="sec-idea">
+      <h2 class="label" id="sec-idea">{t.sections.idea}</h2>
+      <p data-split="lines">{c.idea}</p>
+    </section>
+
+    <section class="craft grid" aria-labelledby="sec-craft">
+      <h2 class="label" id="sec-craft">{t.sections.craft}</h2>
+      <ol class="craft__list">
+        {c.craft.map((line, k) => {
+          const fig = p.figures[k];
+          return (
+            <li class={fig ? 'craft__item craft__item--fig' : 'craft__item'} data-reveal="up">
+              <span class="craft__n">{pad(k + 1)}</span>
+              <p class="craft__text">{line}</p>
+              {fig && (
+                <div class="craft__fig">
+                  {fig.kind === 'keys' && <Keys lang={lang} />}
+                  {fig.kind === 'diagram' && <Diagram lang={lang} />}
+                  {fig.kind === 'symbols' && <Symbols lang={lang} />}
+                  {fig.kind === 'tree' && <Tree lang={lang} />}
+                  {fig.kind === 'image' && <Shot image={fig.image} alt={c.alt ?? ''} />}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <section class="case__sec grid" aria-labelledby="sec-outcome">
+      <h2 class="label" id="sec-outcome">{t.sections.outcome}</h2>
+      <p data-split="lines">{c.outcome}</p>
+    </section>
+
+    <nav class="case__next" aria-label={t.next} data-map="index">
+      <a class="next" href={localize(lang, `/work/${next.slug}/`)} data-place={next.slug}>
+        <span class="next__k label">{t.next}</span>
+        <span class="next__title"><span class="next__pt" aria-hidden="true"></span><span class="next__text">{next.title}</span><span class="next__line" aria-hidden="true"></span></span>
+        <span class="next__what">{next[lang].what}</span>
+      </a>
+    </nav>
+  </article>
+</Base>

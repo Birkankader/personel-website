@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import WorkIndex from '../components/WorkIndex.astro';
+import DayJob from '../components/DayJob.astro';
+import FieldLog from '../components/FieldLog.astro';
+import Restricted from '../components/Restricted.astro';
+import PluginRepo from '../components/PluginRepo.astro';
+import { site, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  inLanguage: lang === 'en' ? 'en' : 'tr',
+};
+---
+<Base lang={lang} page="home" jsonLd={website}>
+  <Hero lang={lang} />
+  <WorkIndex lang={lang} />
+  <DayJob lang={lang} />
+  <FieldLog lang={lang} />
+  <Restricted lang={lang} />
+  <PluginRepo lang={lang} />
+</Base>

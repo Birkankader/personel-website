@@ -1,0 +1,35 @@
+---
+// An example Shelter: ordinary files in an ordinary folder.
+import type { Lang } from '../../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = {
+  en: { root: 'My notes', journal: 'Journal', site: 'Website', plan: 'Plan', idea: 'Ideas', board: 'Plan board', files: 'attachments', aside: 'Outside the folder, in the app’s data folder: the SQLite index, which the app can rebuild at any time.', cap: 'An example Shelter. Every file in it opens without ChalkNotes.' },
+  tr: { root: 'Notlarım', journal: 'Günlük', site: 'Web sitesi', plan: 'Plan', idea: 'Fikirler', board: 'Plan panosu', files: 'ekler', aside: 'Klasörün dışında, uygulamanın veri klasöründe: uygulamanın her an yeniden kurabildiği SQLite dizini.', cap: 'Örnek bir Shelter. İçindeki her dosya ChalkNotes olmadan da açılıyor.' },
+}[lang];
+---
+<figure class="tree-fig">
+  <div class="tree">
+    <p class="is-dir">{t.root}/</p>
+    <ul>
+      <li><span class="is-dir">{t.journal}/</span>
+        <ul>
+          <li class="is-note">2026-09-14.md</li>
+          <li class="is-note">2026-09-15.md</li>
+        </ul>
+      </li>
+      <li><span class="is-dir">{t.site}/</span>
+        <ul>
+          <li class="is-note">{t.plan}.md</li>
+          <li>{t.board}.json</li>
+        </ul>
+      </li>
+      <li><span class="is-dir">{t.files}/</span>
+        <ul><li>sketch.png</li></ul>
+      </li>
+      <li class="is-note">{t.idea}.md</li>
+    </ul>
+    <p class="tree__aside">{t.aside}</p>
+  </div>
+  <figcaption class="fig-cap">{t.cap}</figcaption>
+</figure>

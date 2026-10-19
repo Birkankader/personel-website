@@ -1,0 +1,7 @@
+---
+import Case from '../../views/Case.astro';
+import { projects } from '../../data/projects';
+export const getStaticPaths = () => projects.map((p) => ({ params: { slug: p.slug } }));
+const { slug } = Astro.params;
+---
+<Case lang="en" slug={slug!} />

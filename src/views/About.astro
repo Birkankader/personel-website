@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { ui, site, type Lang } from '../data/site';
+import Caps from '../components/Caps.astro';
+import ShippedRow from '../components/ShippedRow.astro';
+import { pluginReleases } from '../data/plugins';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].about;
+const plugins = pluginReleases();
+const open = [
+  { name: 'WhaleCode', href: 'https://github.com/Birkankader/WhaleCode', note: 'Rust, MIT' },
+  { name: 'tmap-milsymbol', href: 'https://github.com/Birkankader/tmap-milsymbol', note: 'Java, MIT' },
+  { name: 'Catcot', href: 'https://github.com/Birkankader/Catcot', note: 'Python' },
+  { name: 'gis-demo-helper', href: 'https://github.com/Birkankader/gis-demo-helper', note: 'TypeScript' },
+];
+const desktop = [
+  { name: 'ChalkNotes', href: 'https://github.com/Birkankader/chalknotes-releases', note: 'Windows' },
+  { name: 'Detseasy', href: 'https://github.com/Birkankader/Detseasy', note: 'JavaScript' },
+];
+---
+<Base lang={lang} page="about" title={t.metaTitle} description={t.description}>
+  <section class="about__hero grid" aria-labelledby="about-title">
+    <h1 class="about__title" id="about-title" data-obstacle="glyphs"><span class="about__kicker label">{t.kicker}</span><span class="about__words">{t.title}</span></h1>
+    <figure class="portrait" data-portrait data-show="lines" data-reveal="clip" data-intro data-delay="0.2">
+      <div class="portrait__frame">
+        <img class="portrait__lines" src="/about/portrait-contours.svg" alt="" width="460" height="460" />
+        <img class="portrait__photo" src="/about/portrait.jpg" alt={t.portraitAlt} width="460" height="460" loading="lazy" decoding="async" />
+      </div>
+      <figcaption class="portrait__bar">
+        <span class="portrait__cap">{t.portraitCaption}</span>
+        <button class="btn" type="button" aria-pressed="false" data-portrait-toggle data-label-photo={t.showPhoto} data-label-lines={t.showLines}>{t.showPhoto}</button>
+      </figcaption>
+    </figure>
+    <div class="about__bio">
+      {t.bio.map((p, i) => <p data-split="lines" data-intro={i === 0 ? '' : undefined} data-delay={i === 0 ? '0.3' : undefined}>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="career sec grid" aria-labelledby="career-title">
+    <h2 class="h-margin" id="career-title" data-split="lines" data-live>{t.careerTitle}</h2>
+    <ol class="career__list" data-shy>
+      {t.career.map((c) => (
+        <li class="career__item" data-reveal="up">
+          <div>
+            <h3 class="career__role">{c.role}</h3>
+            <p class="career__org">{c.org}</p>
+            <p class="career__dates">{c.dates}</p>
+          </div>
+          <ul class="career__points">{c.points.map((pt) => <li>{pt}</li>)}</ul>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="tools sec--tight grid" aria-labelledby="tools-title">
+    <h2 class="h-margin" id="tools-title" data-split="lines" data-live>{t.toolsTitle}</h2>
+    <dl class="tools__list" data-shy>
+      {t.tools.map((g) => <div><dt>{g.where}</dt><dd>{g.list}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="shipped sec grid" aria-labelledby="shipped-title">
+    <h2 class="h-margin" id="shipped-title" data-split="lines" data-live>{t.shippedTitle}</h2>
+    <div class="shipped__list" data-shy>
+      <div class="shipped__group">
+        <h3 class="label">{t.shipped.store}</h3>
+        <ul>{site.apps.map((a) => <ShippedRow href={a.href} note={a.version}>{a.name}, {a.what[lang]}</ShippedRow>)}</ul>
+      </div>
+      <div class="shipped__group">
+        <h3 class="label"><Caps text={t.shipped.plugins} lang={lang} /></h3>
+        <ul>{plugins.map((r) => <li class="shipped__row"><span lang={r.nameLang !== lang ? r.nameLang : undefined}>{r.name}</span><span class="shipped__note">{r.version}</span></li>)}</ul>
+      </div>
+      <div class="shipped__group">
+        <h3 class="label">{t.shipped.desktop}</h3>
+        <ul>{desktop.map((d) => <ShippedRow href={d.href} note={d.note}>{d.name}</ShippedRow>)}</ul>
+      </div>
+      <div class="shipped__group">
+        <h3 class="label">{t.shipped.open}</h3>
+        <ul>{open.map((d) => <ShippedRow href={d.href} note={d.note}>{d.name}</ShippedRow>)}</ul>
+      </div>
+    </div>
+  </section>
+
+</Base>

@@ -1,0 +1,136 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { site, ui, otherLangPath, type Lang } from '../data/site';
+import { projects } from '../data/projects';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StatusBar from '../components/StatusBar.astro';
+import Loader from '../components/Loader.astro';
+import '../styles/tokens.css';
+import '../styles/engine.css';
+import '../styles/site.css';
+// The same fingerprinted files tokens.css points at, so the preloads are the requests @font-face makes.
+import archivoCore from '../assets/fonts/archivo-core.woff2?url';
+import monoCore from '../assets/fonts/jetbrains-mono-core.woff2?url';
+
+export type Page = 'home' | 'about' | 'contact' | 'work' | '404';
+interface Props {
+  lang: Lang;
+  page: Page;
+  title?: string;
+  description?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+const { lang, page, title, description, image = '/og.png', jsonLd, noindex = false } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'en' ? 'tr' : 'en';
+const fullTitle = title ? `${title} | ${site.name}` : t.meta.title;
+const desc = description ?? t.meta.description;
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(path, Astro.site).href;
+const alternate = new URL(otherLangPath(path), Astro.site).href;
+const enHref = lang === 'en' ? canonical : alternate;
+const trHref = lang === 'tr' ? canonical : alternate;
+const ogImage = new URL(image, Astro.site).href;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  alternateName: site.legalName,
+  jobTitle: lang === 'en' ? 'Software engineer' : 'Yazılım mühendisi',
+  worksFor: { '@type': 'Organization', name: 'HAVELSAN' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Ankara', addressCountry: 'TR' },
+  url: site.url,
+  email: `mailto:${site.email}`,
+  image: new URL('/about/portrait.jpg', site.url).href,
+  sameAs: site.socials.map((s) => s.href),
+  knowsAbout: ['GIS', 'Route planning', 'Military symbology', 'Java', 'OpenGL', 'CesiumJS', 'Swift', 'Kotlin', 'Rust'],
+};
+const ld = jsonLd ? [person, jsonLd] : [person];
+
+// Names the flood uses for "Routing to <page>", in both languages, and the project waypoints on
+// the map. Passed as JSON so the client bundle does not carry the case study copy.
+const routeNames = {
+  en: { routing: ui.en.routingTo, home: ui.en.home, about: ui.en.nav.about, contact: ui.en.nav.contact, work: ui.en.nav.work },
+  tr: { routing: ui.tr.routingTo, home: ui.tr.home, about: ui.tr.nav.about, contact: ui.tr.nav.contact, work: ui.tr.nav.work },
+  projects: Object.fromEntries(projects.map((p) => [p.slug, p.title])),
+  places: projects.map((p) => ({ slug: p.slug, title: p.title, x: p.place.x, y: p.place.y })),
+};
+---
+<!doctype html>
+<html lang={t.htmlLang} transition:animate="none" data-page={page}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && <link rel="alternate" hreflang="en" href={enHref} />}
+    {!noindex && <link rel="alternate" hreflang="tr" href={trHref} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={enHref} />}
+    <meta name="theme-color" content="#ECEEE8" />
+    <meta name="color-scheme" content="light" />
+    <meta name="author" content={site.name} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content={page === 'work' ? 'article' : 'website'} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={t.locale} />
+    <meta property="og:locale:alternate" content={ui[other].locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@birkankader" />
+    <script type="application/ld+json" set:html={JSON.stringify(ld.length === 1 ? ld[0] : ld)} />
+    <link rel="preload" href={archivoCore} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoCore} as="font" type="font/woff2" crossorigin />
+    <!-- Before first paint: flag JS and motion, a repeat load in this session, and send first-time Turkish visitors to /tr/. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('motion');
+        try { if (sessionStorage.getItem('loader-seen')) d.classList.add('seen'); } catch (e) {}
+        try {
+          var p = location.pathname, s = localStorage.getItem('lang'), tr = p === '/tr' || p.indexOf('/tr/') === 0;
+          if (!s) {
+            var wantsTr = /^tr\b/i.test(navigator.language || '') && !/bot|crawl|spider|lighthouse/i.test(navigator.userAgent);
+            localStorage.setItem('lang', wantsTr ? 'tr' : tr ? 'tr' : 'en');
+            if (wantsTr && !tr) location.replace('/tr' + p + location.search + location.hash);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <ClientRouter fallback="swap" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <div id="gl" transition:persist="gl" aria-hidden="true"></div>
+    <div id="curtain" transition:persist="curtain" aria-hidden="true">
+      <div class="curtain__panel"></div>
+      <div class="curtain__label"><span class="curtain__kicker label" data-curtain-kicker></span><span class="curtain__to" data-curtain-to></span></div>
+    </div>
+    <Loader lang={lang} pause={page === 'home'} />
+    <Header lang={lang} page={page} path={path} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} path={path} page={page} />
+    <StatusBar lang={lang} />
+    <script type="application/json" id="route-names" set:html={JSON.stringify(routeNames)} />
+    <script>
+      import { start } from '../engine/astro';
+      import { setupMotion } from '../motion/setup';
+      start(setupMotion);
+    </script>
+  </body>
+</html>

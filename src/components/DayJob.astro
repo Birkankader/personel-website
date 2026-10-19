@@ -1,0 +1,33 @@
+---
+import { ui, localize, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang].job;
+---
+<section class="job sec sec--airy grid" id="day-job" aria-labelledby="job-title">
+  <h2 class="job__title" id="job-title" data-split="lines">{t.title}</h2>
+  <div class="job__text">
+    {t.body.map((p) => <p>{p}</p>)}
+  </div>
+  <dl class="job__figures" data-reveal="up">
+    {t.figures.map((f) => (
+      <div class="figure">
+        <dt class="figure__v">{f.value}</dt>
+        <dd class="figure__l">{f.label}</dd>
+      </div>
+    ))}
+  </dl>
+  <div class="roles" data-roles>
+    <span class="roles__line" aria-hidden="true"></span>
+    <ol class="roles__list">
+      {t.roles.map((r) => (
+        <li class="role">
+          <span class="role__pt" aria-hidden="true"></span>
+          <span class="role__date mono">{r.date}</span>
+          <span class="role__name">{r.role}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+  <p class="job__more"><a class="btn" href={localize(lang, '/about/')}>{t.more}</a></p>
+</section>

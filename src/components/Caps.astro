@@ -1,0 +1,7 @@
+---
+// A label's text with English names marked, so Turkish capitals leave their i alone.
+import { capsRuns, type Lang } from '../data/site';
+interface Props { text: string; lang: Lang }
+const { text, lang } = Astro.props;
+---
+{lang === 'tr' ? capsRuns(text).map((r) => (r.en ? <span lang="en">{r.run}</span> : r.run)) : text}
