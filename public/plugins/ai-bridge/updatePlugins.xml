@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.8" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.8-c96c5b6142ed.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.9" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.9-3cb8768d6cdf.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,13 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.8-source-1bb03eb3cef2.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.8 (2026-10-19)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.9-source-551c81a1703c.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.9 (2026-10-19)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;DeepSeek Harness and OpenCode: a rate limit, a dropped connection or a server error at the model provider no longer stops the chat. AI Bridge now recovers from it as it does for Claude Code: it waits, asks the agent to continue where it stopped, and shows one "retrying" line instead of the error. A missing balance, a used-up quota or a refused API key still stops the chat with the provider's message.&lt;/li&gt;
+    &lt;li&gt;DeepSeek Harness: once a conversation filled three quarters of the context window, AI Bridge sent /compact, which DeepSeek Harness does not offer to other apps. The model got it as an ordinary message and the chat ended with "Automatic compaction did not complete". DeepSeek Harness compacts its context by itself, so AI Bridge now leaves that to it. OpenCode still compacts on /compact, and the next message now waits until it has finished.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.8 (2026-10-19)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;DeepSeek Harness: read, grep, glob, edit, write, bash, PowerShell and web fetch calls show their usual cards (the file that was read, the matches, the diff, the command) instead of a bare "unknown" header. dsh reports every tool with the same generic kind, so AI Bridge now goes by the tool's name. The tools worked before too; only the card was missing. Chats recorded before 0.8 keep the old cards.&lt;/li&gt;
 &lt;/ul&gt;
