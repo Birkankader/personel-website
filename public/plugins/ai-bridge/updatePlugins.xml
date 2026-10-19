@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.7" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.7-63ddc8026927.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.8" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.8-c96c5b6142ed.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,12 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.7-source-69b1fc9e96f6.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.7 (2026-10-17)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.8-source-1bb03eb3cef2.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.8 (2026-10-19)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;DeepSeek Harness: read, grep, glob, edit, write, bash, PowerShell and web fetch calls show their usual cards (the file that was read, the matches, the diff, the command) instead of a bare "unknown" header. dsh reports every tool with the same generic kind, so AI Bridge now goes by the tool's name. The tools worked before too; only the card was missing. Chats recorded before 0.8 keep the old cards.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.7 (2026-10-17)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;New setting: Web page and shader tools (Settings → General, experimental, off by default). The agent can open a web page, a local file or your dev server in the Chrome or Edge already on your computer, headless, and gets its layout as text: the elements with their positions and styles, neighbours that are almost but not quite aligned with the styles that differ, text that is cut off, boxes that stick out of their parent, and the console's errors and warnings. It can also click, type, run a script on the page and take screenshots.&lt;/li&gt;
     &lt;li&gt;A shader tool draws a GLSL fragment shader (a Shadertoy mainImage, GLSL ES 3.00 or 1.00) on the CPU, so no GPU is needed, and reports compile errors with their lines, the output's value ranges, NaN and values outside 0–1, and the colors at chosen points. A shader that never finishes is stopped after 20 seconds.&lt;/li&gt;
