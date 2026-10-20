@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.9" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.9-3cb8768d6cdf.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.10" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.10-5d1288742c2d.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,13 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.9-source-551c81a1703c.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.9 (2026-10-19)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.10-source-94d56e5858ab.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.10 (2026-10-20)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Claude Code: a reply that runs past the output token limit ("Claude's response exceeded the 8192 output token maximum") no longer stops the chat. AI Bridge compacts the conversation once and asks Claude to continue in smaller steps, up to three times per message. If the reply still does not fit, the chat says so and keeps the conversation.&lt;/li&gt;
+    &lt;li&gt;With a custom ANTHROPIC_BASE_URL gateway, a CLAUDE_CODE_MAX_OUTPUT_TOKENS value you set yourself is now used as it is. AI Bridge used to lower it to 8192 (or to a tenth of the context window), which caused the error above. Without a value of your own, gateways still start at 8192.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.9 (2026-10-19)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;DeepSeek Harness and OpenCode: a rate limit, a dropped connection or a server error at the model provider no longer stops the chat. AI Bridge now recovers from it as it does for Claude Code: it waits, asks the agent to continue where it stopped, and shows one "retrying" line instead of the error. A missing balance, a used-up quota or a refused API key still stops the chat with the provider's message.&lt;/li&gt;
     &lt;li&gt;DeepSeek Harness: once a conversation filled three quarters of the context window, AI Bridge sent /compact, which DeepSeek Harness does not offer to other apps. The model got it as an ordinary message and the chat ended with "Automatic compaction did not complete". DeepSeek Harness compacts its context by itself, so AI Bridge now leaves that to it. OpenCode still compacts on /compact, and the next message now waits until it has finished.&lt;/li&gt;
