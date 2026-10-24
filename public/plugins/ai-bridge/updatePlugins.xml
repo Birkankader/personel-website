@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.10" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.10-5d1288742c2d.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.11" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.11-b0e3fbf3dc74.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,20 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.10-source-94d56e5858ab.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.10 (2026-10-20)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.11-source-8175dab954c6.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.11 (2026-10-24)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Long conversations stream and scroll with far less work: a streamed reply no longer re-processes the whole history, unchanged messages are not redrawn, and the panel repaints less often. Following a streaming reply now jumps to the bottom instead of smooth-scrolling.&lt;/li&gt;
+    &lt;li&gt;Faster start: the chat page connects to the backend over 127.0.0.1, the first download is about a quarter smaller, and Settings, the session panel, the diff review and translations load when they are first needed. When the IDE restores several chat tabs, only the active one starts a browser.&lt;/li&gt;
+    &lt;li&gt;The loading and startup-error screens now use your interface language. A startup error shows one cause and the action that fits it; the raw output is under Details, with a Copy button.&lt;/li&gt;
+    &lt;li&gt;Lower memory over time: Claude Code processes left idle are stopped after a while (two stay warm) and pick up the same conversation on your next message. The history cache has a size budget, a slow view no longer makes the backend buffer without limit, and background task output sends only the new text.&lt;/li&gt;
+    &lt;li&gt;Windows: the resources panel now shows CPU and memory for the Claude Code processes.&lt;/li&gt;
+    &lt;li&gt;A status line under the chat says what is happening (sending, in progress, queued, waiting for your approval, retrying, background work still running) and offers Stop this response or Stop background tasks. A provider retry that lasts more than a few seconds shows the attempt and the time to the next try, and the connection banner shows how long the connection has been down.&lt;/li&gt;
+    &lt;li&gt;Settings: changes show Saving, Saved or Couldn't save with a Retry, and typing is no longer lost to a slow save. New: a settings search (try "RAM", "Enter" or "diff") and a Comfortable density with larger click targets.&lt;/li&gt;
+    &lt;li&gt;The empty chat offers three drafts to start from: explain the project, review selected code, plan a change. They go into the message box for you to edit; nothing is sent.&lt;/li&gt;
+    &lt;li&gt;Fixes: Enter on a focused button in the approval panel no longer picks the highlighted option. A tool card that fails to display now shows the tool, its status and its raw result instead of disappearing. Dialogs close one at a time with Escape and return focus to where you were.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.10 (2026-10-20)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Claude Code: a reply that runs past the output token limit ("Claude's response exceeded the 8192 output token maximum") no longer stops the chat. AI Bridge compacts the conversation once and asks Claude to continue in smaller steps, up to three times per message. If the reply still does not fit, the chat says so and keeps the conversation.&lt;/li&gt;
     &lt;li&gt;With a custom ANTHROPIC_BASE_URL gateway, a CLAUDE_CODE_MAX_OUTPUT_TOKENS value you set yourself is now used as it is. AI Bridge used to lower it to 8192 (or to a tenth of the context window), which caused the error above. Without a value of your own, gateways still start at 8192.&lt;/li&gt;

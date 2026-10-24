@@ -1,2 +1,2 @@
-5d1288742c2df60db5577397b6ebaef3795fc4d82528f122d83bbe89bcf81dd2  ai-bridge-0.10-5d1288742c2d.zip
-94d56e5858ab8ffb9c080ad5f9a538b389fa3f6a5cc9cd586cd262a61f8b152b  ai-bridge-0.10-source-94d56e5858ab.zip
+b0e3fbf3dc74b2f6ef7e270c99edf349c4a5b895e950fa09698931eff0d08c1e  ai-bridge-0.11-b0e3fbf3dc74.zip
+8175dab954c61458ffb59e5da5a4b09c4a2320b1caebcff57d5ca5f090abaca4  ai-bridge-0.11-source-8175dab954c6.zip
