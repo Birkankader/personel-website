@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.11" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.11-b0e3fbf3dc74.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.12" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.12-9601599a6fd3.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,19 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.11-source-8175dab954c6.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.11 (2026-10-24)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.12-source-1556277cf644.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.12 (2026-10-25)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;MCP: sign in to a server and sign out of it from the MCP panel. AI Bridge runs the same claude mcp login and claude mcp logout commands you would run in a terminal, shows the authorization link and takes the redirect URL you paste back. Without a terminal session it shows the command to run instead. After Clear authentication the server shows as signed out and offers sign-in again.&lt;/li&gt;
+    &lt;li&gt;MCP: a server that needs an OAuth sign-in no longer reports "Couldn't load tools". Its tools come from a connected chat in the same project; without one, the panel explains that the sign-in belongs to the Claude CLI. Server names that contain ": " are no longer cut short.&lt;/li&gt;
+    &lt;li&gt;Windows: MCP server names and JSON that contain &amp;amp;, |, ^, quotes or spaces now reach Claude Code unchanged. cmd.exe used to read them as part of the command line, which could run them as commands, and names with spaces, such as claude.ai connectors, failed.&lt;/li&gt;
+    &lt;li&gt;Settings: a global settings file that cannot be read is no longer replaced with defaults. A banner shows its path and the reason until it reads again, and saving waits so the file stays as you wrote it.&lt;/li&gt;
+    &lt;li&gt;Connection: after a dropped connection the chat retries with growing pauses of up to 15 seconds, counts down to the next attempt and offers Retry now. It tries at once when the network comes back or the tab becomes visible. A request the backend cannot handle now fails at once instead of waiting for a timeout.&lt;/li&gt;
+    &lt;li&gt;Errors from your own actions now say what failed, in your language: remote access, pairing, a session that did not load, a model switch, and an answer to a question that could not be sent (the question comes back). After a failed page update the panel reloads itself at most once every five minutes instead of in a loop.&lt;/li&gt;
+    &lt;li&gt;Translations: Russian, Persian and Arabic use the right plural forms for counts, activity and scheduled-message times have real plural forms in every language, and texts that showed as raw keys or in English are translated.&lt;/li&gt;
+    &lt;li&gt;Fixes: a tool card could keep an earlier part of the tool's input while the reply streamed. A form with several questions could be sent from its last tab while earlier questions were unanswered. An image attachment error used the language the panel started in. A diff review the CLI did not receive stays open. On Linux the folder picker uses kdialog when zenity is missing. The WSL hint names the ai-bridge command.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.11 (2026-10-24)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;Long conversations stream and scroll with far less work: a streamed reply no longer re-processes the whole history, unchanged messages are not redrawn, and the panel repaints less often. Following a streaming reply now jumps to the bottom instead of smooth-scrolling.&lt;/li&gt;
     &lt;li&gt;Faster start: the chat page connects to the backend over 127.0.0.1, the first download is about a quarter smaller, and Settings, the session panel, the diff review and translations load when they are first needed. When the IDE restores several chat tabs, only the active one starts a browser.&lt;/li&gt;
