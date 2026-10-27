@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugins>
-  <plugin id="com.birkankader.ai-bridge" version="0.12" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.12-9601599a6fd3.zip">
+  <plugin id="com.birkankader.ai-bridge" version="0.13" url="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.13-862a6ff3c049.zip">
     <idea-version since-build="231" />
     <name>AI Bridge</name>
     <description>&lt;p&gt;Bring Claude Code into your JetBrains IDE for everyday development. Explore your codebase, plan changes and review proposed edits from the same workspace where you write code.&lt;/p&gt;
@@ -22,8 +22,19 @@
 &lt;h2&gt;About&lt;/h2&gt;
 &lt;p&gt;Independently maintained by Birkan Kader. Claude and Claude Code are Anthropic products. This plugin is not an official Anthropic or JetBrains product.&lt;/p&gt;
 &lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.12-source-1556277cf644.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
-    <change-notes>&lt;h3&gt;0.12 (2026-10-25)&lt;/h3&gt;
+&lt;p&gt;GNU AGPL v3. The license, copyright notices and corresponding source accompany the distribution. Provided without warranty.&lt;/p&gt;&lt;p&gt;Corresponding source: &lt;a href="https://birkankader.com/plugins/ai-bridge/ai-bridge-0.13-source-fe5db1b8be18.zip"&gt;Source ZIP&lt;/a&gt;&lt;/p&gt;</description>
+    <change-notes>&lt;h3&gt;0.13 (2026-10-27)&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Images through /v1/chat/completions: a new setting on the Model page for gateways whose /v1/messages cannot read images. For the models you list (* matches anything; GLM-5.3-Flash and GLM-5.3-Flash-Low are listed by default), a message with an image goes to the gateway's /v1/chat/completions instead, through a local proxy on 127.0.0.1 that translates the request and the answer, tool calls included. Text-only requests and other models reach the gateway as before.&lt;/li&gt;
+    &lt;li&gt;Settings: ten pages named after what they change (Model, Chat, Permissions, Editor, Appearance, MCP servers, Notifications, Claude Code, Advanced, About), with nothing folded away. Search finds every setting by its label, description, page or setting key, in your language and in English. Rows are more compact, and a narrow panel shows the categories as a strip above the page.&lt;/li&gt;
+    &lt;li&gt;Header: the more (⋮) menu lets you dock its items beside it again. Settings, Background tasks, Scheduled messages, Resources &amp;amp; tasks and MCP Servers can each be docked, undocked and reordered.&lt;/li&gt;
+    &lt;li&gt;Removed: account pools and the automatic switch to another account, the remote tunnel, the voice setting, and the Debug Mode and Log Level switches, which nothing read. Values they stored stay in settings.js. Saved accounts still work through the ai-bridge account command, and signing in stays claude auth login in a terminal.&lt;/li&gt;
+    &lt;li&gt;Settings: saving no longer drops settings.js keys this version does not know; they are written back as they were.&lt;/li&gt;
+    &lt;li&gt;Faster start: a new chat makes fewer requests, and the GUI no longer runs claude auth status at startup and on every window focus. A login, logout or account switch in the CLI is noticed from its config file and refreshes the model and command lists.&lt;/li&gt;
+    &lt;li&gt;Windows: the backend no longer starts WSL at launch when ~/.nvm/nvm.sh exists.&lt;/li&gt;
+    &lt;li&gt;Fixes: dropdowns in Settings open again; since 0.11 their list was drawn behind the Settings window. The right-click menu in Settings shows in front of it too, and Escape closes only that menu.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;0.12 (2026-10-25)&lt;/h3&gt;
 &lt;ul&gt;
     &lt;li&gt;MCP: sign in to a server and sign out of it from the MCP panel. AI Bridge runs the same claude mcp login and claude mcp logout commands you would run in a terminal, shows the authorization link and takes the redirect URL you paste back. Without a terminal session it shows the command to run instead. After Clear authentication the server shows as signed out and offers sign-in again.&lt;/li&gt;
     &lt;li&gt;MCP: a server that needs an OAuth sign-in no longer reports "Couldn't load tools". Its tools come from a connected chat in the same project; without one, the panel explains that the sign-in belongs to the Claude CLI. Server names that contain ": " are no longer cut short.&lt;/li&gt;
